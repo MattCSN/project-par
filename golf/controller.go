@@ -14,7 +14,7 @@ func handleError(c *gin.Context, err error) {
 	if errors.As(err, &appErr) {
 		utils.HandleAppError(c, appErr)
 	} else {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		handleError(c, utils.NewAppError(http.StatusInternalServerError, err.Error()))
 	}
 }
 
@@ -50,7 +50,7 @@ func AddGolfs(c *gin.Context) {
 		handleError(c, err)
 		return
 	}
-	c.JSON(http.StatusCreated, gin.H{"message": "Golfs added successfully"})
+	c.JSON(http.StatusCreated, golfs)
 }
 
 func UpdateGolf(c *gin.Context) {
@@ -65,7 +65,7 @@ func UpdateGolf(c *gin.Context) {
 		handleError(c, err)
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{"message": "Golf updated successfully"})
+	c.JSON(http.StatusOK, golf)
 }
 
 func DeleteGolf(c *gin.Context) {
@@ -74,5 +74,5 @@ func DeleteGolf(c *gin.Context) {
 		handleError(c, err)
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{"message": "Golf deleted successfully"})
+	c.JSON(http.StatusNoContent, gin.H{"message": "Golf deleted successfully"})
 }
