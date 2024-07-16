@@ -7,8 +7,13 @@ import (
 
 func SetupRouter() *gin.Engine {
 	r := gin.Default()
-	r.Group("/golfs").GET("/", controllers.GetGolfs)
-	r.Group("/golfs").POST("/", controllers.CreateGolf)
-	r.Group("/golfs").POST("/list", controllers.AddGolfs)
+	golfGroup := r.Group("/golfs")
+	{
+		golfGroup.GET("/", controllers.GetGolfs)
+		golfGroup.POST("/", controllers.CreateGolf)
+		golfGroup.POST("/list", controllers.AddGolfs)
+		golfGroup.PATCH("/:id", controllers.UpdateGolf)
+		golfGroup.DELETE("/:id", controllers.DeleteGolf)
+	}
 	return r
 }

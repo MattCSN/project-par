@@ -1,7 +1,7 @@
 package models
 
 import (
-	"errors"
+	"github.com/MattCSN/project-par/utils"
 	"github.com/jinzhu/gorm"
 	"time"
 )
@@ -24,7 +24,7 @@ func (g *Golf) TableName() string {
 
 func (g *Golf) BeforeSave(tx *gorm.DB) (err error) {
 	if tx.Where("name = ? AND city = ?", g.Name, g.City).First(&Golf{}).RowsAffected > 0 {
-		return errors.New("name and city combination must be unique")
+		return utils.ConflictError("name and city combination")
 	}
 	return nil
 }
