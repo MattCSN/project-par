@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/MattCSN/project-par/database"
+	"github.com/MattCSN/project-par/golf"
 	"github.com/MattCSN/project-par/routes"
 	"github.com/joho/godotenv"
 	"log"
@@ -18,7 +19,7 @@ func main() {
 		log.Fatal("DATABASE_URL environment variable not set")
 	}
 
-	database.Init(databaseURL)
+	database.Init(databaseURL, &golf.Golf{}, &golf.Course{}, &golf.Hole{}, &golf.Tee{})
 	if err := routes.SetupRouter().Run(":8080"); err != nil {
 		log.Fatalf("Failed to run the server: %v", err)
 	}

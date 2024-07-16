@@ -37,7 +37,7 @@ func CreateGolf(c *gin.Context) {
 		handleError(c, err)
 		return
 	}
-	c.JSON(http.StatusCreated, gin.H{"message": "Golf created successfully"})
+	c.JSON(http.StatusCreated, golf)
 }
 
 func AddGolfs(c *gin.Context) {
