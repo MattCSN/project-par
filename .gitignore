@@ -1,0 +1,43 @@
+# Go binary files
+/main
+/*.exe
+/*.exe~
+/*.dll
+/*.so
+/*.dylib
+/*.test
+
+# Vendor directory
+/vendor/
+
+# Go build artifacts
+*.out
+*.a
+*.test
+
+# Goland project files
+.idea/
+*.iml
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Environment files
+.env
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.swp
+
+# Coverage reports
+coverage.out
+*.cov
+
+# Docker files
+docker-compose.override.yml
+*.dockerignore
+Dockerfile
