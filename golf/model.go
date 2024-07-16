@@ -1,4 +1,4 @@
-package models
+package golf
 
 import (
 	"github.com/MattCSN/project-par/utils"

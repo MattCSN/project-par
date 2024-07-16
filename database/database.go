@@ -1,7 +1,7 @@
 package database
 
 import (
-	"github.com/MattCSN/project-par/models"
+	"github.com/MattCSN/project-par/golf"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres" // Import for its side effects
 	"log"
@@ -17,7 +17,7 @@ func Init(databaseURL string) {
 	}
 	log.Println("Connected to the database successfully")
 
-	if err = DB.AutoMigrate(&models.Golf{}, &models.Course{}, &models.Hole{}, &models.Tee{}).Error; err != nil {
+	if err = DB.AutoMigrate(&golf.Golf{}, &golf.Course{}, &golf.Hole{}, &golf.Tee{}).Error; err != nil {
 		log.Fatalf("Error during migrations: %v", err)
 	}
 	log.Println("Database migrated successfully")

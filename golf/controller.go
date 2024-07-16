@@ -1,16 +1,13 @@
-package controllers
+package golf
 
 import (
 	"errors"
-	"github.com/MattCSN/project-par/models"
-	"github.com/MattCSN/project-par/repository"
-	"github.com/MattCSN/project-par/services"
 	"github.com/MattCSN/project-par/utils"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
 
-var golfService = services.NewGolfService(repository.NewGolfRepository())
+var golfService = NewGolfService(NewGolfRepository())
 
 func handleError(c *gin.Context, err error) {
 	var appErr *utils.AppError
@@ -31,7 +28,7 @@ func GetGolfs(c *gin.Context) {
 }
 
 func CreateGolf(c *gin.Context) {
-	var golf models.Golf
+	var golf Golf
 	if err := c.ShouldBindJSON(&golf); err != nil {
 		handleError(c, utils.NewAppError(http.StatusBadRequest, err.Error()))
 		return
@@ -44,7 +41,7 @@ func CreateGolf(c *gin.Context) {
 }
 
 func AddGolfs(c *gin.Context) {
-	var golfs []models.Golf
+	var golfs []Golf
 	if err := c.ShouldBindJSON(&golfs); err != nil {
 		handleError(c, utils.NewAppError(http.StatusBadRequest, err.Error()))
 		return
@@ -58,7 +55,7 @@ func AddGolfs(c *gin.Context) {
 
 func UpdateGolf(c *gin.Context) {
 	golfID := c.Param("id")
-	var golf models.Golf
+	var golf Golf
 	if err := c.ShouldBindJSON(&golf); err != nil {
 		handleError(c, utils.NewAppError(http.StatusBadRequest, err.Error()))
 		return

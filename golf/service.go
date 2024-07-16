@@ -1,31 +1,26 @@
-package services
+package golf
 
-import (
-	"github.com/MattCSN/project-par/models"
-	"github.com/MattCSN/project-par/repository"
-)
-
-type GolfService struct {
-	repo repository.GolfRepository
+type Service struct {
+	repo Repository
 }
 
-func NewGolfService(repo repository.GolfRepository) *GolfService {
-	return &GolfService{repo}
+func NewGolfService(repo Repository) *Service {
+	return &Service{repo: repo}
 }
 
-func (gs *GolfService) GetAllGolfs() ([]models.Golf, error) {
+func (gs *Service) GetAllGolfs() ([]Golf, error) {
 	return gs.repo.GetAllGolfs()
 }
 
-func (gs *GolfService) CreateGolf(golf *models.Golf) error {
+func (gs *Service) CreateGolf(golf *Golf) error {
 	return gs.repo.CreateGolf(golf)
 }
 
-func (gs *GolfService) AddGolfs(golfs []models.Golf) error {
+func (gs *Service) AddGolfs(golfs []Golf) error {
 	return gs.repo.AddGolfs(golfs)
 }
 
-func (gs *GolfService) UpdateGolf(golf *models.Golf) error {
+func (gs *Service) UpdateGolf(golf *Golf) error {
 	existingGolf, err := gs.repo.GetGolfByID(golf.ID)
 	if err != nil {
 		return err
@@ -53,6 +48,6 @@ func (gs *GolfService) UpdateGolf(golf *models.Golf) error {
 	return gs.repo.UpdateGolf(existingGolf)
 }
 
-func (gs *GolfService) DeleteGolf(id string) error {
+func (gs *Service) DeleteGolf(id string) error {
 	return gs.repo.DeleteGolfByID(id)
 }
