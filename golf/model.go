@@ -12,8 +12,8 @@ type Golf struct {
 	City           string    `json:"city" gorm:"type:varchar(255);not null"`
 	PostalCode     string    `json:"postalCode" gorm:"type:varchar(5);not null"`
 	GoogleMapLinks string    `json:"googleMapLinks,omitempty" gorm:"type:varchar(255)"`
-	Latitude       float64   `json:"latitude" gorm:"type:double precision"`
-	Longitude      float64   `json:"longitude" gorm:"type:double precision"`
+	Latitude       float64   `json:"latitude,omitempty" gorm:"type:double precision"`
+	Longitude      float64   `json:"longitude,omitempty" gorm:"type:double precision"`
 	CreatedAt      time.Time `json:"-" gorm:"default:CURRENT_TIMESTAMP"`
 	UpdatedAt      time.Time `json:"-" gorm:"default:CURRENT_TIMESTAMP"`
 }
