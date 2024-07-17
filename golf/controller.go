@@ -61,11 +61,13 @@ func UpdateGolf(c *gin.Context) {
 		return
 	}
 	golf.ID = golfID
-	if err := golfService.UpdateGolf(&golf); err != nil {
+	golf.ID = golfID
+	updatedGolf, err := golfService.UpdateGolf(&golf)
+	if err != nil {
 		handleError(c, err)
 		return
 	}
-	c.JSON(http.StatusOK, golf)
+	c.JSON(http.StatusOK, updatedGolf)
 }
 
 func DeleteGolf(c *gin.Context) {

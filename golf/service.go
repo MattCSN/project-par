@@ -20,10 +20,10 @@ func (gs *Service) AddGolfs(golfs []Golf) error {
 	return gs.repo.AddGolfs(golfs)
 }
 
-func (gs *Service) UpdateGolf(golf *Golf) error {
+func (gs *Service) UpdateGolf(golf *Golf) (*Golf, error) {
 	existingGolf, err := gs.repo.GetGolfByID(golf.ID)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	if golf.Name != "" {
@@ -45,7 +45,11 @@ func (gs *Service) UpdateGolf(golf *Golf) error {
 		existingGolf.Longitude = golf.Longitude
 	}
 
-	return gs.repo.UpdateGolf(existingGolf)
+	err = gs.repo.UpdateGolf(existingGolf)
+	if err != nil {
+		return nil, err
+	}
+	return existingGolf, nil
 }
 
 func (gs *Service) DeleteGolf(id string) error {
