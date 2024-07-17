@@ -7,15 +7,15 @@ import (
 )
 
 type Golf struct {
-	ID             string    `gorm:"type:uuid;default:uuid_generate_v4();primary_key"`
-	Name           string    `gorm:"type:varchar(255);not null"`
-	City           string    `gorm:"type:varchar(255);not null"`
-	PostalCode     string    `gorm:"type:varchar(5);not null"`
-	GoogleMapLinks string    `gorm:"type:varchar(255)"`
-	Latitude       float64   `gorm:"type:double precision"`
-	Longitude      float64   `gorm:"type:double precision"`
-	CreatedAt      time.Time `gorm:"default:CURRENT_TIMESTAMP"`
-	UpdatedAt      time.Time `gorm:"default:CURRENT_TIMESTAMP"`
+	ID             string    `json:"id" gorm:"type:uuid;default:uuid_generate_v4();primary_key"`
+	Name           string    `json:"name" gorm:"type:varchar(255);not null"`
+	City           string    `json:"city" gorm:"type:varchar(255);not null"`
+	PostalCode     string    `json:"postalCode" gorm:"type:varchar(5);not null"`
+	GoogleMapLinks string    `json:"googleMapLinks,omitempty" gorm:"type:varchar(255)"`
+	Latitude       float64   `json:"latitude" gorm:"type:double precision"`
+	Longitude      float64   `json:"longitude" gorm:"type:double precision"`
+	CreatedAt      time.Time `json:"-" gorm:"default:CURRENT_TIMESTAMP"`
+	UpdatedAt      time.Time `json:"-" gorm:"default:CURRENT_TIMESTAMP"`
 }
 
 func (g *Golf) TableName() string {
