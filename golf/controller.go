@@ -76,5 +76,5 @@ func DeleteGolf(c *gin.Context) {
 		handleError(c, err)
 		return
 	}
-	c.JSON(http.StatusNoContent, gin.H{"message": "Golf deleted successfully"})
+	c.Status(http.StatusNoContent)
 }

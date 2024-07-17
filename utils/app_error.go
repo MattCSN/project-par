@@ -27,9 +27,9 @@ func HandleAppError(c *gin.Context, err *AppError) {
 }
 
 func NotFoundError(resource string) *AppError {
-	return NewAppError(http.StatusNotFound, fmt.Sprintf("%s not found", resource))
+	return NewAppError(http.StatusNotFound, fmt.Sprintf("NOT FOUND - %s", resource))
 }
 
 func ConflictError(resource string) *AppError {
-	return NewAppError(http.StatusConflict, fmt.Sprintf("%s must be unique", resource))
+	return NewAppError(http.StatusConflict, fmt.Sprintf("MUST BE UNIQUE - %s", resource))
 }

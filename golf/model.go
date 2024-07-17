@@ -23,9 +23,18 @@ func (g *Golf) TableName() string {
 }
 
 func (g *Golf) BeforeSave(tx *gorm.DB) (err error) {
-	if tx.Where("name = ? AND city = ?", g.Name, g.City).First(&Golf{}).RowsAffected > 0 {
-		return utils.ConflictError("name and city combination")
+	// Check for an existing entity with the same Name and City
+	var existingCount int64
+	query := tx.Model(&Golf{}).Where("name = ? AND city = ?", g.Name, g.City)
+	if g.ID != "" {
+		query = query.Not("id = ?", g.ID) // Exclude the current entity if updating
 	}
+	query.Count(&existingCount)
+
+	if existingCount > 0 {
+		return utils.ConflictError("Golf 'name' and 'city' combination")
+	}
+
 	return nil
 }
 

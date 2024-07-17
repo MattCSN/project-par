@@ -39,7 +39,7 @@ func (gr *golfRepository) GetGolfByID(id string) (*Golf, error) {
 	err := database.DB.First(&golf, "id = ?", id).Error
 	if err != nil {
 		// TODO : Log the error here
-		return nil, utils.NotFoundError(fmt.Sprintf("Golf %s", id))
+		return nil, utils.NotFoundError(fmt.Sprintf("Golf with id : %s", id))
 	}
 	return &golf, nil
 }

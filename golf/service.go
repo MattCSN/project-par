@@ -53,5 +53,10 @@ func (gs *Service) UpdateGolf(golf *Golf) (*Golf, error) {
 }
 
 func (gs *Service) DeleteGolf(id string) error {
-	return gs.repo.DeleteGolfByID(id)
+	existingGolf, err := gs.repo.GetGolfByID(id)
+	if err != nil {
+		return err
+	}
+
+	return gs.repo.DeleteGolfByID(existingGolf.ID)
 }
