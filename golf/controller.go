@@ -78,3 +78,13 @@ func DeleteGolf(c *gin.Context) {
 	}
 	c.Status(http.StatusNoContent)
 }
+
+func GetGolfByID(c *gin.Context) {
+	id := c.Param("id")
+	golf, err := golfService.GetGolfByID(id)
+	if err != nil {
+		handleError(c, err)
+		return
+	}
+	c.JSON(http.StatusOK, golf)
+}

@@ -60,3 +60,7 @@ func (gs *Service) DeleteGolf(id string) error {
 
 	return gs.repo.DeleteGolfByID(existingGolf.ID)
 }
+
+func (gs *Service) GetGolfByID(id string) (*Golf, error) {
+	return gs.repo.GetGolfByID(id)
+}

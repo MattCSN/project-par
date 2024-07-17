@@ -10,6 +10,7 @@ func SetupRouter() *gin.Engine {
 	golfGroup := r.Group("/golfs")
 	{
 		golfGroup.GET("/", golf.GetGolfs)
+		golfGroup.GET("/:id", golf.GetGolfByID)
 		golfGroup.POST("/", golf.CreateGolf)
 		golfGroup.POST("/list", golf.AddGolfs)
 		golfGroup.PATCH("/:id", golf.UpdateGolf)
