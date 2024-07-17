@@ -9,7 +9,6 @@ import (
 type Repository interface {
 	GetAllGolfs() ([]Golf, error)
 	CreateGolf(*Golf) error
-	AddGolfs([]Golf) error
 	GetGolfByID(id string) (*Golf, error)
 	DeleteGolfByID(id string) error
 	UpdateGolf(golf *Golf) error
@@ -28,10 +27,6 @@ func (gr *golfRepository) GetAllGolfs() ([]Golf, error) {
 
 func (gr *golfRepository) CreateGolf(golf *Golf) error {
 	return database.DB.Create(golf).Error
-}
-
-func (gr *golfRepository) AddGolfs(golfs []Golf) error {
-	return database.DB.Create(&golfs).Error
 }
 
 func (gr *golfRepository) GetGolfByID(id string) (*Golf, error) {

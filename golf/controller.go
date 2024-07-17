@@ -40,19 +40,6 @@ func CreateGolf(c *gin.Context) {
 	c.JSON(http.StatusCreated, golf)
 }
 
-func AddGolfs(c *gin.Context) {
-	var golfs []Golf
-	if err := c.ShouldBindJSON(&golfs); err != nil {
-		handleError(c, utils.NewAppError(http.StatusBadRequest, err.Error()))
-		return
-	}
-	if err := golfService.AddGolfs(golfs); err != nil {
-		handleError(c, err)
-		return
-	}
-	c.JSON(http.StatusCreated, golfs)
-}
-
 func UpdateGolf(c *gin.Context) {
 	golfID := c.Param("id")
 	var golf Golf

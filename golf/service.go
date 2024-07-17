@@ -16,10 +16,6 @@ func (gs *Service) CreateGolf(golf *Golf) error {
 	return gs.repo.CreateGolf(golf)
 }
 
-func (gs *Service) AddGolfs(golfs []Golf) error {
-	return gs.repo.AddGolfs(golfs)
-}
-
 func (gs *Service) UpdateGolf(golf *Golf) (*Golf, error) {
 	existingGolf, err := gs.repo.GetGolfByID(golf.ID)
 	if err != nil {
