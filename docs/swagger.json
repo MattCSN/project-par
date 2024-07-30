@@ -1,0 +1,250 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This project is a comprehensive golf management system designed to facilitate the management of golf courses, including tracking of golf courses, holes, and tees.",
+        "title": "ProjectPAR API",
+        "contact": {},
+        "version": "1.0"
+    },
+    "host": "localhost:8080",
+    "basePath": "/",
+    "paths": {
+        "/golfs": {
+            "get": {
+                "description": "Get all golfs",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "golf"
+                ],
+                "summary": "Get all golfs",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/golf.Golf"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/utils.AppError"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Create a new golf",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "golf"
+                ],
+                "summary": "Create a new golf",
+                "parameters": [
+                    {
+                        "description": "Golf",
+                        "name": "golf",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/golf.Golf"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/golf.Golf"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/utils.AppError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/utils.AppError"
+                        }
+                    }
+                }
+            }
+        },
+        "/golfs/{id}": {
+            "get": {
+                "description": "Get a golf by ID",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "golf"
+                ],
+                "summary": "Get a golf by ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Golf ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/golf.Golf"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/utils.AppError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/utils.AppError"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Update an existing golf by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "golf"
+                ],
+                "summary": "Update an existing golf",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Golf ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Golf",
+                        "name": "golf",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/golf.Golf"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/golf.Golf"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/utils.AppError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/utils.AppError"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete an existing golf by ID",
+                "tags": [
+                    "golf"
+                ],
+                "summary": "Delete an existing golf",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Golf ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/utils.AppError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/utils.AppError"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "golf.Golf": {
+            "type": "object",
+            "properties": {
+                "city": {
+                    "type": "string"
+                },
+                "googleMapLinks": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "latitude": {
+                    "type": "number"
+                },
+                "longitude": {
+                    "type": "number"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "postalCode": {
+                    "type": "string"
+                }
+            }
+        },
+        "utils.AppError": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                },
+                "statusCode": {
+                    "type": "integer"
+                }
+            }
+        }
+    }
+}

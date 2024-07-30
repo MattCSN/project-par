@@ -1,0 +1,167 @@
+basePath: /
+definitions:
+  golf.Golf:
+    properties:
+      city:
+        type: string
+      googleMapLinks:
+        type: string
+      id:
+        type: string
+      latitude:
+        type: number
+      longitude:
+        type: number
+      name:
+        type: string
+      postalCode:
+        type: string
+    type: object
+  utils.AppError:
+    properties:
+      message:
+        type: string
+      statusCode:
+        type: integer
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: This project is a comprehensive golf management system designed to
+    facilitate the management of golf courses, including tracking of golf courses,
+    holes, and tees.
+  title: ProjectPAR API
+  version: "1.0"
+paths:
+  /golfs:
+    get:
+      description: Get all golfs
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/golf.Golf'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.AppError'
+      summary: Get all golfs
+      tags:
+      - golf
+    post:
+      consumes:
+      - application/json
+      description: Create a new golf
+      parameters:
+      - description: Golf
+        in: body
+        name: golf
+        required: true
+        schema:
+          $ref: '#/definitions/golf.Golf'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/golf.Golf'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.AppError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.AppError'
+      summary: Create a new golf
+      tags:
+      - golf
+  /golfs/{id}:
+    delete:
+      description: Delete an existing golf by ID
+      parameters:
+      - description: Golf ID
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.AppError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.AppError'
+      summary: Delete an existing golf
+      tags:
+      - golf
+    get:
+      description: Get a golf by ID
+      parameters:
+      - description: Golf ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/golf.Golf'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.AppError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.AppError'
+      summary: Get a golf by ID
+      tags:
+      - golf
+    put:
+      consumes:
+      - application/json
+      description: Update an existing golf by ID
+      parameters:
+      - description: Golf ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Golf
+        in: body
+        name: golf
+        required: true
+        schema:
+          $ref: '#/definitions/golf.Golf'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/golf.Golf'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.AppError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.AppError'
+      summary: Update an existing golf
+      tags:
+      - golf
+swagger: "2.0"
