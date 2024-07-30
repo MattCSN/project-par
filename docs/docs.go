@@ -128,7 +128,40 @@ const docTemplate = `{
                     }
                 }
             },
-            "put": {
+            "delete": {
+                "description": "Delete an existing golf by ID",
+                "tags": [
+                    "golf"
+                ],
+                "summary": "Delete an existing golf",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Golf ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/utils.AppError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/utils.AppError"
+                        }
+                    }
+                }
+            },
+            "patch": {
                 "description": "Update an existing golf by ID",
                 "consumes": [
                     "application/json"
@@ -164,39 +197,6 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/golf.Golf"
                         }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/utils.AppError"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/utils.AppError"
-                        }
-                    }
-                }
-            },
-            "delete": {
-                "description": "Delete an existing golf by ID",
-                "tags": [
-                    "golf"
-                ],
-                "summary": "Delete an existing golf",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Golf ID",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "204": {
-                        "description": "No Content"
                     },
                     "400": {
                         "description": "Bad Request",

@@ -70,7 +70,7 @@ func CreateGolf(c *gin.Context) {
 // @Success 200 {object} Golf
 // @Failure 400 {object} utils.AppError
 // @Failure 500 {object} utils.AppError
-// @Router /golfs/{id} [put]
+// @Router /golfs/{id} [patch]
 func UpdateGolf(c *gin.Context) {
 	golfID := c.Param("id")
 	var golf Golf

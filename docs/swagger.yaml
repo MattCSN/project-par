@@ -130,7 +130,7 @@ paths:
       summary: Get a golf by ID
       tags:
       - golf
-    put:
+    patch:
       consumes:
       - application/json
       description: Update an existing golf by ID
