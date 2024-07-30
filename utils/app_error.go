@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"errors"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -32,4 +33,13 @@ func NotFoundError(resource string) *AppError {
 
 func ConflictError(resource string) *AppError {
 	return NewAppError(http.StatusConflict, fmt.Sprintf("MUST BE UNIQUE - %s", resource))
+}
+
+func HandleError(c *gin.Context, err error) {
+	var appErr *AppError
+	if errors.As(err, &appErr) {
+		HandleAppError(c, appErr)
+	} else {
+		HandleError(c, NewAppError(http.StatusInternalServerError, err.Error()))
+	}
 }
