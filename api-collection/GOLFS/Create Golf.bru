@@ -1,0 +1,28 @@
+meta {
+  name: Create Golf
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:8080/golfs
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "name": "New Golf Cours",
+    "city": "Paris Matthieu",
+    "postalCode": "75000",
+    "GoogleMapLinks": "https://maps.google.com"
+  }
+}
+
+vars:post-response {
+  created.id: res.body.id
+}

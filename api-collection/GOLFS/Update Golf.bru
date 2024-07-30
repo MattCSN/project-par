@@ -1,0 +1,28 @@
+meta {
+  name: Update Golf
+  type: http
+  seq: 4
+}
+
+patch {
+  url: http://localhost:8080/golfs/:id
+  body: json
+  auth: none
+}
+
+params:path {
+  id: {{created.id}}
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "name": "Old Golf Course",
+    "city": "Paris 15",
+    "postalCode": "75000",
+    "GoogleMapLinks": "https://maps.google.com"
+  }
+}
