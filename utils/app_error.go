@@ -10,7 +10,7 @@ import (
 type AppError struct {
 	StatusCode int
 	Message    string
-}
+} // @Name AppError
 
 func (e *AppError) Error() string {
 	return e.Message

@@ -1,6 +1,14 @@
 basePath: /
 definitions:
-  course.Course:
+  AppError:
+    properties:
+      message:
+        type: string
+      statusCode:
+        type: integer
+    type: object
+  Course:
+    description: Model for a golf course
     properties:
       compact:
         type: boolean
@@ -15,7 +23,7 @@ definitions:
       pitch_and_putt:
         type: boolean
     type: object
-  golf.Golf:
+  Golf:
     properties:
       city:
         type: string
@@ -32,13 +40,6 @@ definitions:
       postalCode:
         type: string
     type: object
-  utils.AppError:
-    properties:
-      message:
-        type: string
-      statusCode:
-        type: integer
-    type: object
 host: localhost:8080
 info:
   contact: {}
@@ -50,7 +51,6 @@ info:
 paths:
   /courses:
     get:
-      description: Get all courses
       produces:
       - application/json
       responses:
@@ -58,47 +58,45 @@ paths:
           description: OK
           schema:
             items:
-              $ref: '#/definitions/course.Course'
+              $ref: '#/definitions/Course'
             type: array
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/utils.AppError'
+            $ref: '#/definitions/AppError'
       summary: Get all courses
       tags:
       - course
     post:
       consumes:
       - application/json
-      description: Create a new course
       parameters:
       - description: Course
         in: body
         name: course
         required: true
         schema:
-          $ref: '#/definitions/course.Course'
+          $ref: '#/definitions/Course'
       produces:
       - application/json
       responses:
         "201":
           description: Created
           schema:
-            $ref: '#/definitions/course.Course'
+            $ref: '#/definitions/Course'
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/utils.AppError'
+            $ref: '#/definitions/AppError'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/utils.AppError'
+            $ref: '#/definitions/AppError'
       summary: Create a new course
       tags:
       - course
   /courses/{id}:
     delete:
-      description: Delete an existing course by ID
       parameters:
       - description: Course ID
         in: path
@@ -111,16 +109,15 @@ paths:
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/utils.AppError'
+            $ref: '#/definitions/AppError'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/utils.AppError'
-      summary: Delete an existing course
+            $ref: '#/definitions/AppError'
+      summary: Delete a course by ID
       tags:
       - course
     get:
-      description: Get a course by ID
       parameters:
       - description: Course ID
         in: path
@@ -133,22 +130,21 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/course.Course'
+            $ref: '#/definitions/Course'
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/utils.AppError'
+            $ref: '#/definitions/AppError'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/utils.AppError'
+            $ref: '#/definitions/AppError'
       summary: Get a course by ID
       tags:
       - course
     patch:
       consumes:
       - application/json
-      description: Update an existing course by ID
       parameters:
       - description: Course ID
         in: path
@@ -160,23 +156,23 @@ paths:
         name: course
         required: true
         schema:
-          $ref: '#/definitions/course.Course'
+          $ref: '#/definitions/Course'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/course.Course'
+            $ref: '#/definitions/Course'
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/utils.AppError'
+            $ref: '#/definitions/AppError'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/utils.AppError'
-      summary: Update an existing course
+            $ref: '#/definitions/AppError'
+      summary: Update a course by ID
       tags:
       - course
   /golfs:
@@ -189,12 +185,12 @@ paths:
           description: OK
           schema:
             items:
-              $ref: '#/definitions/golf.Golf'
+              $ref: '#/definitions/Golf'
             type: array
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/utils.AppError'
+            $ref: '#/definitions/AppError'
       summary: Get all golfs
       tags:
       - golf
@@ -208,22 +204,22 @@ paths:
         name: golf
         required: true
         schema:
-          $ref: '#/definitions/golf.Golf'
+          $ref: '#/definitions/Golf'
       produces:
       - application/json
       responses:
         "201":
           description: Created
           schema:
-            $ref: '#/definitions/golf.Golf'
+            $ref: '#/definitions/Golf'
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/utils.AppError'
+            $ref: '#/definitions/AppError'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/utils.AppError'
+            $ref: '#/definitions/AppError'
       summary: Create a new golf
       tags:
       - golf
@@ -242,11 +238,11 @@ paths:
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/utils.AppError'
+            $ref: '#/definitions/AppError'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/utils.AppError'
+            $ref: '#/definitions/AppError'
       summary: Delete an existing golf
       tags:
       - golf
@@ -264,15 +260,15 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/golf.Golf'
+            $ref: '#/definitions/Golf'
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/utils.AppError'
+            $ref: '#/definitions/AppError'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/utils.AppError'
+            $ref: '#/definitions/AppError'
       summary: Get a golf by ID
       tags:
       - golf
@@ -291,22 +287,22 @@ paths:
         name: golf
         required: true
         schema:
-          $ref: '#/definitions/golf.Golf'
+          $ref: '#/definitions/Golf'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/golf.Golf'
+            $ref: '#/definitions/Golf'
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/utils.AppError'
+            $ref: '#/definitions/AppError'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/utils.AppError'
+            $ref: '#/definitions/AppError'
       summary: Update an existing golf
       tags:
       - golf

@@ -10,10 +10,9 @@ var courseService = NewCourseService(NewCourseRepository())
 
 // GetCourses gets all courses
 // @Summary Get all courses
-// @Description Get all courses
 // @Tags course
 // @Produce json
-// @Success 200 {array} Course
+// @Success 200 {array} course.Model
 // @Failure 500 {object} utils.AppError
 // @Router /courses [get]
 func GetCourses(c *gin.Context) {
@@ -27,12 +26,11 @@ func GetCourses(c *gin.Context) {
 
 // CreateCourse creates a new course
 // @Summary Create a new course
-// @Description Create a new course
 // @Tags course
 // @Accept json
 // @Produce json
-// @Param course body Course true "Course"
-// @Success 201 {object} Course
+// @Param course body course.Model true "Course"
+// @Success 201 {object} course.Model
 // @Failure 400 {object} utils.AppError
 // @Failure 500 {object} utils.AppError
 // @Router /courses [post]
@@ -50,14 +48,13 @@ func CreateCourse(c *gin.Context) {
 }
 
 // UpdateCourse updates an existing course by ID
-// @Summary Update an existing course
-// @Description Update an existing course by ID
+// @Summary Update a course by ID
 // @Tags course
 // @Accept json
 // @Produce json
 // @Param id path string true "Course ID"
-// @Param course body Course true "Course"
-// @Success 200 {object} Course
+// @Param course body course.Model true "Course"
+// @Success 200 {object} course.Model
 // @Failure 400 {object} utils.AppError
 // @Failure 500 {object} utils.AppError
 // @Router /courses/{id} [patch]
@@ -77,9 +74,8 @@ func UpdateCourse(c *gin.Context) {
 	c.JSON(http.StatusOK, updatedCourse)
 }
 
-// DeleteCourse deletes an existing course by ID
-// @Summary Delete an existing course
-// @Description Delete an existing course by ID
+// DeleteCourse deletes a course by ID
+// @Summary Delete a course by ID
 // @Tags course
 // @Param id path string true "Course ID"
 // @Success 204 "No Content"
@@ -97,11 +93,10 @@ func DeleteCourse(c *gin.Context) {
 
 // GetCourseByID gets a course by ID
 // @Summary Get a course by ID
-// @Description Get a course by ID
 // @Tags course
 // @Produce json
 // @Param id path string true "Course ID"
-// @Success 200 {object} Course
+// @Success 200 {object} course.Model
 // @Failure 400 {object} utils.AppError
 // @Failure 500 {object} utils.AppError
 // @Router /courses/{id} [get]

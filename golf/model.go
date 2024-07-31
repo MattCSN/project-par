@@ -6,15 +6,17 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
+// Golf represents a golf course
+// @Description Model for a golf course
 type Golf struct {
 	common.Base
-	Name           string  `json:"name" gorm:"type:varchar(255);not null"`
-	City           string  `json:"city" gorm:"type:varchar(255);not null"`
-	PostalCode     string  `json:"postalCode" gorm:"type:varchar(5);not null"`
-	GoogleMapLinks string  `json:"googleMapLinks,omitempty" gorm:"type:varchar(255)"`
-	Latitude       float64 `json:"latitude,omitempty" gorm:"type:double precision"`
-	Longitude      float64 `json:"longitude,omitempty" gorm:"type:double precision"`
-}
+	Name           string  `json:"name" gorm:"type:varchar(255);not null" example:"Pebble Beach"`                                       // @Description Name of the golf course
+	City           string  `json:"city" gorm:"type:varchar(255);not null" example:"Monterey"`                                           // @Description City where the golf course is located
+	PostalCode     string  `json:"postalCode" gorm:"type:varchar(5);not null" example:"93953"`                                          // @Description Postal code of the golf course location
+	GoogleMapLinks string  `json:"googleMapLinks,omitempty" gorm:"type:varchar(255)" example:"https://maps.google.com/?q=Pebble+Beach"` // @Description Google Maps link for the golf course
+	Latitude       float64 `json:"latitude,omitempty" gorm:"type:double precision" example:"36.567"`                                    // @Description Latitude of the golf course
+	Longitude      float64 `json:"longitude,omitempty" gorm:"type:double precision" example:"-121.950"`                                 // @Description Longitude of the golf course
+} // @name Golf
 
 type Hole struct {
 	common.Base

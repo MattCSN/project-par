@@ -17,7 +17,6 @@ const docTemplate = `{
     "paths": {
         "/courses": {
             "get": {
-                "description": "Get all courses",
                 "produces": [
                     "application/json"
                 ],
@@ -31,20 +30,19 @@ const docTemplate = `{
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/course.Course"
+                                "$ref": "#/definitions/Course"
                             }
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/utils.AppError"
+                            "$ref": "#/definitions/AppError"
                         }
                     }
                 }
             },
             "post": {
-                "description": "Create a new course",
                 "consumes": [
                     "application/json"
                 ],
@@ -62,7 +60,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/course.Course"
+                            "$ref": "#/definitions/Course"
                         }
                     }
                 ],
@@ -70,19 +68,19 @@ const docTemplate = `{
                     "201": {
                         "description": "Created",
                         "schema": {
-                            "$ref": "#/definitions/course.Course"
+                            "$ref": "#/definitions/Course"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/utils.AppError"
+                            "$ref": "#/definitions/AppError"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/utils.AppError"
+                            "$ref": "#/definitions/AppError"
                         }
                     }
                 }
@@ -90,7 +88,6 @@ const docTemplate = `{
         },
         "/courses/{id}": {
             "get": {
-                "description": "Get a course by ID",
                 "produces": [
                     "application/json"
                 ],
@@ -111,29 +108,28 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/course.Course"
+                            "$ref": "#/definitions/Course"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/utils.AppError"
+                            "$ref": "#/definitions/AppError"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/utils.AppError"
+                            "$ref": "#/definitions/AppError"
                         }
                     }
                 }
             },
             "delete": {
-                "description": "Delete an existing course by ID",
                 "tags": [
                     "course"
                 ],
-                "summary": "Delete an existing course",
+                "summary": "Delete a course by ID",
                 "parameters": [
                     {
                         "type": "string",
@@ -150,19 +146,18 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/utils.AppError"
+                            "$ref": "#/definitions/AppError"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/utils.AppError"
+                            "$ref": "#/definitions/AppError"
                         }
                     }
                 }
             },
             "patch": {
-                "description": "Update an existing course by ID",
                 "consumes": [
                     "application/json"
                 ],
@@ -172,7 +167,7 @@ const docTemplate = `{
                 "tags": [
                     "course"
                 ],
-                "summary": "Update an existing course",
+                "summary": "Update a course by ID",
                 "parameters": [
                     {
                         "type": "string",
@@ -187,7 +182,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/course.Course"
+                            "$ref": "#/definitions/Course"
                         }
                     }
                 ],
@@ -195,19 +190,19 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/course.Course"
+                            "$ref": "#/definitions/Course"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/utils.AppError"
+                            "$ref": "#/definitions/AppError"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/utils.AppError"
+                            "$ref": "#/definitions/AppError"
                         }
                     }
                 }
@@ -229,14 +224,14 @@ const docTemplate = `{
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/golf.Golf"
+                                "$ref": "#/definitions/Golf"
                             }
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/utils.AppError"
+                            "$ref": "#/definitions/AppError"
                         }
                     }
                 }
@@ -260,7 +255,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/golf.Golf"
+                            "$ref": "#/definitions/Golf"
                         }
                     }
                 ],
@@ -268,19 +263,19 @@ const docTemplate = `{
                     "201": {
                         "description": "Created",
                         "schema": {
-                            "$ref": "#/definitions/golf.Golf"
+                            "$ref": "#/definitions/Golf"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/utils.AppError"
+                            "$ref": "#/definitions/AppError"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/utils.AppError"
+                            "$ref": "#/definitions/AppError"
                         }
                     }
                 }
@@ -309,19 +304,19 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/golf.Golf"
+                            "$ref": "#/definitions/Golf"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/utils.AppError"
+                            "$ref": "#/definitions/AppError"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/utils.AppError"
+                            "$ref": "#/definitions/AppError"
                         }
                     }
                 }
@@ -348,13 +343,13 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/utils.AppError"
+                            "$ref": "#/definitions/AppError"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/utils.AppError"
+                            "$ref": "#/definitions/AppError"
                         }
                     }
                 }
@@ -385,7 +380,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/golf.Golf"
+                            "$ref": "#/definitions/Golf"
                         }
                     }
                 ],
@@ -393,19 +388,19 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/golf.Golf"
+                            "$ref": "#/definitions/Golf"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/utils.AppError"
+                            "$ref": "#/definitions/AppError"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/utils.AppError"
+                            "$ref": "#/definitions/AppError"
                         }
                     }
                 }
@@ -413,7 +408,19 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "course.Course": {
+        "AppError": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                },
+                "statusCode": {
+                    "type": "integer"
+                }
+            }
+        },
+        "Course": {
+            "description": "Model for a golf course",
             "type": "object",
             "properties": {
                 "compact": {
@@ -436,7 +443,7 @@ const docTemplate = `{
                 }
             }
         },
-        "golf.Golf": {
+        "Golf": {
             "type": "object",
             "properties": {
                 "city": {
@@ -459,17 +466,6 @@ const docTemplate = `{
                 },
                 "postalCode": {
                     "type": "string"
-                }
-            }
-        },
-        "utils.AppError": {
-            "type": "object",
-            "properties": {
-                "message": {
-                    "type": "string"
-                },
-                "statusCode": {
-                    "type": "integer"
                 }
             }
         }
