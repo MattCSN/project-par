@@ -403,6 +403,7 @@
     },
     "definitions": {
         "AppError": {
+            "description": "error that can be returned by the application",
             "type": "object",
             "properties": {
                 "message": {
@@ -438,28 +439,41 @@
             }
         },
         "Golf": {
+            "description": "Model for a golf course",
             "type": "object",
             "properties": {
                 "city": {
-                    "type": "string"
+                    "description": "@Description City where the golf course is located",
+                    "type": "string",
+                    "example": "Monterey"
                 },
                 "googleMapLinks": {
-                    "type": "string"
+                    "description": "@Description Google Maps link for the golf course",
+                    "type": "string",
+                    "example": "https://maps.google.com/?q=Pebble+Beach"
                 },
                 "id": {
                     "type": "string"
                 },
                 "latitude": {
-                    "type": "number"
+                    "description": "@Description Latitude of the golf course",
+                    "type": "number",
+                    "example": 36.567
                 },
                 "longitude": {
-                    "type": "number"
+                    "description": "@Description Longitude of the golf course",
+                    "type": "number",
+                    "example": -121.95
                 },
                 "name": {
-                    "type": "string"
+                    "description": "@Description Name of the golf course",
+                    "type": "string",
+                    "example": "Pebble Beach"
                 },
                 "postalCode": {
-                    "type": "string"
+                    "description": "@Description Postal code of the golf course location",
+                    "type": "string",
+                    "example": "93953"
                 }
             }
         }

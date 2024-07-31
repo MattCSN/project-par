@@ -7,6 +7,8 @@ import (
 	"net/http"
 )
 
+// AppError represents an error that can be returned by the application
+// @Description Error that can be returned by the application
 type AppError struct {
 	StatusCode int
 	Message    string

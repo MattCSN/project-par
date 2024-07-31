@@ -1,6 +1,7 @@
 basePath: /
 definitions:
   AppError:
+    description: error that can be returned by the application
     properties:
       message:
         type: string
@@ -24,20 +25,33 @@ definitions:
         type: boolean
     type: object
   Golf:
+    description: Model for a golf course
     properties:
       city:
+        description: '@Description City where the golf course is located'
+        example: Monterey
         type: string
       googleMapLinks:
+        description: '@Description Google Maps link for the golf course'
+        example: https://maps.google.com/?q=Pebble+Beach
         type: string
       id:
         type: string
       latitude:
+        description: '@Description Latitude of the golf course'
+        example: 36.567
         type: number
       longitude:
+        description: '@Description Longitude of the golf course'
+        example: -121.95
         type: number
       name:
+        description: '@Description Name of the golf course'
+        example: Pebble Beach
         type: string
       postalCode:
+        description: '@Description Postal code of the golf course location'
+        example: "93953"
         type: string
     type: object
 host: localhost:8080
