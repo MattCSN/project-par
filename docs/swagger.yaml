@@ -1,5 +1,20 @@
 basePath: /
 definitions:
+  course.Course:
+    properties:
+      compact:
+        type: boolean
+      golf_id:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      num_holes:
+        type: integer
+      pitch_and_putt:
+        type: boolean
+    type: object
   golf.Golf:
     properties:
       city:
@@ -33,6 +48,137 @@ info:
   title: ProjectPAR API
   version: "1.0"
 paths:
+  /courses:
+    get:
+      description: Get all courses
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/course.Course'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.AppError'
+      summary: Get all courses
+      tags:
+      - course
+    post:
+      consumes:
+      - application/json
+      description: Create a new course
+      parameters:
+      - description: Course
+        in: body
+        name: course
+        required: true
+        schema:
+          $ref: '#/definitions/course.Course'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/course.Course'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.AppError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.AppError'
+      summary: Create a new course
+      tags:
+      - course
+  /courses/{id}:
+    delete:
+      description: Delete an existing course by ID
+      parameters:
+      - description: Course ID
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.AppError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.AppError'
+      summary: Delete an existing course
+      tags:
+      - course
+    get:
+      description: Get a course by ID
+      parameters:
+      - description: Course ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/course.Course'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.AppError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.AppError'
+      summary: Get a course by ID
+      tags:
+      - course
+    patch:
+      consumes:
+      - application/json
+      description: Update an existing course by ID
+      parameters:
+      - description: Course ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Course
+        in: body
+        name: course
+        required: true
+        schema:
+          $ref: '#/definitions/course.Course'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/course.Course'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.AppError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.AppError'
+      summary: Update an existing course
+      tags:
+      - course
   /golfs:
     get:
       description: Get all golfs

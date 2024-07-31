@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/MattCSN/project-par/course"
 	"github.com/MattCSN/project-par/database"
 	_ "github.com/MattCSN/project-par/docs" // Import the generated docs
 	"github.com/MattCSN/project-par/golf"
@@ -27,7 +28,7 @@ func main() {
 		log.Fatal("DATABASE_URL environment variable not set")
 	}
 
-	database.Init(databaseURL, &golf.Golf{}, &golf.Course{}, &golf.Hole{}, &golf.Tee{})
+	database.Init(databaseURL, &golf.Golf{}, &course.Model{}, &golf.Hole{}, &golf.Tee{})
 
 	r := routes.SetupRouter()
 
