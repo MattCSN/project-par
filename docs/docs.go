@@ -15,13 +15,13 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/courses": {
+        "/v1/courses": {
             "get": {
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "course"
+                    "Courses"
                 ],
                 "summary": "Get all courses",
                 "responses": {
@@ -50,7 +50,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "course"
+                    "Courses"
                 ],
                 "summary": "Create a new course",
                 "parameters": [
@@ -86,13 +86,13 @@ const docTemplate = `{
                 }
             }
         },
-        "/courses/{id}": {
+        "/v1/courses/{id}": {
             "get": {
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "course"
+                    "Courses"
                 ],
                 "summary": "Get a course by ID",
                 "parameters": [
@@ -127,7 +127,7 @@ const docTemplate = `{
             },
             "delete": {
                 "tags": [
-                    "course"
+                    "Courses"
                 ],
                 "summary": "Delete a course by ID",
                 "parameters": [
@@ -165,7 +165,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "course"
+                    "Courses"
                 ],
                 "summary": "Update a course by ID",
                 "parameters": [
@@ -208,14 +208,14 @@ const docTemplate = `{
                 }
             }
         },
-        "/golfs": {
+        "/v1/golfs": {
             "get": {
                 "description": "Get all golfs",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "golf"
+                    "Golfs"
                 ],
                 "summary": "Get all golfs",
                 "responses": {
@@ -245,7 +245,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "golf"
+                    "Golfs"
                 ],
                 "summary": "Create a new golf",
                 "parameters": [
@@ -281,14 +281,14 @@ const docTemplate = `{
                 }
             }
         },
-        "/golfs/{id}": {
+        "/v1/golfs/{id}": {
             "get": {
                 "description": "Get a golf by ID",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "golf"
+                    "Golfs"
                 ],
                 "summary": "Get a golf by ID",
                 "parameters": [
@@ -324,7 +324,7 @@ const docTemplate = `{
             "delete": {
                 "description": "Delete an existing golf by ID",
                 "tags": [
-                    "golf"
+                    "Golfs"
                 ],
                 "summary": "Delete an existing golf",
                 "parameters": [
@@ -363,7 +363,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "golf"
+                    "Golfs"
                 ],
                 "summary": "Update an existing golf",
                 "parameters": [
@@ -445,7 +445,7 @@ const docTemplate = `{
             }
         },
         "Golf": {
-            "description": "Model for a golf course",
+            "description": "Model for a golf",
             "type": "object",
             "properties": {
                 "city": {

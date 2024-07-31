@@ -25,7 +25,7 @@ definitions:
         type: boolean
     type: object
   Golf:
-    description: Model for a golf course
+    description: Model for a golf
     properties:
       city:
         description: '@Description City where the golf course is located'
@@ -63,7 +63,7 @@ info:
   title: ProjectPAR API
   version: "1.0"
 paths:
-  /courses:
+  /v1/courses:
     get:
       produces:
       - application/json
@@ -80,7 +80,7 @@ paths:
             $ref: '#/definitions/AppError'
       summary: Get all courses
       tags:
-      - course
+      - Courses
     post:
       consumes:
       - application/json
@@ -108,8 +108,8 @@ paths:
             $ref: '#/definitions/AppError'
       summary: Create a new course
       tags:
-      - course
-  /courses/{id}:
+      - Courses
+  /v1/courses/{id}:
     delete:
       parameters:
       - description: Course ID
@@ -130,7 +130,7 @@ paths:
             $ref: '#/definitions/AppError'
       summary: Delete a course by ID
       tags:
-      - course
+      - Courses
     get:
       parameters:
       - description: Course ID
@@ -155,7 +155,7 @@ paths:
             $ref: '#/definitions/AppError'
       summary: Get a course by ID
       tags:
-      - course
+      - Courses
     patch:
       consumes:
       - application/json
@@ -188,8 +188,8 @@ paths:
             $ref: '#/definitions/AppError'
       summary: Update a course by ID
       tags:
-      - course
-  /golfs:
+      - Courses
+  /v1/golfs:
     get:
       description: Get all golfs
       produces:
@@ -207,7 +207,7 @@ paths:
             $ref: '#/definitions/AppError'
       summary: Get all golfs
       tags:
-      - golf
+      - Golfs
     post:
       consumes:
       - application/json
@@ -236,8 +236,8 @@ paths:
             $ref: '#/definitions/AppError'
       summary: Create a new golf
       tags:
-      - golf
-  /golfs/{id}:
+      - Golfs
+  /v1/golfs/{id}:
     delete:
       description: Delete an existing golf by ID
       parameters:
@@ -259,7 +259,7 @@ paths:
             $ref: '#/definitions/AppError'
       summary: Delete an existing golf
       tags:
-      - golf
+      - Golfs
     get:
       description: Get a golf by ID
       parameters:
@@ -285,7 +285,7 @@ paths:
             $ref: '#/definitions/AppError'
       summary: Get a golf by ID
       tags:
-      - golf
+      - Golfs
     patch:
       consumes:
       - application/json
@@ -319,5 +319,5 @@ paths:
             $ref: '#/definitions/AppError'
       summary: Update an existing golf
       tags:
-      - golf
+      - Golfs
 swagger: "2.0"

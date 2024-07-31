@@ -9,7 +9,7 @@ import (
 func SetupRouter() *gin.Engine {
 	r := gin.Default()
 
-	golfGroup := r.Group("/golfs")
+	golfGroup := r.Group("/v1/golfs")
 	{
 		golfGroup.GET("/", golf.GetGolfs)
 		golfGroup.GET("/:id", golf.GetGolfByID)
@@ -18,7 +18,7 @@ func SetupRouter() *gin.Engine {
 		golfGroup.DELETE("/:id", golf.DeleteGolf)
 	}
 
-	courseGroup := r.Group("/courses")
+	courseGroup := r.Group("/v1/courses")
 	{
 		courseGroup.GET("/", course.GetCourses)
 		courseGroup.GET("/:id", course.GetCourseByID)

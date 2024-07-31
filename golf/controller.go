@@ -11,11 +11,11 @@ var golfService = NewGolfService(NewGolfRepository())
 // GetGolfs gets all golfs
 // @Summary Get all golfs
 // @Description Get all golfs
-// @Tags golf
+// @Tags Golfs
 // @Produce json
 // @Success 200 {array} Golf
 // @Failure 500 {object} utils.AppError
-// @Router /golfs [get]
+// @Router /v1/golfs [get]
 func GetGolfs(c *gin.Context) {
 	golfs, err := golfService.GetAllGolfs()
 	if err != nil {
@@ -28,14 +28,14 @@ func GetGolfs(c *gin.Context) {
 // CreateGolf creates a new golf
 // @Summary Create a new golf
 // @Description Create a new golf
-// @Tags golf
+// @Tags Golfs
 // @Accept json
 // @Produce json
 // @Param golf body Golf true "Golf"
 // @Success 201 {object} Golf
 // @Failure 400 {object} utils.AppError
 // @Failure 500 {object} utils.AppError
-// @Router /golfs [post]
+// @Router /v1/golfs [post]
 func CreateGolf(c *gin.Context) {
 	var golf Golf
 	if err := c.ShouldBindJSON(&golf); err != nil {
@@ -52,7 +52,7 @@ func CreateGolf(c *gin.Context) {
 // UpdateGolf updates an existing golf by ID
 // @Summary Update an existing golf
 // @Description Update an existing golf by ID
-// @Tags golf
+// @Tags Golfs
 // @Accept json
 // @Produce json
 // @Param id path string true "Golf ID"
@@ -60,7 +60,7 @@ func CreateGolf(c *gin.Context) {
 // @Success 200 {object} Golf
 // @Failure 400 {object} utils.AppError
 // @Failure 500 {object} utils.AppError
-// @Router /golfs/{id} [patch]
+// @Router /v1/golfs/{id} [patch]
 func UpdateGolf(c *gin.Context) {
 	golfID := c.Param("id")
 	var golf Golf
@@ -80,12 +80,12 @@ func UpdateGolf(c *gin.Context) {
 // DeleteGolf deletes an existing golf by ID
 // @Summary Delete an existing golf
 // @Description Delete an existing golf by ID
-// @Tags golf
+// @Tags Golfs
 // @Param id path string true "Golf ID"
 // @Success 204 "No Content"
 // @Failure 400 {object} utils.AppError
 // @Failure 500 {object} utils.AppError
-// @Router /golfs/{id} [delete]
+// @Router /v1/golfs/{id} [delete]
 func DeleteGolf(c *gin.Context) {
 	golfID := c.Param("id")
 	if err := golfService.DeleteGolf(golfID); err != nil {
@@ -98,13 +98,13 @@ func DeleteGolf(c *gin.Context) {
 // GetGolfByID gets a golf by ID
 // @Summary Get a golf by ID
 // @Description Get a golf by ID
-// @Tags golf
+// @Tags Golfs
 // @Produce json
 // @Param id path string true "Golf ID"
 // @Success 200 {object} Golf
 // @Failure 400 {object} utils.AppError
 // @Failure 500 {object} utils.AppError
-// @Router /golfs/{id} [get]
+// @Router /v1/golfs/{id} [get]
 func GetGolfByID(c *gin.Context) {
 	id := c.Param("id")
 	golf, err := golfService.GetGolfByID(id)
