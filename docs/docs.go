@@ -409,7 +409,7 @@ const docTemplate = `{
     },
     "definitions": {
         "AppError": {
-            "description": "error that can be returned by the application",
+            "description": "Error that can be returned by the application",
             "type": "object",
             "properties": {
                 "message": {

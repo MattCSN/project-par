@@ -7,7 +7,7 @@ import (
 )
 
 // Golf represents a golf course
-// @Description Model for a golf course
+// @Description Model for a golf
 type Golf struct {
 	common.Base
 	Name           string  `json:"name" gorm:"type:varchar(255);not null" example:"Pebble Beach"`                                       // @Description Name of the golf course
