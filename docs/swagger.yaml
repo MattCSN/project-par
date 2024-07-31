@@ -1,4 +1,4 @@
-basePath: /
+basePath: /v1
 definitions:
   AppError:
     description: Error that can be returned by the application
