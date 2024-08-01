@@ -399,6 +399,199 @@
                     }
                 }
             }
+        },
+        "/v1/holes": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Holes"
+                ],
+                "summary": "Get all holes",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Hole"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/AppError"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Holes"
+                ],
+                "summary": "Create a new hole",
+                "parameters": [
+                    {
+                        "description": "Hole",
+                        "name": "hole",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Hole"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/Hole"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/AppError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/AppError"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/holes/{id}": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Holes"
+                ],
+                "summary": "Get a hole by ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Hole ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Hole"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/AppError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/AppError"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Holes"
+                ],
+                "summary": "Delete an existing hole",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Hole ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/AppError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/AppError"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Holes"
+                ],
+                "summary": "Update an existing hole",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Hole ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Hole",
+                        "name": "hole",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Hole"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Hole"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/AppError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/AppError"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -474,6 +667,24 @@
                     "description": "@Description Postal code of the golf course location",
                     "type": "string",
                     "example": "93953"
+                }
+            }
+        },
+        "Hole": {
+            "description": "Model for a hole",
+            "type": "object",
+            "properties": {
+                "courseID": {
+                    "type": "string"
+                },
+                "holeNumber": {
+                    "type": "integer"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "par": {
+                    "type": "integer"
                 }
             }
         }

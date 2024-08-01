@@ -3,6 +3,7 @@ package routes
 import (
 	"github.com/MattCSN/project-par/course"
 	"github.com/MattCSN/project-par/golf"
+	"github.com/MattCSN/project-par/hole"
 	"github.com/gin-gonic/gin"
 )
 
@@ -30,6 +31,16 @@ func SetupRouter() *gin.Engine {
 			courseGroup.POST("/", course.CreateCourse)
 			courseGroup.PATCH("/:id", course.UpdateCourse)
 			courseGroup.DELETE("/:id", course.DeleteCourse)
+		}
+
+		// Hole routes
+		holeGroup := v1.Group("/holes")
+		{
+			holeGroup.GET("/", hole.GetHoles)
+			holeGroup.GET("/:id", hole.GetHoleByID)
+			holeGroup.POST("/", hole.CreateHole)
+			holeGroup.PATCH("/:id", hole.UpdateHole)
+			holeGroup.DELETE("/:id", hole.DeleteHole)
 		}
 	}
 

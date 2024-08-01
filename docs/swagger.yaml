@@ -54,6 +54,18 @@ definitions:
         example: "93953"
         type: string
     type: object
+  Hole:
+    description: Model for a hole
+    properties:
+      courseID:
+        type: string
+      holeNumber:
+        type: integer
+      id:
+        type: string
+      par:
+        type: integer
+    type: object
 host: localhost:8080
 info:
   contact: {}
@@ -320,4 +332,130 @@ paths:
       summary: Update an existing golf
       tags:
       - Golfs
+  /v1/holes:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/Hole'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/AppError'
+      summary: Get all holes
+      tags:
+      - Holes
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Hole
+        in: body
+        name: hole
+        required: true
+        schema:
+          $ref: '#/definitions/Hole'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/Hole'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/AppError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/AppError'
+      summary: Create a new hole
+      tags:
+      - Holes
+  /v1/holes/{id}:
+    delete:
+      parameters:
+      - description: Hole ID
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/AppError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/AppError'
+      summary: Delete an existing hole
+      tags:
+      - Holes
+    get:
+      parameters:
+      - description: Hole ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/Hole'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/AppError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/AppError'
+      summary: Get a hole by ID
+      tags:
+      - Holes
+    patch:
+      consumes:
+      - application/json
+      parameters:
+      - description: Hole ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Hole
+        in: body
+        name: hole
+        required: true
+        schema:
+          $ref: '#/definitions/Hole'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/Hole'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/AppError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/AppError'
+      summary: Update an existing hole
+      tags:
+      - Holes
 swagger: "2.0"

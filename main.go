@@ -5,6 +5,7 @@ import (
 	"github.com/MattCSN/project-par/database"
 	_ "github.com/MattCSN/project-par/docs" // Import the generated docs
 	"github.com/MattCSN/project-par/golf"
+	"github.com/MattCSN/project-par/hole"
 	"github.com/MattCSN/project-par/routes"
 	"github.com/joho/godotenv"
 	swaggerFiles "github.com/swaggo/files"
@@ -28,7 +29,7 @@ func main() {
 		log.Fatal("DATABASE_URL environment variable not set")
 	}
 
-	database.Init(databaseURL, &golf.Golf{}, &course.Model{}, &golf.Hole{}, &golf.Tee{})
+	database.Init(databaseURL, &golf.Golf{}, &course.Model{}, &hole.Model{}, &golf.Tee{})
 
 	r := routes.SetupRouter()
 

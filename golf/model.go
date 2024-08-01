@@ -18,13 +18,6 @@ type Golf struct {
 	Longitude      float64 `json:"longitude,omitempty" gorm:"type:double precision" example:"-121.950"`                                 // @Description Longitude of the golf course
 } // @name Golf
 
-type Hole struct {
-	common.Base
-	HoleNumber int    `gorm:"not null"`
-	Par        int    `gorm:"not null"`
-	CourseID   string `gorm:"type:uuid;not null"`
-}
-
 type Tee struct {
 	common.Base
 	Color    string `gorm:"type:varchar(50);not null"`
