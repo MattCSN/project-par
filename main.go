@@ -6,7 +6,7 @@ import (
 	_ "github.com/MattCSN/project-par/docs" // Import the generated docs
 	"github.com/MattCSN/project-par/golf"
 	"github.com/MattCSN/project-par/hole"
-	"github.com/MattCSN/project-par/routes"
+	"github.com/MattCSN/project-par/router"
 	"github.com/joho/godotenv"
 	swaggerFiles "github.com/swaggo/files"
 	"github.com/swaggo/gin-swagger"
@@ -31,7 +31,7 @@ func main() {
 
 	database.Init(databaseURL, &golf.Golf{}, &course.Model{}, &hole.Model{}, &golf.Tee{})
 
-	r := routes.SetupRouter()
+	r := router.SetupRouter()
 
 	// Route pour la documentation Swagger
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
