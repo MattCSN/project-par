@@ -1,23 +1,29 @@
 package tee
 
+var teeService *Service
+
+func InitTeeService(repository Repository) {
+	teeService = NewTeeService(repository)
+}
+
 type Service struct {
 	repo Repository
 }
 
-func NewTeeService(repo Repository) *Service {
-	return &Service{repo: repo}
+func NewTeeService(repository Repository) *Service {
+	return &Service{repo: repository}
 }
 
-func (gs *Service) GetAllTees() ([]Tee, error) {
-	return gs.repo.GetAllTees()
+func (s *Service) GetAllTees() ([]Tee, error) {
+	return s.repo.GetAllTees()
 }
 
-func (gs *Service) CreateTee(tee *Tee) error {
-	return gs.repo.CreateTee(tee)
+func (s *Service) CreateTee(tee *Tee) error {
+	return s.repo.CreateTee(tee)
 }
 
-func (gs *Service) UpdateTee(tee *Model) (*Model, error) {
-	existingTee, err := gs.repo.GetTeeByID(tee.ID)
+func (s *Service) UpdateTee(tee *Model) (*Model, error) {
+	existingTee, err := s.repo.GetTeeByID(tee.ID)
 	if err != nil {
 		return nil, err
 	}
@@ -32,22 +38,22 @@ func (gs *Service) UpdateTee(tee *Model) (*Model, error) {
 		existingTee.HoleID = tee.HoleID
 	}
 
-	err = gs.repo.UpdateTee(existingTee)
+	err = s.repo.UpdateTee(existingTee)
 	if err != nil {
 		return nil, err
 	}
 	return existingTee, nil
 }
 
-func (gs *Service) DeleteTee(id string) error {
-	existingTee, err := gs.repo.GetTeeByID(id)
+func (s *Service) DeleteTee(id string) error {
+	existingTee, err := s.repo.GetTeeByID(id)
 	if err != nil {
 		return err
 	}
 
-	return gs.repo.DeleteTeeByID(existingTee.ID)
+	return s.repo.DeleteTeeByID(existingTee.ID)
 }
 
-func (gs *Service) GetTeeByID(id string) (*Tee, error) {
-	return gs.repo.GetTeeByID(id)
+func (s *Service) GetTeeByID(id string) (*Tee, error) {
+	return s.repo.GetTeeByID(id)
 }

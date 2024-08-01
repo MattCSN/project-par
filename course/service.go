@@ -1,23 +1,29 @@
 package course
 
+var courseService *Service
+
+func InitCourseService(repository Repository) {
+	courseService = NewCourseService(repository)
+}
+
 type Service struct {
 	repo Repository
 }
 
-func NewCourseService(repo Repository) *Service {
-	return &Service{repo: repo}
+func NewCourseService(repository Repository) *Service {
+	return &Service{repo: repository}
 }
 
-func (cs *Service) GetAllCourses() ([]Course, error) {
-	return cs.repo.GetAllCourses()
+func (s *Service) GetAllCourses() ([]Course, error) {
+	return s.repo.GetAllCourses()
 }
 
-func (cs *Service) CreateCourse(course *Course) error {
-	return cs.repo.CreateCourse(course)
+func (s *Service) CreateCourse(course *Course) error {
+	return s.repo.CreateCourse(course)
 }
 
-func (cs *Service) UpdateCourse(course *Course) (*Course, error) {
-	existingCourse, err := cs.repo.GetCourseByID(course.ID)
+func (s *Service) UpdateCourse(course *Course) (*Course, error) {
+	existingCourse, err := s.repo.GetCourseByID(course.ID)
 	if err != nil {
 		return nil, err
 	}
@@ -38,21 +44,21 @@ func (cs *Service) UpdateCourse(course *Course) (*Course, error) {
 		existingCourse.GolfID = course.GolfID
 	}
 
-	/*if err := cs.repo.UpdateCourse(existingCourse); err != nil {
+	/*if err := s.repo.UpdateCourse(existingCourse); err != nil {
 		return nil, err
 	} */
 	return existingCourse, nil
 }
 
-func (cs *Service) DeleteCourse(id string) error {
-	existingCourse, err := cs.repo.GetCourseByID(id)
+func (s *Service) DeleteCourse(id string) error {
+	existingCourse, err := s.repo.GetCourseByID(id)
 	if err != nil {
 		return err
 	}
 
-	return cs.repo.DeleteCourseByID(existingCourse.ID)
+	return s.repo.DeleteCourseByID(existingCourse.ID)
 }
 
-func (cs *Service) GetCourseByID(id string) (*Course, error) {
-	return cs.repo.GetCourseByID(id)
+func (s *Service) GetCourseByID(id string) (*Course, error) {
+	return s.repo.GetCourseByID(id)
 }

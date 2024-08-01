@@ -12,7 +12,7 @@ func SetupRouter() *gin.Engine {
 	r := gin.Default()
 	v1 := r.Group("/v1")
 
-	// Golf router
+	// Model router
 	golfGroup := v1.Group("/golfs")
 	golfGroup.GET("/", golf.GetGolfs)
 	golfGroup.GET("/:id", golf.GetGolfByID)

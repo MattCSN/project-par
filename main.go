@@ -10,13 +10,14 @@ import (
 	"github.com/MattCSN/project-par/golf"
 	"github.com/MattCSN/project-par/hole"
 	"github.com/MattCSN/project-par/router"
+	"github.com/MattCSN/project-par/tee"
 	"github.com/joho/godotenv"
 	swaggerFiles "github.com/swaggo/files"
 	"github.com/swaggo/gin-swagger"
 )
 
 // @title ProjectPAR API
-// @version 1.0
+// @version 1.0.0-Beta
 // @description This project is a comprehensive golf management system designed to facilitate the management of golf courses, including tracking of golf courses, holes, and tees.
 // @host localhost:8080
 // @BasePath /
@@ -30,7 +31,12 @@ func main() {
 		log.Fatal("DATABASE_URL environment variable not set")
 	}
 
-	database.Init(databaseURL, &golf.Golf{}, &course.Model{}, &hole.Model{}, &golf.Tee{})
+	database.Init(databaseURL, &golf.Model{}, &course.Model{}, &hole.Model{}, &tee.Model{})
+
+	golf.InitGolfService(golf.NewRepository())
+	course.InitCourseService(course.NewRepository())
+	hole.InitHoleService(hole.NewRepository())
+	tee.InitTeeService(tee.NewRepository())
 
 	r := router.SetupRouter()
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))

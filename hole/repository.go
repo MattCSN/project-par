@@ -18,7 +18,7 @@ type Repository interface {
 
 type holeRepository struct{}
 
-func NewHoleRepository() Repository {
+func NewRepository() Repository {
 	return &holeRepository{}
 }
 

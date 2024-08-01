@@ -837,12 +837,12 @@ const docTemplate = `{
                 "city": {
                     "description": "@Description City where the golf course is located",
                     "type": "string",
-                    "example": "Monterey"
+                    "example": "Guyancourt"
                 },
                 "googleMapLinks": {
                     "description": "@Description Google Maps link for the golf course",
                     "type": "string",
-                    "example": "https://maps.google.com/?q=Pebble+Beach"
+                    "example": "https://maps.google.com/?q=Golf+National"
                 },
                 "id": {
                     "type": "string"
@@ -850,22 +850,22 @@ const docTemplate = `{
                 "latitude": {
                     "description": "@Description Latitude of the golf course",
                     "type": "number",
-                    "example": 36.567
+                    "example": 48.754
                 },
                 "longitude": {
                     "description": "@Description Longitude of the golf course",
                     "type": "number",
-                    "example": -121.95
+                    "example": 2.074
                 },
                 "name": {
                     "description": "@Description Name of the golf course",
                     "type": "string",
-                    "example": "Pebble Beach"
+                    "example": "Golf National"
                 },
                 "postalCode": {
                     "description": "@Description Postal code of the golf course location",
                     "type": "string",
-                    "example": "93953"
+                    "example": "78280"
                 }
             }
         },
@@ -910,7 +910,7 @@ const docTemplate = `{
 
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
-	Version:          "1.0",
+	Version:          "1.0.0-Beta",
 	Host:             "localhost:8080",
 	BasePath:         "/",
 	Schemes:          []string{},

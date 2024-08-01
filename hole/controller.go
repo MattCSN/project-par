@@ -6,8 +6,6 @@ import (
 	"net/http"
 )
 
-var holeService = NewHoleService(NewHoleRepository())
-
 // GetHoles gets all holes
 // @Summary Get all holes
 // @Tags Holes

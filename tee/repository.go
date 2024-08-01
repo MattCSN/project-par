@@ -18,7 +18,7 @@ type Repository interface {
 
 type teeRepository struct{}
 
-func NewTeeRepository() Repository {
+func NewRepository() Repository {
 	return &teeRepository{}
 }
 

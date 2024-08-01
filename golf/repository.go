@@ -6,6 +6,8 @@ import (
 	"github.com/MattCSN/project-par/utils"
 )
 
+type Golf = Model
+
 type Repository interface {
 	GetAllGolfs() ([]Golf, error)
 	CreateGolf(*Golf) error
@@ -16,33 +18,32 @@ type Repository interface {
 
 type golfRepository struct{}
 
-func NewGolfRepository() Repository {
+func NewRepository() Repository {
 	return &golfRepository{}
 }
 
-func (gr *golfRepository) GetAllGolfs() ([]Golf, error) {
+func (repo *golfRepository) GetAllGolfs() ([]Golf, error) {
 	var golfs []Golf
 	return golfs, database.DB.Find(&golfs).Error
 }
 
-func (gr *golfRepository) CreateGolf(golf *Golf) error {
+func (repo *golfRepository) CreateGolf(golf *Golf) error {
 	return database.DB.Create(golf).Error
 }
 
-func (gr *golfRepository) GetGolfByID(id string) (*Golf, error) {
+func (repo *golfRepository) GetGolfByID(id string) (*Golf, error) {
 	var golf Golf
 	err := database.DB.First(&golf, "id = ?", id).Error
 	if err != nil {
-		// TODO : Log the error here
-		return nil, utils.NotFoundError(fmt.Sprintf("Golf with id : %s", id))
+		return nil, utils.NotFoundError(fmt.Sprintf("Golf with id: %s", id))
 	}
 	return &golf, nil
 }
 
-func (gr *golfRepository) DeleteGolfByID(id string) error {
+func (repo *golfRepository) DeleteGolfByID(id string) error {
 	return database.DB.Where("id = ?", id).Delete(&Golf{}).Error
 }
 
-func (gr *golfRepository) UpdateGolf(golf *Golf) error {
+func (repo *golfRepository) UpdateGolf(golf *Golf) error {
 	return database.DB.Save(golf).Error
 }

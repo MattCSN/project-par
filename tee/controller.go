@@ -6,8 +6,6 @@ import (
 	"net/http"
 )
 
-var teeService = NewTeeService(NewTeeRepository())
-
 // GetTees gets all tees
 // @Summary Get all tees
 // @Tags Tees

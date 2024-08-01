@@ -1,23 +1,29 @@
 package golf
 
+var golfService *Service
+
+func InitGolfService(repository Repository) {
+	golfService = NewGolfService(repository)
+}
+
 type Service struct {
 	repo Repository
 }
 
-func NewGolfService(repo Repository) *Service {
-	return &Service{repo: repo}
+func NewGolfService(repository Repository) *Service {
+	return &Service{repo: repository}
 }
 
-func (gs *Service) GetAllGolfs() ([]Golf, error) {
-	return gs.repo.GetAllGolfs()
+func (s *Service) GetAllGolfs() ([]Golf, error) {
+	return s.repo.GetAllGolfs()
 }
 
-func (gs *Service) CreateGolf(golf *Golf) error {
-	return gs.repo.CreateGolf(golf)
+func (s *Service) CreateGolf(golf *Golf) error {
+	return s.repo.CreateGolf(golf)
 }
 
-func (gs *Service) UpdateGolf(golf *Golf) (*Golf, error) {
-	existingGolf, err := gs.repo.GetGolfByID(golf.ID)
+func (s *Service) UpdateGolf(golf *Golf) (*Golf, error) {
+	existingGolf, err := s.repo.GetGolfByID(golf.ID)
 	if err != nil {
 		return nil, err
 	}
@@ -41,22 +47,22 @@ func (gs *Service) UpdateGolf(golf *Golf) (*Golf, error) {
 		existingGolf.Longitude = golf.Longitude
 	}
 
-	err = gs.repo.UpdateGolf(existingGolf)
+	err = s.repo.UpdateGolf(existingGolf)
 	if err != nil {
 		return nil, err
 	}
 	return existingGolf, nil
 }
 
-func (gs *Service) DeleteGolf(id string) error {
-	existingGolf, err := gs.repo.GetGolfByID(id)
+func (s *Service) DeleteGolf(id string) error {
+	existingGolf, err := s.repo.GetGolfByID(id)
 	if err != nil {
 		return err
 	}
 
-	return gs.repo.DeleteGolfByID(existingGolf.ID)
+	return s.repo.DeleteGolfByID(existingGolf.ID)
 }
 
-func (gs *Service) GetGolfByID(id string) (*Golf, error) {
-	return gs.repo.GetGolfByID(id)
+func (s *Service) GetGolfByID(id string) (*Golf, error) {
+	return s.repo.GetGolfByID(id)
 }

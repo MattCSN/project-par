@@ -18,7 +18,7 @@ type Repository interface {
 
 type courseRepository struct{}
 
-func NewCourseRepository() Repository {
+func NewRepository() Repository {
 	return &courseRepository{}
 }
 

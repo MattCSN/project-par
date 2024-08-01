@@ -6,23 +6,21 @@ import (
 	"net/http"
 )
 
-var golfService = NewGolfService(NewGolfRepository())
-
 // GetGolfs gets all golfs
 // @Summary Get all golfs
 // @Description Get all golfs
 // @Tags Golfs
 // @Produce json
-// @Success 200 {array} Golf
+// @Success 200 {array} golf.Model
 // @Failure 500 {object} utils.AppError
 // @Router /v1/golfs [get]
-func GetGolfs(c *gin.Context) {
+func GetGolfs(ctx *gin.Context) {
 	golfs, err := golfService.GetAllGolfs()
 	if err != nil {
-		utils.HandleError(c, err)
+		utils.HandleError(ctx, err)
 		return
 	}
-	c.JSON(http.StatusOK, golfs)
+	ctx.JSON(http.StatusOK, golfs)
 }
 
 // CreateGolf creates a new golf
@@ -31,22 +29,22 @@ func GetGolfs(c *gin.Context) {
 // @Tags Golfs
 // @Accept json
 // @Produce json
-// @Param golf body Golf true "Golf"
-// @Success 201 {object} Golf
+// @Param golf body golf.Model true "Golf"
+// @Success 201 {object} golf.Model
 // @Failure 400 {object} utils.AppError
 // @Failure 500 {object} utils.AppError
 // @Router /v1/golfs [post]
-func CreateGolf(c *gin.Context) {
+func CreateGolf(ctx *gin.Context) {
 	var golf Golf
-	if err := c.ShouldBindJSON(&golf); err != nil {
-		utils.HandleError(c, utils.NewAppError(http.StatusBadRequest, err.Error()))
+	if err := ctx.ShouldBindJSON(&golf); err != nil {
+		utils.HandleError(ctx, utils.NewAppError(http.StatusBadRequest, err.Error()))
 		return
 	}
 	if err := golfService.CreateGolf(&golf); err != nil {
-		utils.HandleError(c, err)
+		utils.HandleError(ctx, err)
 		return
 	}
-	c.JSON(http.StatusCreated, golf)
+	ctx.JSON(http.StatusCreated, golf)
 }
 
 // UpdateGolf updates an existing golf by ID
@@ -56,25 +54,25 @@ func CreateGolf(c *gin.Context) {
 // @Accept json
 // @Produce json
 // @Param id path string true "Golf ID"
-// @Param golf body Golf true "Golf"
-// @Success 200 {object} Golf
+// @Param golf body golf.Model true "Golf"
+// @Success 200 {object} golf.Model
 // @Failure 400 {object} utils.AppError
 // @Failure 500 {object} utils.AppError
 // @Router /v1/golfs/{id} [patch]
-func UpdateGolf(c *gin.Context) {
-	golfID := c.Param("id")
+func UpdateGolf(ctx *gin.Context) {
+	golfID := ctx.Param("id")
 	var golf Golf
-	if err := c.ShouldBindJSON(&golf); err != nil {
-		utils.HandleError(c, utils.NewAppError(http.StatusBadRequest, err.Error()))
+	if err := ctx.ShouldBindJSON(&golf); err != nil {
+		utils.HandleError(ctx, utils.NewAppError(http.StatusBadRequest, err.Error()))
 		return
 	}
 	golf.ID = golfID
 	updatedGolf, err := golfService.UpdateGolf(&golf)
 	if err != nil {
-		utils.HandleError(c, err)
+		utils.HandleError(ctx, err)
 		return
 	}
-	c.JSON(http.StatusOK, updatedGolf)
+	ctx.JSON(http.StatusOK, updatedGolf)
 }
 
 // DeleteGolf deletes an existing golf by ID
@@ -86,13 +84,13 @@ func UpdateGolf(c *gin.Context) {
 // @Failure 400 {object} utils.AppError
 // @Failure 500 {object} utils.AppError
 // @Router /v1/golfs/{id} [delete]
-func DeleteGolf(c *gin.Context) {
-	golfID := c.Param("id")
+func DeleteGolf(ctx *gin.Context) {
+	golfID := ctx.Param("id")
 	if err := golfService.DeleteGolf(golfID); err != nil {
-		utils.HandleError(c, err)
+		utils.HandleError(ctx, err)
 		return
 	}
-	c.Status(http.StatusNoContent)
+	ctx.Status(http.StatusNoContent)
 }
 
 // GetGolfByID gets a golf by ID
@@ -101,16 +99,16 @@ func DeleteGolf(c *gin.Context) {
 // @Tags Golfs
 // @Produce json
 // @Param id path string true "Golf ID"
-// @Success 200 {object} Golf
+// @Success 200 {object} golf.Model
 // @Failure 400 {object} utils.AppError
 // @Failure 500 {object} utils.AppError
 // @Router /v1/golfs/{id} [get]
-func GetGolfByID(c *gin.Context) {
-	id := c.Param("id")
-	golf, err := golfService.GetGolfByID(id)
+func GetGolfByID(ctx *gin.Context) {
+	golfID := ctx.Param("id")
+	golf, err := golfService.GetGolfByID(golfID)
 	if err != nil {
-		utils.HandleError(c, err)
+		utils.HandleError(ctx, err)
 		return
 	}
-	c.JSON(http.StatusOK, golf)
+	ctx.JSON(http.StatusOK, golf)
 }

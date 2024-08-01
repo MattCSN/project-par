@@ -6,8 +6,6 @@ import (
 	"net/http"
 )
 
-var courseService = NewCourseService(NewCourseRepository())
-
 // GetCourses gets all courses
 // @Summary Get all courses
 // @Tags Courses
