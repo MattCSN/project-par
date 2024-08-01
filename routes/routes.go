@@ -4,6 +4,7 @@ import (
 	"github.com/MattCSN/project-par/course"
 	"github.com/MattCSN/project-par/golf"
 	"github.com/MattCSN/project-par/hole"
+	"github.com/MattCSN/project-par/tee"
 	"github.com/gin-gonic/gin"
 )
 
@@ -41,6 +42,16 @@ func SetupRouter() *gin.Engine {
 			holeGroup.POST("/", hole.CreateHole)
 			holeGroup.PATCH("/:id", hole.UpdateHole)
 			holeGroup.DELETE("/:id", hole.DeleteHole)
+		}
+
+		// Tee routes
+		teeGroup := v1.Group("/tees")
+		{
+			teeGroup.GET("/", tee.GetTees)
+			teeGroup.GET("/:id", tee.GetTeeByID)
+			teeGroup.POST("/", tee.CreateTee)
+			teeGroup.PATCH("/:id", tee.UpdateTee)
+			teeGroup.DELETE("/:id", tee.DeleteTee)
 		}
 	}
 

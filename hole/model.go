@@ -12,3 +12,8 @@ type Model struct {
 	Par        int    `gorm:"not null"`
 	CourseID   string `gorm:"type:uuid;not null"`
 } // @name Hole
+
+// TableName sets the insert table name for this struct type
+func (Model) TableName() string {
+	return "holes"
+}

@@ -66,6 +66,18 @@ definitions:
       par:
         type: integer
     type: object
+  Tee:
+    description: Model for a tee
+    properties:
+      color:
+        type: string
+      distance:
+        type: integer
+      holeID:
+        type: string
+      id:
+        type: string
+    type: object
 host: localhost:8080
 info:
   contact: {}
@@ -458,4 +470,130 @@ paths:
       summary: Update an existing hole
       tags:
       - Holes
+  /v1/tees:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/Tee'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/AppError'
+      summary: Get all tees
+      tags:
+      - Tees
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Tee
+        in: body
+        name: tee
+        required: true
+        schema:
+          $ref: '#/definitions/Tee'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/Tee'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/AppError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/AppError'
+      summary: Create a new tee
+      tags:
+      - Tees
+  /v1/tees/{id}:
+    delete:
+      parameters:
+      - description: Tee ID
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/AppError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/AppError'
+      summary: Delete an existing tee
+      tags:
+      - Tees
+    get:
+      parameters:
+      - description: Tee ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/Tee'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/AppError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/AppError'
+      summary: Get a tee by ID
+      tags:
+      - Tees
+    patch:
+      consumes:
+      - application/json
+      parameters:
+      - description: Tee ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Tee
+        in: body
+        name: tee
+        required: true
+        schema:
+          $ref: '#/definitions/Tee'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/Tee'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/AppError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/AppError'
+      summary: Update an existing tee
+      tags:
+      - Tees
 swagger: "2.0"
