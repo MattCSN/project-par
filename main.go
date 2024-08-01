@@ -1,17 +1,18 @@
 package main
 
 import (
+	"log"
+	"os"
+
 	"github.com/MattCSN/project-par/course"
 	"github.com/MattCSN/project-par/database"
-	_ "github.com/MattCSN/project-par/docs" // Import the generated docs
+	_ "github.com/MattCSN/project-par/docs"
 	"github.com/MattCSN/project-par/golf"
 	"github.com/MattCSN/project-par/hole"
 	"github.com/MattCSN/project-par/router"
 	"github.com/joho/godotenv"
 	swaggerFiles "github.com/swaggo/files"
 	"github.com/swaggo/gin-swagger"
-	"log"
-	"os"
 )
 
 // @title ProjectPAR API
@@ -32,8 +33,6 @@ func main() {
 	database.Init(databaseURL, &golf.Golf{}, &course.Model{}, &hole.Model{}, &golf.Tee{})
 
 	r := router.SetupRouter()
-
-	// Route pour la documentation Swagger
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	if err := r.Run(":8080"); err != nil {
