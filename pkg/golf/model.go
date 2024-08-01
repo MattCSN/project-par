@@ -1,8 +1,8 @@
 package golf
 
 import (
-	"github.com/MattCSN/project-par/common"
-	"github.com/MattCSN/project-par/utils"
+	"github.com/MattCSN/project-par/pkg/common"
+	"github.com/MattCSN/project-par/pkg/utils"
 	"github.com/jinzhu/gorm"
 )
 

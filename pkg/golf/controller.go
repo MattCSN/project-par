@@ -1,7 +1,7 @@
 package golf
 
 import (
-	"github.com/MattCSN/project-par/utils"
+	"github.com/MattCSN/project-par/pkg/utils"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -12,7 +12,7 @@ import (
 // @Tags Golfs
 // @Produce json
 // @Success 200 {array} golf.Model
-// @Failure 500 {object} utils.AppError
+// @Failure 500 {object} AppError
 // @Router /v1/golfs [get]
 func GetGolfs(ctx *gin.Context) {
 	golfs, err := golfService.GetAllGolfs()
@@ -31,8 +31,8 @@ func GetGolfs(ctx *gin.Context) {
 // @Produce json
 // @Param golf body golf.Model true "Golf"
 // @Success 201 {object} golf.Model
-// @Failure 400 {object} utils.AppError
-// @Failure 500 {object} utils.AppError
+// @Failure 400 {object} AppError
+// @Failure 500 {object} AppError
 // @Router /v1/golfs [post]
 func CreateGolf(ctx *gin.Context) {
 	var golf Golf
@@ -56,8 +56,8 @@ func CreateGolf(ctx *gin.Context) {
 // @Param id path string true "Golf ID"
 // @Param golf body golf.Model true "Golf"
 // @Success 200 {object} golf.Model
-// @Failure 400 {object} utils.AppError
-// @Failure 500 {object} utils.AppError
+// @Failure 400 {object} AppError
+// @Failure 500 {object} AppError
 // @Router /v1/golfs/{id} [patch]
 func UpdateGolf(ctx *gin.Context) {
 	golfID := ctx.Param("id")
@@ -81,8 +81,8 @@ func UpdateGolf(ctx *gin.Context) {
 // @Tags Golfs
 // @Param id path string true "Golf ID"
 // @Success 204 "No Content"
-// @Failure 400 {object} utils.AppError
-// @Failure 500 {object} utils.AppError
+// @Failure 400 {object} AppError
+// @Failure 500 {object} AppError
 // @Router /v1/golfs/{id} [delete]
 func DeleteGolf(ctx *gin.Context) {
 	golfID := ctx.Param("id")
@@ -100,8 +100,8 @@ func DeleteGolf(ctx *gin.Context) {
 // @Produce json
 // @Param id path string true "Golf ID"
 // @Success 200 {object} golf.Model
-// @Failure 400 {object} utils.AppError
-// @Failure 500 {object} utils.AppError
+// @Failure 400 {object} AppError
+// @Failure 500 {object} AppError
 // @Router /v1/golfs/{id} [get]
 func GetGolfByID(ctx *gin.Context) {
 	golfID := ctx.Param("id")

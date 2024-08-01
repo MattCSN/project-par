@@ -42,6 +42,6 @@ func HandleError(c *gin.Context, err error) {
 	if errors.As(err, &appErr) {
 		HandleAppError(c, appErr)
 	} else {
-		HandleError(c, NewAppError(http.StatusInternalServerError, err.Error()))
+		HandleAppError(c, NewAppError(http.StatusInternalServerError, err.Error()))
 	}
 }

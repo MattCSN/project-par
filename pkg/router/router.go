@@ -1,10 +1,10 @@
 package router
 
 import (
-	"github.com/MattCSN/project-par/course"
-	"github.com/MattCSN/project-par/golf"
-	"github.com/MattCSN/project-par/hole"
-	"github.com/MattCSN/project-par/tee"
+	"github.com/MattCSN/project-par/pkg/course"
+	"github.com/MattCSN/project-par/pkg/golf"
+	"github.com/MattCSN/project-par/pkg/hole"
+	"github.com/MattCSN/project-par/pkg/tee"
 	"github.com/gin-gonic/gin"
 )
 

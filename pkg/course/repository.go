@@ -2,8 +2,8 @@ package course
 
 import (
 	"fmt"
-	"github.com/MattCSN/project-par/database"
-	"github.com/MattCSN/project-par/utils"
+	"github.com/MattCSN/project-par/pkg/database"
+	"github.com/MattCSN/project-par/pkg/utils"
 )
 
 type Course = Model // Alias the Course type from the models package

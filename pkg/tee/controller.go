@@ -1,7 +1,7 @@
 package tee
 
 import (
-	"github.com/MattCSN/project-par/utils"
+	"github.com/MattCSN/project-par/pkg/utils"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -11,7 +11,7 @@ import (
 // @Tags Tees
 // @Produce json
 // @Success 200 {array} tee.Model
-// @Failure 500 {object} utils.AppError
+// @Failure 500 {object} AppError
 // @Router /v1/tees [get]
 func GetTees(c *gin.Context) {
 	tees, err := teeService.GetAllTees()
@@ -29,8 +29,8 @@ func GetTees(c *gin.Context) {
 // @Produce json
 // @Param tee body tee.Model true "Tee"
 // @Success 201 {object} tee.Model
-// @Failure 400 {object} utils.AppError
-// @Failure 500 {object} utils.AppError
+// @Failure 400 {object} AppError
+// @Failure 500 {object} AppError
 // @Router /v1/tees [post]
 func CreateTee(c *gin.Context) {
 	var tee Tee
@@ -53,8 +53,8 @@ func CreateTee(c *gin.Context) {
 // @Param id path string true "Tee ID"
 // @Param tee body tee.Model true "Tee"
 // @Success 200 {object} tee.Model
-// @Failure 400 {object} utils.AppError
-// @Failure 500 {object} utils.AppError
+// @Failure 400 {object} AppError
+// @Failure 500 {object} AppError
 // @Router /v1/tees/{id} [patch]
 func UpdateTee(c *gin.Context) {
 	teeID := c.Param("id")
@@ -77,8 +77,8 @@ func UpdateTee(c *gin.Context) {
 // @Tags Tees
 // @Param id path string true "Tee ID"
 // @Success 204 "No Content"
-// @Failure 400 {object} utils.AppError
-// @Failure 500 {object} utils.AppError
+// @Failure 400 {object} AppError
+// @Failure 500 {object} AppError
 // @Router /v1/tees/{id} [delete]
 func DeleteTee(c *gin.Context) {
 	teeID := c.Param("id")
@@ -95,8 +95,8 @@ func DeleteTee(c *gin.Context) {
 // @Produce json
 // @Param id path string true "Tee ID"
 // @Success 200 {object} tee.Model
-// @Failure 400 {object} utils.AppError
-// @Failure 500 {object} utils.AppError
+// @Failure 400 {object} AppError
+// @Failure 500 {object} AppError
 // @Router /v1/tees/{id} [get]
 func GetTeeByID(c *gin.Context) {
 	id := c.Param("id")

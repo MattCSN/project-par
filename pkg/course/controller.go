@@ -1,7 +1,7 @@
 package course
 
 import (
-	"github.com/MattCSN/project-par/utils"
+	"github.com/MattCSN/project-par/pkg/utils"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -11,7 +11,7 @@ import (
 // @Tags Courses
 // @Produce json
 // @Success 200 {array} course.Model
-// @Failure 500 {object} utils.AppError
+// @Failure 500 {object} AppError
 // @Router /v1/courses [get]
 func GetCourses(c *gin.Context) {
 	courses, err := courseService.GetAllCourses()
@@ -29,8 +29,8 @@ func GetCourses(c *gin.Context) {
 // @Produce json
 // @Param course body course.Model true "Course"
 // @Success 201 {object} course.Model
-// @Failure 400 {object} utils.AppError
-// @Failure 500 {object} utils.AppError
+// @Failure 400 {object} AppError
+// @Failure 500 {object} AppError
 // @Router /v1/courses [post]
 func CreateCourse(c *gin.Context) {
 	var course Course
@@ -53,8 +53,8 @@ func CreateCourse(c *gin.Context) {
 // @Param id path string true "Course ID"
 // @Param course body course.Model true "Course"
 // @Success 200 {object} course.Model
-// @Failure 400 {object} utils.AppError
-// @Failure 500 {object} utils.AppError
+// @Failure 400 {object} AppError
+// @Failure 500 {object} AppError
 // @Router /v1/courses/{id} [patch]
 func UpdateCourse(c *gin.Context) {
 	courseID := c.Param("id")
@@ -77,8 +77,8 @@ func UpdateCourse(c *gin.Context) {
 // @Tags Courses
 // @Param id path string true "Course ID"
 // @Success 204 "No Content"
-// @Failure 400 {object} utils.AppError
-// @Failure 500 {object} utils.AppError
+// @Failure 400 {object} AppError
+// @Failure 500 {object} AppError
 // @Router /v1/courses/{id} [delete]
 func DeleteCourse(c *gin.Context) {
 	courseID := c.Param("id")
@@ -95,8 +95,8 @@ func DeleteCourse(c *gin.Context) {
 // @Produce json
 // @Param id path string true "Course ID"
 // @Success 200 {object} course.Model
-// @Failure 400 {object} utils.AppError
-// @Failure 500 {object} utils.AppError
+// @Failure 400 {object} AppError
+// @Failure 500 {object} AppError
 // @Router /v1/courses/{id} [get]
 func GetCourseByID(c *gin.Context) {
 	id := c.Param("id")

@@ -1,7 +1,7 @@
 package hole
 
 import (
-	"github.com/MattCSN/project-par/utils"
+	"github.com/MattCSN/project-par/pkg/utils"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -11,7 +11,7 @@ import (
 // @Tags Holes
 // @Produce json
 // @Success 200 {array} hole.Model
-// @Failure 500 {object} utils.AppError
+// @Failure 500 {object} AppError
 // @Router /v1/holes [get]
 func GetHoles(c *gin.Context) {
 	holes, err := holeService.GetAllHoles()
@@ -29,8 +29,8 @@ func GetHoles(c *gin.Context) {
 // @Produce json
 // @Param hole body hole.Model true "Hole"
 // @Success 201 {object} hole.Model
-// @Failure 400 {object} utils.AppError
-// @Failure 500 {object} utils.AppError
+// @Failure 400 {object} AppError
+// @Failure 500 {object} AppError
 // @Router /v1/holes [post]
 func CreateHole(c *gin.Context) {
 	var hole Hole
@@ -53,8 +53,8 @@ func CreateHole(c *gin.Context) {
 // @Param id path string true "Hole ID"
 // @Param hole body hole.Model true "Hole"
 // @Success 200 {object} hole.Model
-// @Failure 400 {object} utils.AppError
-// @Failure 500 {object} utils.AppError
+// @Failure 400 {object} AppError
+// @Failure 500 {object} AppError
 // @Router /v1/holes/{id} [patch]
 func UpdateHole(c *gin.Context) {
 	holeID := c.Param("id")
@@ -77,8 +77,8 @@ func UpdateHole(c *gin.Context) {
 // @Tags Holes
 // @Param id path string true "Hole ID"
 // @Success 204 "No Content"
-// @Failure 400 {object} utils.AppError
-// @Failure 500 {object} utils.AppError
+// @Failure 400 {object} AppError
+// @Failure 500 {object} AppError
 // @Router /v1/holes/{id} [delete]
 func DeleteHole(c *gin.Context) {
 	holeID := c.Param("id")
@@ -95,8 +95,8 @@ func DeleteHole(c *gin.Context) {
 // @Produce json
 // @Param id path string true "Hole ID"
 // @Success 200 {object} hole.Model
-// @Failure 400 {object} utils.AppError
-// @Failure 500 {object} utils.AppError
+// @Failure 400 {object} AppError
+// @Failure 500 {object} AppError
 // @Router /v1/holes/{id} [get]
 func GetHoleByID(c *gin.Context) {
 	id := c.Param("id")

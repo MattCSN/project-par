@@ -1,7 +1,7 @@
 package tee
 
 import (
-	"github.com/MattCSN/project-par/common"
+	"github.com/MattCSN/project-par/pkg/common"
 )
 
 // Model represents a tee on a golf tee
