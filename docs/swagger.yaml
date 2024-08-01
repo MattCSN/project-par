@@ -13,9 +13,15 @@ definitions:
     properties:
       compact:
         type: boolean
+      created_at:
+        description: '@Description Creation date of the model, automatically generated'
+        example: 2021-01-01T00:00:00Z (auto-generated)
+        type: string
       golf_id:
         type: string
       id:
+        description: '@Description ID of the model, automatically generated'
+        example: 123e4567-e89b-12d3-a456-426614174000 (auto-generated)
         type: string
       name:
         type: string
@@ -23,6 +29,10 @@ definitions:
         type: integer
       pitch_and_putt:
         type: boolean
+      updated_at:
+        description: '@Description Last update date of the model, automatically generated'
+        example: 2021-01-01T00:00:00Z (auto-generated)
+        type: string
     type: object
   Golf:
     description: Model for a golf
@@ -31,11 +41,17 @@ definitions:
         description: '@Description City where the golf course is located'
         example: Guyancourt
         type: string
+      created_at:
+        description: '@Description Creation date of the model, automatically generated'
+        example: 2021-01-01T00:00:00Z (auto-generated)
+        type: string
       googleMapLinks:
         description: '@Description Google Maps link for the golf course'
         example: https://maps.google.com/?q=Golf+National
         type: string
       id:
+        description: '@Description ID of the model, automatically generated'
+        example: 123e4567-e89b-12d3-a456-426614174000 (auto-generated)
         type: string
       latitude:
         description: '@Description Latitude of the golf course'
@@ -53,29 +69,53 @@ definitions:
         description: '@Description Postal code of the golf course location'
         example: "78280"
         type: string
+      updated_at:
+        description: '@Description Last update date of the model, automatically generated'
+        example: 2021-01-01T00:00:00Z (auto-generated)
+        type: string
     type: object
   Hole:
     description: Model for a hole
     properties:
       courseID:
         type: string
+      created_at:
+        description: '@Description Creation date of the model, automatically generated'
+        example: 2021-01-01T00:00:00Z (auto-generated)
+        type: string
       holeNumber:
         type: integer
       id:
+        description: '@Description ID of the model, automatically generated'
+        example: 123e4567-e89b-12d3-a456-426614174000 (auto-generated)
         type: string
       par:
         type: integer
+      updated_at:
+        description: '@Description Last update date of the model, automatically generated'
+        example: 2021-01-01T00:00:00Z (auto-generated)
+        type: string
     type: object
   Tee:
     description: Model for a tee
     properties:
       color:
         type: string
+      created_at:
+        description: '@Description Creation date of the model, automatically generated'
+        example: 2021-01-01T00:00:00Z (auto-generated)
+        type: string
       distance:
         type: integer
       holeID:
         type: string
       id:
+        description: '@Description ID of the model, automatically generated'
+        example: 123e4567-e89b-12d3-a456-426614174000 (auto-generated)
+        type: string
+      updated_at:
+        description: '@Description Last update date of the model, automatically generated'
+        example: 2021-01-01T00:00:00Z (auto-generated)
         type: string
     type: object
 host: localhost:8080

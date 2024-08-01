@@ -813,11 +813,18 @@ const docTemplate = `{
                 "compact": {
                     "type": "boolean"
                 },
+                "created_at": {
+                    "description": "@Description Creation date of the model, automatically generated",
+                    "type": "string",
+                    "example": "2021-01-01T00:00:00Z (auto-generated)"
+                },
                 "golf_id": {
                     "type": "string"
                 },
                 "id": {
-                    "type": "string"
+                    "description": "@Description ID of the model, automatically generated",
+                    "type": "string",
+                    "example": "123e4567-e89b-12d3-a456-426614174000 (auto-generated)"
                 },
                 "name": {
                     "type": "string"
@@ -827,6 +834,11 @@ const docTemplate = `{
                 },
                 "pitch_and_putt": {
                     "type": "boolean"
+                },
+                "updated_at": {
+                    "description": "@Description Last update date of the model, automatically generated",
+                    "type": "string",
+                    "example": "2021-01-01T00:00:00Z (auto-generated)"
                 }
             }
         },
@@ -839,13 +851,20 @@ const docTemplate = `{
                     "type": "string",
                     "example": "Guyancourt"
                 },
+                "created_at": {
+                    "description": "@Description Creation date of the model, automatically generated",
+                    "type": "string",
+                    "example": "2021-01-01T00:00:00Z (auto-generated)"
+                },
                 "googleMapLinks": {
                     "description": "@Description Google Maps link for the golf course",
                     "type": "string",
                     "example": "https://maps.google.com/?q=Golf+National"
                 },
                 "id": {
-                    "type": "string"
+                    "description": "@Description ID of the model, automatically generated",
+                    "type": "string",
+                    "example": "123e4567-e89b-12d3-a456-426614174000 (auto-generated)"
                 },
                 "latitude": {
                     "description": "@Description Latitude of the golf course",
@@ -866,6 +885,11 @@ const docTemplate = `{
                     "description": "@Description Postal code of the golf course location",
                     "type": "string",
                     "example": "78280"
+                },
+                "updated_at": {
+                    "description": "@Description Last update date of the model, automatically generated",
+                    "type": "string",
+                    "example": "2021-01-01T00:00:00Z (auto-generated)"
                 }
             }
         },
@@ -876,14 +900,26 @@ const docTemplate = `{
                 "courseID": {
                     "type": "string"
                 },
+                "created_at": {
+                    "description": "@Description Creation date of the model, automatically generated",
+                    "type": "string",
+                    "example": "2021-01-01T00:00:00Z (auto-generated)"
+                },
                 "holeNumber": {
                     "type": "integer"
                 },
                 "id": {
-                    "type": "string"
+                    "description": "@Description ID of the model, automatically generated",
+                    "type": "string",
+                    "example": "123e4567-e89b-12d3-a456-426614174000 (auto-generated)"
                 },
                 "par": {
                     "type": "integer"
+                },
+                "updated_at": {
+                    "description": "@Description Last update date of the model, automatically generated",
+                    "type": "string",
+                    "example": "2021-01-01T00:00:00Z (auto-generated)"
                 }
             }
         },
@@ -894,6 +930,11 @@ const docTemplate = `{
                 "color": {
                     "type": "string"
                 },
+                "created_at": {
+                    "description": "@Description Creation date of the model, automatically generated",
+                    "type": "string",
+                    "example": "2021-01-01T00:00:00Z (auto-generated)"
+                },
                 "distance": {
                     "type": "integer"
                 },
@@ -901,7 +942,14 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "id": {
-                    "type": "string"
+                    "description": "@Description ID of the model, automatically generated",
+                    "type": "string",
+                    "example": "123e4567-e89b-12d3-a456-426614174000 (auto-generated)"
+                },
+                "updated_at": {
+                    "description": "@Description Last update date of the model, automatically generated",
+                    "type": "string",
+                    "example": "2021-01-01T00:00:00Z (auto-generated)"
                 }
             }
         }
