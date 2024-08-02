@@ -101,6 +101,61 @@ const docTemplate = `{
                 }
             }
         },
+        "/v1/courses/{course_id}/holes": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Holes"
+                ],
+                "summary": "Get all holes for a specific course",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Course ID",
+                        "name": "course_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Page number (default is 1)",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Page size (default is 10)",
+                        "name": "pageSize",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Hole"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/AppError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/AppError"
+                        }
+                    }
+                }
+            }
+        },
         "/v1/courses/{id}": {
             "get": {
                 "produces": [
@@ -492,6 +547,7 @@ const docTemplate = `{
         },
         "/v1/holes": {
             "get": {
+                "description": "Get all holes with pagination",
                 "produces": [
                     "application/json"
                 ],
@@ -499,6 +555,20 @@ const docTemplate = `{
                     "Holes"
                 ],
                 "summary": "Get all holes",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Page number (default is 1)",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Page size (default is 10)",
+                        "name": "pageSize",
+                        "in": "query"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -685,6 +755,7 @@ const docTemplate = `{
         },
         "/v1/tees": {
             "get": {
+                "description": "Get all tees with pagination",
                 "produces": [
                     "application/json"
                 ],
@@ -692,6 +763,20 @@ const docTemplate = `{
                     "Tees"
                 ],
                 "summary": "Get all tees",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Page number (default is 1)",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Page size (default is 10)",
+                        "name": "pageSize",
+                        "in": "query"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",

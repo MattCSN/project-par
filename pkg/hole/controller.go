@@ -114,3 +114,27 @@ func GetHoleByID(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, hole)
 }
+
+// GetHolesByCourseID gets all holes for a specific course with pagination
+// @Summary Get all holes for a specific course
+// @Tags Holes
+// @Produce json
+// @Param course_id path string true "Course ID"
+// @Param page query int false "Page number (default is 1)"
+// @Param pageSize query int false "Page size (default is 10)"
+// @Success 200 {array} hole.Model
+// @Failure 400 {object} AppError
+// @Failure 500 {object} AppError
+// @Router /v1/courses/{course_id}/holes [get]
+func GetHolesByCourseID(c *gin.Context) {
+	courseID := c.Param("course_id")
+	page, _ := strconv.Atoi(c.DefaultQuery("page", "1"))
+	pageSize, _ := strconv.Atoi(c.DefaultQuery("pageSize", "10"))
+
+	holes, err := holeService.GetHolesByCourseID(courseID, page, pageSize)
+	if err != nil {
+		utils.HandleError(c, err)
+		return
+	}
+	c.JSON(http.StatusOK, holes)
+}

@@ -1,3 +1,5 @@
+// pkg/router/router.go
+
 package router
 
 import (
@@ -26,8 +28,9 @@ func SetupRouter() *gin.Engine {
 	courseGroup.GET("/", course.GetCourses)
 	courseGroup.GET("/:course_id", course.GetCourseByID) // Changed :id to :course_id
 	courseGroup.POST("/", course.CreateCourse)
-	courseGroup.PATCH("/:course_id", course.UpdateCourse)  // Changed :id to :course_id
-	courseGroup.DELETE("/:course_id", course.DeleteCourse) // Changed :id to :course_id
+	courseGroup.PATCH("/:course_id", course.UpdateCourse)         // Changed :id to :course_id
+	courseGroup.DELETE("/:course_id", course.DeleteCourse)        // Changed :id to :course_id
+	courseGroup.GET("/:course_id/holes", hole.GetHolesByCourseID) // New route for GetHolesByCourseID
 
 	// Hole router
 	holeGroup := v1.Group("/holes")

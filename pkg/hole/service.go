@@ -57,3 +57,7 @@ func (s *Service) DeleteHole(id string) error {
 func (s *Service) GetHoleByID(id string) (*Hole, error) {
 	return s.repo.GetHoleByID(id)
 }
+
+func (s *Service) GetHolesByCourseID(courseID string, page, pageSize int) ([]Hole, error) {
+	return s.repo.GetHolesByCourseID(courseID, page, pageSize)
+}

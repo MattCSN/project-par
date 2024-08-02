@@ -14,6 +14,7 @@ type Repository interface {
 	GetHoleByID(id string) (*Hole, error)
 	DeleteHoleByID(id string) error
 	UpdateHole(hole *Hole) error
+	GetHolesByCourseID(courseID string, page, pageSize int) ([]Hole, error)
 }
 
 type holeRepository struct{}
@@ -51,4 +52,13 @@ func (gr *holeRepository) DeleteHoleByID(id string) error {
 
 func (gr *holeRepository) UpdateHole(hole *Hole) error {
 	return database.DB.Save(hole).Error
+}
+
+func (gr *holeRepository) GetHolesByCourseID(courseID string, page, pageSize int) ([]Hole, error) {
+	var holes []Hole
+	offset := (page - 1) * pageSize
+	if err := database.DB.Where("course_id = ?", courseID).Offset(offset).Limit(pageSize).Find(&holes).Error; err != nil {
+		return nil, err
+	}
+	return holes, nil
 }
