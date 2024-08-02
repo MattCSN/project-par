@@ -1,5 +1,10 @@
 package golf
 
+import (
+	"fmt"
+	"github.com/MattCSN/project-par/pkg/utils"
+)
+
 var golfService *Service
 
 func InitGolfService(repository *Repository) {
@@ -68,4 +73,15 @@ func (s *Service) DeleteGolf(id string) error {
 
 func (s *Service) GetGolfByID(id string) (*Model, error) {
 	return s.repo.GetGolfByID(id)
+}
+
+func (s *Service) CheckGolfExists(golfID string) error {
+	exists, err := s.repo.GolfExists(golfID)
+	if err != nil {
+		return err
+	}
+	if !exists {
+		return utils.NotFoundError(fmt.Sprintf("Golf with id: %s does not exist", golfID))
+	}
+	return nil
 }

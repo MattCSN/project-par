@@ -1,5 +1,9 @@
 package course
 
+import (
+	"github.com/MattCSN/project-par/pkg/golf"
+)
+
 var courseService *Service
 
 func InitCourseService(repository *Repository) {
@@ -7,7 +11,8 @@ func InitCourseService(repository *Repository) {
 }
 
 type Service struct {
-	repo *Repository
+	repo        *Repository
+	golfService *golf.Service
 }
 
 func NewCourseService(repository *Repository) *Service {
@@ -19,6 +24,9 @@ func (s *Service) GetAllCourses(page, pageSize int) ([]Model, error) {
 }
 
 func (s *Service) CreateCourse(course *Model) error {
+	if err := s.golfService.CheckGolfExists(course.GolfID); err != nil {
+		return err
+	}
 	return s.repo.CreateCourse(course)
 }
 

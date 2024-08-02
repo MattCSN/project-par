@@ -39,3 +39,9 @@ func (repo *Repository) DeleteGolfByID(id string) error {
 func (repo *Repository) UpdateGolf(golf *Model) error {
 	return database.DB.Save(golf).Error
 }
+
+func (repo *Repository) GolfExists(id string) (bool, error) {
+	var count int64
+	err := database.DB.Model(&Model{}).Where("id = ?", id).Count(&count).Error
+	return count > 0, err
+}
