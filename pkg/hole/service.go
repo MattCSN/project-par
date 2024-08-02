@@ -14,8 +14,8 @@ func NewHoleService(repository Repository) *Service {
 	return &Service{repo: repository}
 }
 
-func (s *Service) GetAllHoles() ([]Hole, error) {
-	return s.repo.GetAllHoles()
+func (s *Service) GetAllHoles(page, pageSize int) ([]Hole, error) {
+	return s.repo.GetAllHoles(page, pageSize)
 }
 
 func (s *Service) CreateHole(hole *Hole) error {

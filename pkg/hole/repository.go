@@ -9,7 +9,7 @@ import (
 type Hole = Model
 
 type Repository interface {
-	GetAllHoles() ([]Hole, error)
+	GetAllHoles(page, pageSize int) ([]Hole, error)
 	CreateHole(*Hole) error
 	GetHoleByID(id string) (*Hole, error)
 	DeleteHoleByID(id string) error
@@ -22,9 +22,13 @@ func NewRepository() Repository {
 	return &holeRepository{}
 }
 
-func (gr *holeRepository) GetAllHoles() ([]Hole, error) {
+func (gr *holeRepository) GetAllHoles(page, pageSize int) ([]Hole, error) {
 	var holes []Hole
-	return holes, database.DB.Find(&holes).Error
+	offset := (page - 1) * pageSize
+	if err := database.DB.Offset(offset).Limit(pageSize).Find(&holes).Error; err != nil {
+		return nil, err
+	}
+	return holes, nil
 }
 
 func (gr *holeRepository) CreateHole(hole *Hole) error {
