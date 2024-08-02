@@ -60,7 +60,7 @@ func CreateGolf(ctx *gin.Context) {
 // @Failure 500 {object} AppError
 // @Router /v1/golfs/{id} [patch]
 func UpdateGolf(ctx *gin.Context) {
-	golfID := ctx.Param("id")
+	golfID := ctx.Param("golf_id")
 	var golf Golf
 	if err := ctx.ShouldBindJSON(&golf); err != nil {
 		utils.HandleError(ctx, utils.NewAppError(http.StatusBadRequest, err.Error()))
@@ -85,7 +85,7 @@ func UpdateGolf(ctx *gin.Context) {
 // @Failure 500 {object} AppError
 // @Router /v1/golfs/{id} [delete]
 func DeleteGolf(ctx *gin.Context) {
-	golfID := ctx.Param("id")
+	golfID := ctx.Param("golf_id")
 	if err := golfService.DeleteGolf(golfID); err != nil {
 		utils.HandleError(ctx, err)
 		return
@@ -104,7 +104,7 @@ func DeleteGolf(ctx *gin.Context) {
 // @Failure 500 {object} AppError
 // @Router /v1/golfs/{id} [get]
 func GetGolfByID(ctx *gin.Context) {
-	golfID := ctx.Param("id")
+	golfID := ctx.Param("golf_id")
 	golf, err := golfService.GetGolfByID(golfID)
 	if err != nil {
 		utils.HandleError(ctx, err)

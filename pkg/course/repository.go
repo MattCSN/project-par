@@ -14,12 +14,22 @@ type Repository interface {
 	GetCourseByID(id string) (*Course, error)
 	DeleteCourseByID(id string) error
 	UpdateCourse(course *Course) error
+	GetCoursesByGolfID(golfID string, page, pageSize int) ([]Course, error)
 }
 
 type courseRepository struct{}
 
 func NewRepository() Repository {
 	return &courseRepository{}
+}
+
+func (cr *courseRepository) GetCoursesByGolfID(golfID string, page, pageSize int) ([]Course, error) {
+	var courses []Course
+	offset := (page - 1) * pageSize
+	if err := database.DB.Where("golf_id = ?", golfID).Offset(offset).Limit(pageSize).Find(&courses).Error; err != nil {
+		return nil, err
+	}
+	return courses, nil
 }
 
 func (cr *courseRepository) GetAllCourses() ([]Course, error) {

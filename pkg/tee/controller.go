@@ -57,7 +57,7 @@ func CreateTee(c *gin.Context) {
 // @Failure 500 {object} AppError
 // @Router /v1/tees/{id} [patch]
 func UpdateTee(c *gin.Context) {
-	teeID := c.Param("id")
+	teeID := c.Param("tee_id")
 	var tee Tee
 	if err := c.ShouldBindJSON(&tee); err != nil {
 		utils.HandleError(c, utils.NewAppError(http.StatusBadRequest, err.Error()))
@@ -81,7 +81,7 @@ func UpdateTee(c *gin.Context) {
 // @Failure 500 {object} AppError
 // @Router /v1/tees/{id} [delete]
 func DeleteTee(c *gin.Context) {
-	teeID := c.Param("id")
+	teeID := c.Param("tee_id")
 	if err := teeService.DeleteTee(teeID); err != nil {
 		utils.HandleError(c, err)
 		return
@@ -99,7 +99,7 @@ func DeleteTee(c *gin.Context) {
 // @Failure 500 {object} AppError
 // @Router /v1/tees/{id} [get]
 func GetTeeByID(c *gin.Context) {
-	id := c.Param("id")
+	id := c.Param("tee_id")
 	tee, err := teeService.GetTeeByID(id)
 	if err != nil {
 		utils.HandleError(c, err)

@@ -281,6 +281,61 @@ const docTemplate = `{
                 }
             }
         },
+        "/v1/golfs/{golf_id}/courses": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Courses"
+                ],
+                "summary": "Get all courses for a specific golf",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Golf ID",
+                        "name": "golf_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Page number",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Page size",
+                        "name": "pageSize",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Course"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/AppError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/AppError"
+                        }
+                    }
+                }
+            }
+        },
         "/v1/golfs/{id}": {
             "get": {
                 "description": "Get a golf by ID",
@@ -813,7 +868,7 @@ const docTemplate = `{
                 "compact": {
                     "type": "boolean"
                 },
-                "created_at": {
+                "createdAt": {
                     "description": "@Description Creation date of the model, automatically generated",
                     "type": "string",
                     "example": "2021-01-01T00:00:00Z (auto-generated)"
@@ -835,7 +890,7 @@ const docTemplate = `{
                 "pitch_and_putt": {
                     "type": "boolean"
                 },
-                "updated_at": {
+                "updatedAt": {
                     "description": "@Description Last update date of the model, automatically generated",
                     "type": "string",
                     "example": "2021-01-01T00:00:00Z (auto-generated)"
@@ -851,7 +906,7 @@ const docTemplate = `{
                     "type": "string",
                     "example": "Guyancourt"
                 },
-                "created_at": {
+                "createdAt": {
                     "description": "@Description Creation date of the model, automatically generated",
                     "type": "string",
                     "example": "2021-01-01T00:00:00Z (auto-generated)"
@@ -886,7 +941,7 @@ const docTemplate = `{
                     "type": "string",
                     "example": "78280"
                 },
-                "updated_at": {
+                "updatedAt": {
                     "description": "@Description Last update date of the model, automatically generated",
                     "type": "string",
                     "example": "2021-01-01T00:00:00Z (auto-generated)"
@@ -900,7 +955,7 @@ const docTemplate = `{
                 "courseID": {
                     "type": "string"
                 },
-                "created_at": {
+                "createdAt": {
                     "description": "@Description Creation date of the model, automatically generated",
                     "type": "string",
                     "example": "2021-01-01T00:00:00Z (auto-generated)"
@@ -916,7 +971,7 @@ const docTemplate = `{
                 "par": {
                     "type": "integer"
                 },
-                "updated_at": {
+                "updatedAt": {
                     "description": "@Description Last update date of the model, automatically generated",
                     "type": "string",
                     "example": "2021-01-01T00:00:00Z (auto-generated)"
@@ -930,7 +985,7 @@ const docTemplate = `{
                 "color": {
                     "type": "string"
                 },
-                "created_at": {
+                "createdAt": {
                     "description": "@Description Creation date of the model, automatically generated",
                     "type": "string",
                     "example": "2021-01-01T00:00:00Z (auto-generated)"
@@ -946,7 +1001,7 @@ const docTemplate = `{
                     "type": "string",
                     "example": "123e4567-e89b-12d3-a456-426614174000 (auto-generated)"
                 },
-                "updated_at": {
+                "updatedAt": {
                     "description": "@Description Last update date of the model, automatically generated",
                     "type": "string",
                     "example": "2021-01-01T00:00:00Z (auto-generated)"

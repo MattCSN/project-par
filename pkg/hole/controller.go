@@ -57,7 +57,7 @@ func CreateHole(c *gin.Context) {
 // @Failure 500 {object} AppError
 // @Router /v1/holes/{id} [patch]
 func UpdateHole(c *gin.Context) {
-	holeID := c.Param("id")
+	holeID := c.Param("hole_id")
 	var hole Hole
 	if err := c.ShouldBindJSON(&hole); err != nil {
 		utils.HandleError(c, utils.NewAppError(http.StatusBadRequest, err.Error()))
@@ -81,7 +81,7 @@ func UpdateHole(c *gin.Context) {
 // @Failure 500 {object} AppError
 // @Router /v1/holes/{id} [delete]
 func DeleteHole(c *gin.Context) {
-	holeID := c.Param("id")
+	holeID := c.Param("hole_id")
 	if err := holeService.DeleteHole(holeID); err != nil {
 		utils.HandleError(c, err)
 		return
@@ -99,7 +99,7 @@ func DeleteHole(c *gin.Context) {
 // @Failure 500 {object} AppError
 // @Router /v1/holes/{id} [get]
 func GetHoleByID(c *gin.Context) {
-	id := c.Param("id")
+	id := c.Param("hole_id")
 	hole, err := holeService.GetHoleByID(id)
 	if err != nil {
 		utils.HandleError(c, err)

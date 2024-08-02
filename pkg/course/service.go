@@ -62,3 +62,7 @@ func (s *Service) DeleteCourse(id string) error {
 func (s *Service) GetCourseByID(id string) (*Course, error) {
 	return s.repo.GetCourseByID(id)
 }
+
+func (s *Service) GetCoursesByGolfID(golfID string, page, pageSize int) ([]Course, error) {
+	return s.repo.GetCoursesByGolfID(golfID, page, pageSize)
+}
