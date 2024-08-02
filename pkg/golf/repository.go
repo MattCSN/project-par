@@ -9,7 +9,7 @@ import (
 type Golf = Model
 
 type Repository interface {
-	GetAllGolfs() ([]Golf, error)
+	GetAllGolfs(page, pageSize int) ([]Golf, error)
 	CreateGolf(*Golf) error
 	GetGolfByID(id string) (*Golf, error)
 	DeleteGolfByID(id string) error
@@ -22,9 +22,15 @@ func NewRepository() Repository {
 	return &golfRepository{}
 }
 
-func (repo *golfRepository) GetAllGolfs() ([]Golf, error) {
+// pkg/golf/repository_impl.go
+
+func (repo *golfRepository) GetAllGolfs(page, pageSize int) ([]Golf, error) {
 	var golfs []Golf
-	return golfs, database.DB.Find(&golfs).Error
+	offset := (page - 1) * pageSize
+	if err := database.DB.Offset(offset).Limit(pageSize).Find(&golfs).Error; err != nil {
+		return nil, err
+	}
+	return golfs, nil
 }
 
 func (repo *golfRepository) CreateGolf(golf *Golf) error {

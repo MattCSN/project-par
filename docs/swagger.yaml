@@ -265,6 +265,15 @@ paths:
   /v1/golfs:
     get:
       description: Get all golfs
+      parameters:
+      - description: Page number
+        in: query
+        name: page
+        type: integer
+      - description: Page size
+        in: query
+        name: pageSize
+        type: integer
       produces:
       - application/json
       responses:

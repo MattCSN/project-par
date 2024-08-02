@@ -4,18 +4,24 @@ import (
 	"github.com/MattCSN/project-par/pkg/utils"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"strconv"
 )
 
-// GetGolfs gets all golfs
+// GetGolfs gets all golfs with pagination
 // @Summary Get all golfs
 // @Description Get all golfs
 // @Tags Golfs
 // @Produce json
+// @Param page query int false "Page number"
+// @Param pageSize query int false "Page size"
 // @Success 200 {array} golf.Model
 // @Failure 500 {object} AppError
 // @Router /v1/golfs [get]
 func GetGolfs(ctx *gin.Context) {
-	golfs, err := golfService.GetAllGolfs()
+	page, _ := strconv.Atoi(ctx.DefaultQuery("page", "1"))
+	pageSize, _ := strconv.Atoi(ctx.DefaultQuery("pageSize", "10"))
+
+	golfs, err := golfService.GetAllGolfs(page, pageSize)
 	if err != nil {
 		utils.HandleError(ctx, err)
 		return

@@ -14,8 +14,8 @@ func NewGolfService(repository Repository) *Service {
 	return &Service{repo: repository}
 }
 
-func (s *Service) GetAllGolfs() ([]Golf, error) {
-	return s.repo.GetAllGolfs()
+func (s *Service) GetAllGolfs(page, pageSize int) ([]Golf, error) {
+	return s.repo.GetAllGolfs(page, pageSize)
 }
 
 func (s *Service) CreateGolf(golf *Golf) error {
