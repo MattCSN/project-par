@@ -14,8 +14,8 @@ func NewTeeService(repository Repository) *Service {
 	return &Service{repo: repository}
 }
 
-func (s *Service) GetAllTees() ([]Tee, error) {
-	return s.repo.GetAllTees()
+func (s *Service) GetAllTees(page, pageSize int) ([]Tee, error) {
+	return s.repo.GetAllTees(page, pageSize)
 }
 
 func (s *Service) CreateTee(tee *Tee) error {

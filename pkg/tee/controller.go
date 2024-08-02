@@ -4,17 +4,24 @@ import (
 	"github.com/MattCSN/project-par/pkg/utils"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"strconv"
 )
 
-// GetTees gets all tees
+// GetTees gets all tees with pagination
 // @Summary Get all tees
+// @Description Get all tees with pagination
 // @Tags Tees
 // @Produce json
+// @Param page query int false "Page number (default is 1)"
+// @Param pageSize query int false "Page size (default is 10)"
 // @Success 200 {array} tee.Model
 // @Failure 500 {object} AppError
 // @Router /v1/tees [get]
 func GetTees(c *gin.Context) {
-	tees, err := teeService.GetAllTees()
+	page, _ := strconv.Atoi(c.DefaultQuery("page", "1"))
+	pageSize, _ := strconv.Atoi(c.DefaultQuery("pageSize", "10"))
+
+	tees, err := teeService.GetAllTees(page, pageSize)
 	if err != nil {
 		utils.HandleError(c, err)
 		return

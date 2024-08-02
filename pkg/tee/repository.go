@@ -9,7 +9,7 @@ import (
 type Tee = Model
 
 type Repository interface {
-	GetAllTees() ([]Tee, error)
+	GetAllTees(page, pageSize int) ([]Tee, error)
 	CreateTee(*Tee) error
 	GetTeeByID(id string) (*Tee, error)
 	DeleteTeeByID(id string) error
@@ -22,9 +22,13 @@ func NewRepository() Repository {
 	return &teeRepository{}
 }
 
-func (gr *teeRepository) GetAllTees() ([]Tee, error) {
+func (gr *teeRepository) GetAllTees(page, pageSize int) ([]Tee, error) {
 	var tees []Tee
-	return tees, database.DB.Find(&tees).Error
+	offset := (page - 1) * pageSize
+	if err := database.DB.Offset(offset).Limit(pageSize).Find(&tees).Error; err != nil {
+		return nil, err
+	}
+	return tees, nil
 }
 
 func (gr *teeRepository) CreateTee(tee *Tee) error {
