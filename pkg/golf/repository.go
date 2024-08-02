@@ -6,37 +6,25 @@ import (
 	"github.com/MattCSN/project-par/pkg/utils"
 )
 
-type Golf = Model
+type Repository struct{}
 
-type Repository interface {
-	GetAllGolfs(page, pageSize int) ([]Golf, error)
-	CreateGolf(*Golf) error
-	GetGolfByID(id string) (*Golf, error)
-	DeleteGolfByID(id string) error
-	UpdateGolf(golf *Golf) error
+func NewRepository() *Repository {
+	return &Repository{}
 }
 
-type golfRepository struct{}
-
-func NewRepository() Repository {
-	return &golfRepository{}
-}
-
-func (repo *golfRepository) GetAllGolfs(page, pageSize int) ([]Golf, error) {
-	var golfs []Golf
+func (repo *Repository) GetAllGolfs(page, pageSize int) ([]Model, error) {
+	var golfs []Model
 	offset := (page - 1) * pageSize
-	if err := database.DB.Offset(offset).Limit(pageSize).Find(&golfs).Error; err != nil {
-		return nil, err
-	}
-	return golfs, nil
+	err := database.DB.Offset(offset).Limit(pageSize).Find(&golfs).Error
+	return golfs, err
 }
 
-func (repo *golfRepository) CreateGolf(golf *Golf) error {
+func (repo *Repository) CreateGolf(golf *Model) error {
 	return database.DB.Create(golf).Error
 }
 
-func (repo *golfRepository) GetGolfByID(id string) (*Golf, error) {
-	var golf Golf
+func (repo *Repository) GetGolfByID(id string) (*Model, error) {
+	var golf Model
 	err := database.DB.First(&golf, "id = ?", id).Error
 	if err != nil {
 		return nil, utils.NotFoundError(fmt.Sprintf("Golf with id: %s", id))
@@ -44,10 +32,10 @@ func (repo *golfRepository) GetGolfByID(id string) (*Golf, error) {
 	return &golf, nil
 }
 
-func (repo *golfRepository) DeleteGolfByID(id string) error {
-	return database.DB.Where("id = ?", id).Delete(&Golf{}).Error
+func (repo *Repository) DeleteGolfByID(id string) error {
+	return database.DB.Where("id = ?", id).Delete(&Model{}).Error
 }
 
-func (repo *golfRepository) UpdateGolf(golf *Golf) error {
+func (repo *Repository) UpdateGolf(golf *Model) error {
 	return database.DB.Save(golf).Error
 }

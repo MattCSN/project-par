@@ -41,7 +41,7 @@ func GetGolfs(ctx *gin.Context) {
 // @Failure 500 {object} AppError
 // @Router /v1/golfs [post]
 func CreateGolf(ctx *gin.Context) {
-	var golf Golf
+	var golf Model
 	if err := ctx.ShouldBindJSON(&golf); err != nil {
 		utils.HandleError(ctx, utils.NewAppError(http.StatusBadRequest, err.Error()))
 		return
@@ -67,7 +67,7 @@ func CreateGolf(ctx *gin.Context) {
 // @Router /v1/golfs/{id} [patch]
 func UpdateGolf(ctx *gin.Context) {
 	golfID := ctx.Param("golf_id")
-	var golf Golf
+	var golf Model
 	if err := ctx.ShouldBindJSON(&golf); err != nil {
 		utils.HandleError(ctx, utils.NewAppError(http.StatusBadRequest, err.Error()))
 		return
