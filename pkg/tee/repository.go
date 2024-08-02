@@ -14,6 +14,7 @@ type Repository interface {
 	GetTeeByID(id string) (*Tee, error)
 	DeleteTeeByID(id string) error
 	UpdateTee(tee *Tee) error
+	GetTeesByHoleID(holeID string, page, pageSize int) ([]Tee, error)
 }
 
 type teeRepository struct{}
@@ -51,4 +52,13 @@ func (gr *teeRepository) DeleteTeeByID(id string) error {
 
 func (gr *teeRepository) UpdateTee(tee *Tee) error {
 	return database.DB.Save(tee).Error
+}
+
+func (gr *teeRepository) GetTeesByHoleID(holeID string, page, pageSize int) ([]Tee, error) {
+	var tees []Tee
+	offset := (page - 1) * pageSize
+	if err := database.DB.Where("hole_id = ?", holeID).Offset(offset).Limit(pageSize).Find(&tees).Error; err != nil {
+		return nil, err
+	}
+	return tees, nil
 }

@@ -37,8 +37,9 @@ func SetupRouter() *gin.Engine {
 	holeGroup.GET("/", hole.GetHoles)
 	holeGroup.GET("/:hole_id", hole.GetHoleByID) // Changed :id to :hole_id
 	holeGroup.POST("/", hole.CreateHole)
-	holeGroup.PATCH("/:hole_id", hole.UpdateHole)  // Changed :id to :hole_id
-	holeGroup.DELETE("/:hole_id", hole.DeleteHole) // Changed :id to :hole_id
+	holeGroup.PATCH("/:hole_id", hole.UpdateHole)        // Changed :id to :hole_id
+	holeGroup.DELETE("/:hole_id", hole.DeleteHole)       // Changed :id to :hole_id
+	holeGroup.GET("/:hole_id/tees", tee.GetTeesByHoleID) // New route for GetTeesByHoleID
 
 	// Tee router
 	teeGroup := v1.Group("/tees")

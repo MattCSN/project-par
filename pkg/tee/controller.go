@@ -114,3 +114,27 @@ func GetTeeByID(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, tee)
 }
+
+// GetTeesByHoleID gets all tees for a specific hole with pagination
+// @Summary Get all tees for a specific hole
+// @Tags Tees
+// @Produce json
+// @Param hole_id path string true "Hole ID"
+// @Param page query int false "Page number (default is 1)"
+// @Param pageSize query int false "Page size (default is 10)"
+// @Success 200 {array} tee.Model
+// @Failure 400 {object} AppError
+// @Failure 500 {object} AppError
+// @Router /v1/holes/{hole_id}/tees [get]
+func GetTeesByHoleID(c *gin.Context) {
+	holeID := c.Param("hole_id")
+	page, _ := strconv.Atoi(c.DefaultQuery("page", "1"))
+	pageSize, _ := strconv.Atoi(c.DefaultQuery("pageSize", "10"))
+
+	tees, err := teeService.GetTeesByHoleID(holeID, page, pageSize)
+	if err != nil {
+		utils.HandleError(c, err)
+		return
+	}
+	c.JSON(http.StatusOK, tees)
+}

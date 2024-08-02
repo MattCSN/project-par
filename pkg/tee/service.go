@@ -57,3 +57,7 @@ func (s *Service) DeleteTee(id string) error {
 func (s *Service) GetTeeByID(id string) (*Tee, error) {
 	return s.repo.GetTeeByID(id)
 }
+
+func (s *Service) GetTeesByHoleID(holeID string, page, pageSize int) ([]Tee, error) {
+	return s.repo.GetTeesByHoleID(holeID, page, pageSize)
+}
