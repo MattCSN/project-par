@@ -14,17 +14,15 @@ func NewCourseService(repository Repository) *Service {
 	return &Service{repo: repository}
 }
 
-// pkg/course/service.go
-
-func (s *Service) GetAllCourses(page, pageSize int) ([]Course, error) {
+func (s *Service) GetAllCourses(page, pageSize int) ([]Model, error) {
 	return s.repo.GetAllCourses(page, pageSize)
 }
 
-func (s *Service) CreateCourse(course *Course) error {
+func (s *Service) CreateCourse(course *Model) error {
 	return s.repo.CreateCourse(course)
 }
 
-func (s *Service) UpdateCourse(course *Course) (*Course, error) {
+func (s *Service) UpdateCourse(course *Model) (*Model, error) {
 	existingCourse, err := s.repo.GetCourseByID(course.ID)
 	if err != nil {
 		return nil, err
@@ -61,10 +59,10 @@ func (s *Service) DeleteCourse(id string) error {
 	return s.repo.DeleteCourseByID(existingCourse.ID)
 }
 
-func (s *Service) GetCourseByID(id string) (*Course, error) {
+func (s *Service) GetCourseByID(id string) (*Model, error) {
 	return s.repo.GetCourseByID(id)
 }
 
-func (s *Service) GetCoursesByGolfID(golfID string, page, pageSize int) ([]Course, error) {
+func (s *Service) GetCoursesByGolfID(golfID string, page, pageSize int) ([]Model, error) {
 	return s.repo.GetCoursesByGolfID(golfID, page, pageSize)
 }

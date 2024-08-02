@@ -40,7 +40,7 @@ func GetCourses(c *gin.Context) {
 // @Failure 500 {object} AppError
 // @Router /v1/courses [post]
 func CreateCourse(c *gin.Context) {
-	var course Course
+	var course Model
 	if err := c.ShouldBindJSON(&course); err != nil {
 		utils.HandleError(c, utils.NewAppError(http.StatusBadRequest, err.Error()))
 		return
@@ -65,7 +65,7 @@ func CreateCourse(c *gin.Context) {
 // @Router /v1/courses/{id} [patch]
 func UpdateCourse(c *gin.Context) {
 	courseID := c.Param("id")
-	var course Course
+	var course Model
 	if err := c.ShouldBindJSON(&course); err != nil {
 		utils.HandleError(c, utils.NewAppError(http.StatusBadRequest, err.Error()))
 		return

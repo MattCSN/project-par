@@ -6,25 +6,14 @@ import (
 	"github.com/MattCSN/project-par/pkg/utils"
 )
 
-type Course = Model // Alias the Course type from the models package
+type Repository struct{}
 
-type Repository interface {
-	GetAllCourses(page, pageSize int) ([]Course, error)
-	CreateCourse(course *Course) error
-	GetCourseByID(id string) (*Course, error)
-	DeleteCourseByID(id string) error
-	UpdateCourse(course *Course) error
-	GetCoursesByGolfID(golfID string, page, pageSize int) ([]Course, error)
+func NewRepository() *Repository {
+	return &Repository{}
 }
 
-type courseRepository struct{}
-
-func NewRepository() Repository {
-	return &courseRepository{}
-}
-
-func (cr *courseRepository) GetCoursesByGolfID(golfID string, page, pageSize int) ([]Course, error) {
-	var courses []Course
+func (repo *Repository) GetCoursesByGolfID(golfID string, page, pageSize int) ([]Model, error) {
+	var courses []Model
 	offset := (page - 1) * pageSize
 	if err := database.DB.Where("golf_id = ?", golfID).Offset(offset).Limit(pageSize).Find(&courses).Error; err != nil {
 		return nil, err
@@ -32,8 +21,8 @@ func (cr *courseRepository) GetCoursesByGolfID(golfID string, page, pageSize int
 	return courses, nil
 }
 
-func (cr *courseRepository) GetAllCourses(page, pageSize int) ([]Course, error) {
-	var courses []Course
+func (repo *Repository) GetAllCourses(page, pageSize int) ([]Model, error) {
+	var courses []Model
 	offset := (page - 1) * pageSize
 	if err := database.DB.Offset(offset).Limit(pageSize).Find(&courses).Error; err != nil {
 		return nil, err
@@ -41,12 +30,12 @@ func (cr *courseRepository) GetAllCourses(page, pageSize int) ([]Course, error) 
 	return courses, nil
 }
 
-func (cr *courseRepository) CreateCourse(course *Course) error {
+func (repo *Repository) CreateCourse(course *Model) error {
 	return database.DB.Create(course).Error
 }
 
-func (cr *courseRepository) GetCourseByID(id string) (*Course, error) {
-	var course Course
+func (repo *Repository) GetCourseByID(id string) (*Model, error) {
+	var course Model
 	err := database.DB.First(&course, "id = ?", id).Error
 	if err != nil {
 		// TODO : Log the error here
@@ -55,10 +44,10 @@ func (cr *courseRepository) GetCourseByID(id string) (*Course, error) {
 	return &course, nil
 }
 
-func (cr *courseRepository) DeleteCourseByID(id string) error {
-	return database.DB.Where("id = ?", id).Delete(&Course{}).Error
+func (repo *Repository) DeleteCourseByID(id string) error {
+	return database.DB.Where("id = ?", id).Delete(&Model{}).Error
 }
 
-func (cr *courseRepository) UpdateCourse(course *Course) error {
+func (repo *Repository) UpdateCourse(course *Model) error {
 	return database.DB.Save(course).Error
 }
