@@ -2,23 +2,23 @@ package tee
 
 var teeService *Service
 
-func InitTeeService(repository Repository) {
+func InitTeeService(repository *Repository) {
 	teeService = NewTeeService(repository)
 }
 
 type Service struct {
-	repo Repository
+	repo *Repository
 }
 
-func NewTeeService(repository Repository) *Service {
+func NewTeeService(repository *Repository) *Service {
 	return &Service{repo: repository}
 }
 
-func (s *Service) GetAllTees(page, pageSize int) ([]Tee, error) {
+func (s *Service) GetAllTees(page, pageSize int) ([]Model, error) {
 	return s.repo.GetAllTees(page, pageSize)
 }
 
-func (s *Service) CreateTee(tee *Tee) error {
+func (s *Service) CreateTee(tee *Model) error {
 	return s.repo.CreateTee(tee)
 }
 
@@ -54,10 +54,10 @@ func (s *Service) DeleteTee(id string) error {
 	return s.repo.DeleteTeeByID(existingTee.ID)
 }
 
-func (s *Service) GetTeeByID(id string) (*Tee, error) {
+func (s *Service) GetTeeByID(id string) (*Model, error) {
 	return s.repo.GetTeeByID(id)
 }
 
-func (s *Service) GetTeesByHoleID(holeID string, page, pageSize int) ([]Tee, error) {
+func (s *Service) GetTeesByHoleID(holeID string, page, pageSize int) ([]Model, error) {
 	return s.repo.GetTeesByHoleID(holeID, page, pageSize)
 }

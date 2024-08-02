@@ -661,7 +661,7 @@
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/Tee"
+                                "$ref": "#/definitions/Model"
                             }
                         }
                     },
@@ -832,7 +832,7 @@
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/Tee"
+                                "$ref": "#/definitions/Model"
                             }
                         }
                     },
@@ -857,12 +857,12 @@
                 "summary": "Create a new tee",
                 "parameters": [
                     {
-                        "description": "Tee",
+                        "description": "Model",
                         "name": "tee",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/Tee"
+                            "$ref": "#/definitions/Model"
                         }
                     }
                 ],
@@ -870,7 +870,7 @@
                     "201": {
                         "description": "Created",
                         "schema": {
-                            "$ref": "#/definitions/Tee"
+                            "$ref": "#/definitions/Model"
                         }
                     },
                     "400": {
@@ -900,7 +900,7 @@
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "Tee ID",
+                        "description": "Model ID",
                         "name": "id",
                         "in": "path",
                         "required": true
@@ -910,7 +910,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/Tee"
+                            "$ref": "#/definitions/Model"
                         }
                     },
                     "400": {
@@ -935,7 +935,7 @@
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "Tee ID",
+                        "description": "Model ID",
                         "name": "id",
                         "in": "path",
                         "required": true
@@ -973,18 +973,18 @@
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "Tee ID",
+                        "description": "Model ID",
                         "name": "id",
                         "in": "path",
                         "required": true
                     },
                     {
-                        "description": "Tee",
+                        "description": "Model",
                         "name": "tee",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/Tee"
+                            "$ref": "#/definitions/Model"
                         }
                     }
                 ],
@@ -992,7 +992,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/Tee"
+                            "$ref": "#/definitions/Model"
                         }
                     },
                     "400": {
@@ -1141,7 +1141,7 @@
                 }
             }
         },
-        "Tee": {
+        "Model": {
             "description": "Model for a tee",
             "type": "object",
             "properties": {

@@ -6,25 +6,14 @@ import (
 	"github.com/MattCSN/project-par/pkg/utils"
 )
 
-type Tee = Model
+type Repository struct{}
 
-type Repository interface {
-	GetAllTees(page, pageSize int) ([]Tee, error)
-	CreateTee(*Tee) error
-	GetTeeByID(id string) (*Tee, error)
-	DeleteTeeByID(id string) error
-	UpdateTee(tee *Tee) error
-	GetTeesByHoleID(holeID string, page, pageSize int) ([]Tee, error)
+func NewRepository() *Repository {
+	return &Repository{}
 }
 
-type teeRepository struct{}
-
-func NewRepository() Repository {
-	return &teeRepository{}
-}
-
-func (gr *teeRepository) GetAllTees(page, pageSize int) ([]Tee, error) {
-	var tees []Tee
+func (repo *Repository) GetAllTees(page, pageSize int) ([]Model, error) {
+	var tees []Model
 	offset := (page - 1) * pageSize
 	if err := database.DB.Offset(offset).Limit(pageSize).Find(&tees).Error; err != nil {
 		return nil, err
@@ -32,30 +21,30 @@ func (gr *teeRepository) GetAllTees(page, pageSize int) ([]Tee, error) {
 	return tees, nil
 }
 
-func (gr *teeRepository) CreateTee(tee *Tee) error {
+func (repo *Repository) CreateTee(tee *Model) error {
 	return database.DB.Create(tee).Error
 }
 
-func (gr *teeRepository) GetTeeByID(id string) (*Tee, error) {
-	var tee Tee
+func (repo *Repository) GetTeeByID(id string) (*Model, error) {
+	var tee Model
 	err := database.DB.First(&tee, "id = ?", id).Error
 	if err != nil {
 		// TODO : Log the error here
-		return nil, utils.NotFoundError(fmt.Sprintf("Tee with id : %s", id))
+		return nil, utils.NotFoundError(fmt.Sprintf("Model with id : %s", id))
 	}
 	return &tee, nil
 }
 
-func (gr *teeRepository) DeleteTeeByID(id string) error {
-	return database.DB.Where("id = ?", id).Delete(&Tee{}).Error
+func (repo *Repository) DeleteTeeByID(id string) error {
+	return database.DB.Where("id = ?", id).Delete(&Model{}).Error
 }
 
-func (gr *teeRepository) UpdateTee(tee *Tee) error {
+func (repo *Repository) UpdateTee(tee *Model) error {
 	return database.DB.Save(tee).Error
 }
 
-func (gr *teeRepository) GetTeesByHoleID(holeID string, page, pageSize int) ([]Tee, error) {
-	var tees []Tee
+func (repo *Repository) GetTeesByHoleID(holeID string, page, pageSize int) ([]Model, error) {
+	var tees []Model
 	offset := (page - 1) * pageSize
 	if err := database.DB.Where("hole_id = ?", holeID).Offset(offset).Limit(pageSize).Find(&tees).Error; err != nil {
 		return nil, err

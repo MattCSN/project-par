@@ -14,7 +14,7 @@ func SetupRouter() *gin.Engine {
 	r := gin.Default()
 	v1 := r.Group("/v1")
 
-	// Model router
+	// ModelTMP router
 	golfGroup := v1.Group("/golfs")
 	golfGroup.GET("/", golf.GetGolfs)
 	golfGroup.GET("/:golf_id", golf.GetGolfByID)
@@ -41,7 +41,7 @@ func SetupRouter() *gin.Engine {
 	holeGroup.DELETE("/:hole_id", hole.DeleteHole)       // Changed :id to :hole_id
 	holeGroup.GET("/:hole_id/tees", tee.GetTeesByHoleID) // New route for GetTeesByHoleID
 
-	// Tee router
+	// Model router
 	teeGroup := v1.Group("/tees")
 	teeGroup.GET("/", tee.GetTees)
 	teeGroup.GET("/:tee_id", tee.GetTeeByID) // Changed :id to :tee_id

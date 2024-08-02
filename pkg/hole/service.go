@@ -2,15 +2,15 @@ package hole
 
 var holeService *Service
 
-func InitHoleService(repository Repository) {
+func InitHoleService(repository *Repository) {
 	holeService = NewHoleService(repository)
 }
 
 type Service struct {
-	repo Repository
+	repo *Repository
 }
 
-func NewHoleService(repository Repository) *Service {
+func NewHoleService(repository *Repository) *Service {
 	return &Service{repo: repository}
 }
 

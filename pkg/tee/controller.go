@@ -34,13 +34,13 @@ func GetTees(c *gin.Context) {
 // @Tags Tees
 // @Accept json
 // @Produce json
-// @Param tee body tee.Model true "Tee"
+// @Param tee body tee.Model true "Model"
 // @Success 201 {object} tee.Model
 // @Failure 400 {object} AppError
 // @Failure 500 {object} AppError
 // @Router /v1/tees [post]
 func CreateTee(c *gin.Context) {
-	var tee Tee
+	var tee Model
 	if err := c.ShouldBindJSON(&tee); err != nil {
 		utils.HandleError(c, utils.NewAppError(http.StatusBadRequest, err.Error()))
 		return
@@ -57,15 +57,15 @@ func CreateTee(c *gin.Context) {
 // @Tags Tees
 // @Accept json
 // @Produce json
-// @Param id path string true "Tee ID"
-// @Param tee body tee.Model true "Tee"
+// @Param id path string true "Model ID"
+// @Param tee body tee.Model true "Model"
 // @Success 200 {object} tee.Model
 // @Failure 400 {object} AppError
 // @Failure 500 {object} AppError
 // @Router /v1/tees/{id} [patch]
 func UpdateTee(c *gin.Context) {
 	teeID := c.Param("tee_id")
-	var tee Tee
+	var tee Model
 	if err := c.ShouldBindJSON(&tee); err != nil {
 		utils.HandleError(c, utils.NewAppError(http.StatusBadRequest, err.Error()))
 		return
@@ -82,7 +82,7 @@ func UpdateTee(c *gin.Context) {
 // DeleteTee deletes an existing tee by ID
 // @Summary Delete an existing tee
 // @Tags Tees
-// @Param id path string true "Tee ID"
+// @Param id path string true "Model ID"
 // @Success 204 "No Content"
 // @Failure 400 {object} AppError
 // @Failure 500 {object} AppError
@@ -100,7 +100,7 @@ func DeleteTee(c *gin.Context) {
 // @Summary Get a tee by ID
 // @Tags Tees
 // @Produce json
-// @Param id path string true "Tee ID"
+// @Param id path string true "Model ID"
 // @Success 200 {object} tee.Model
 // @Failure 400 {object} AppError
 // @Failure 500 {object} AppError

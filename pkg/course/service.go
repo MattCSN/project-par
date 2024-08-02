@@ -2,15 +2,15 @@ package course
 
 var courseService *Service
 
-func InitCourseService(repository Repository) {
+func InitCourseService(repository *Repository) {
 	courseService = NewCourseService(repository)
 }
 
 type Service struct {
-	repo Repository
+	repo *Repository
 }
 
-func NewCourseService(repository Repository) *Service {
+func NewCourseService(repository *Repository) *Service {
 	return &Service{repo: repository}
 }
 

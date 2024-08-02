@@ -96,7 +96,7 @@ definitions:
         example: 2021-01-01T00:00:00Z (auto-generated)
         type: string
     type: object
-  Tee:
+  Model:
     description: Model for a tee
     properties:
       color:
@@ -554,7 +554,7 @@ paths:
           description: OK
           schema:
             items:
-              $ref: '#/definitions/Tee'
+              $ref: '#/definitions/Model'
             type: array
         "400":
           description: Bad Request
@@ -666,7 +666,7 @@ paths:
           description: OK
           schema:
             items:
-              $ref: '#/definitions/Tee'
+              $ref: '#/definitions/Model'
             type: array
         "500":
           description: Internal Server Error
@@ -679,19 +679,19 @@ paths:
       consumes:
       - application/json
       parameters:
-      - description: Tee
+      - description: Model
         in: body
         name: tee
         required: true
         schema:
-          $ref: '#/definitions/Tee'
+          $ref: '#/definitions/Model'
       produces:
       - application/json
       responses:
         "201":
           description: Created
           schema:
-            $ref: '#/definitions/Tee'
+            $ref: '#/definitions/Model'
         "400":
           description: Bad Request
           schema:
@@ -706,7 +706,7 @@ paths:
   /v1/tees/{id}:
     delete:
       parameters:
-      - description: Tee ID
+      - description: Model ID
         in: path
         name: id
         required: true
@@ -727,7 +727,7 @@ paths:
       - Tees
     get:
       parameters:
-      - description: Tee ID
+      - description: Model ID
         in: path
         name: id
         required: true
@@ -738,7 +738,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/Tee'
+            $ref: '#/definitions/Model'
         "400":
           description: Bad Request
           schema:
@@ -754,24 +754,24 @@ paths:
       consumes:
       - application/json
       parameters:
-      - description: Tee ID
+      - description: Model ID
         in: path
         name: id
         required: true
         type: string
-      - description: Tee
+      - description: Model
         in: body
         name: tee
         required: true
         schema:
-          $ref: '#/definitions/Tee'
+          $ref: '#/definitions/Model'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/Tee'
+            $ref: '#/definitions/Model'
         "400":
           description: Bad Request
           schema:

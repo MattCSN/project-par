@@ -11,7 +11,7 @@ type Model struct {
 	Color    string `gorm:"type:varchar(50);not null"`
 	Distance int    `gorm:"not null"`
 	HoleID   string `gorm:"type:uuid;not null"`
-} // @name Tee
+} // @name Model
 
 // TableName sets the insert table name for this struct type
 func (Model) TableName() string {

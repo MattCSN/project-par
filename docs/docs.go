@@ -667,7 +667,7 @@ const docTemplate = `{
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/Tee"
+                                "$ref": "#/definitions/Model"
                             }
                         }
                     },
@@ -838,7 +838,7 @@ const docTemplate = `{
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/Tee"
+                                "$ref": "#/definitions/Model"
                             }
                         }
                     },
@@ -863,12 +863,12 @@ const docTemplate = `{
                 "summary": "Create a new tee",
                 "parameters": [
                     {
-                        "description": "Tee",
+                        "description": "Model",
                         "name": "tee",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/Tee"
+                            "$ref": "#/definitions/Model"
                         }
                     }
                 ],
@@ -876,7 +876,7 @@ const docTemplate = `{
                     "201": {
                         "description": "Created",
                         "schema": {
-                            "$ref": "#/definitions/Tee"
+                            "$ref": "#/definitions/Model"
                         }
                     },
                     "400": {
@@ -906,7 +906,7 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "Tee ID",
+                        "description": "Model ID",
                         "name": "id",
                         "in": "path",
                         "required": true
@@ -916,7 +916,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/Tee"
+                            "$ref": "#/definitions/Model"
                         }
                     },
                     "400": {
@@ -941,7 +941,7 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "Tee ID",
+                        "description": "Model ID",
                         "name": "id",
                         "in": "path",
                         "required": true
@@ -979,18 +979,18 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "Tee ID",
+                        "description": "Model ID",
                         "name": "id",
                         "in": "path",
                         "required": true
                     },
                     {
-                        "description": "Tee",
+                        "description": "Model",
                         "name": "tee",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/Tee"
+                            "$ref": "#/definitions/Model"
                         }
                     }
                 ],
@@ -998,7 +998,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/Tee"
+                            "$ref": "#/definitions/Model"
                         }
                     },
                     "400": {
@@ -1147,7 +1147,7 @@ const docTemplate = `{
                 }
             }
         },
-        "Tee": {
+        "Model": {
             "description": "Model for a tee",
             "type": "object",
             "properties": {
