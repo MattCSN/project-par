@@ -7,15 +7,22 @@ import (
 	"strconv"
 )
 
-// GetCourses gets all courses
+// pkg/course/controller.go
+
+// GetCourses gets all courses with pagination
 // @Summary Get all courses
 // @Tags Courses
 // @Produce json
+// @Param page query int false "Page number"
+// @Param pageSize query int false "Page size"
 // @Success 200 {array} course.Model
 // @Failure 500 {object} AppError
 // @Router /v1/courses [get]
 func GetCourses(c *gin.Context) {
-	courses, err := courseService.GetAllCourses()
+	page, _ := strconv.Atoi(c.DefaultQuery("page", "1"))
+	pageSize, _ := strconv.Atoi(c.DefaultQuery("pageSize", "10"))
+
+	courses, err := courseService.GetAllCourses(page, pageSize)
 	if err != nil {
 		utils.HandleError(c, err)
 		return

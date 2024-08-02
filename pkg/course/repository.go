@@ -9,7 +9,7 @@ import (
 type Course = Model // Alias the Course type from the models package
 
 type Repository interface {
-	GetAllCourses() ([]Course, error)
+	GetAllCourses(page, pageSize int) ([]Course, error)
 	CreateCourse(course *Course) error
 	GetCourseByID(id string) (*Course, error)
 	DeleteCourseByID(id string) error
@@ -32,9 +32,13 @@ func (cr *courseRepository) GetCoursesByGolfID(golfID string, page, pageSize int
 	return courses, nil
 }
 
-func (cr *courseRepository) GetAllCourses() ([]Course, error) {
-	var golfs []Course
-	return golfs, database.DB.Find(&golfs).Error
+func (cr *courseRepository) GetAllCourses(page, pageSize int) ([]Course, error) {
+	var courses []Course
+	offset := (page - 1) * pageSize
+	if err := database.DB.Offset(offset).Limit(pageSize).Find(&courses).Error; err != nil {
+		return nil, err
+	}
+	return courses, nil
 }
 
 func (cr *courseRepository) CreateCourse(course *Course) error {

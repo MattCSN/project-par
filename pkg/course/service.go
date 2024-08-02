@@ -14,8 +14,10 @@ func NewCourseService(repository Repository) *Service {
 	return &Service{repo: repository}
 }
 
-func (s *Service) GetAllCourses() ([]Course, error) {
-	return s.repo.GetAllCourses()
+// pkg/course/service.go
+
+func (s *Service) GetAllCourses(page, pageSize int) ([]Course, error) {
+	return s.repo.GetAllCourses(page, pageSize)
 }
 
 func (s *Service) CreateCourse(course *Course) error {
