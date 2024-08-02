@@ -17,6 +17,7 @@ const docTemplate = `{
     "paths": {
         "/v1/courses": {
             "get": {
+                "description": "Get all courses with pagination",
                 "produces": [
                     "application/json"
                 ],
@@ -27,13 +28,13 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "integer",
-                        "description": "Page number",
+                        "description": "Page number (default is 1)",
                         "name": "page",
                         "in": "query"
                     },
                     {
                         "type": "integer",
-                        "description": "Page size",
+                        "description": "Page size (default is 10)",
                         "name": "pageSize",
                         "in": "query"
                     }
@@ -224,7 +225,7 @@ const docTemplate = `{
         },
         "/v1/golfs": {
             "get": {
-                "description": "Get all golfs",
+                "description": "Get all golfs with pagination",
                 "produces": [
                     "application/json"
                 ],
@@ -235,13 +236,13 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "integer",
-                        "description": "Page number",
+                        "description": "Page number (default is 1)",
                         "name": "page",
                         "in": "query"
                     },
                     {
                         "type": "integer",
-                        "description": "Page size",
+                        "description": "Page size (default is 10)",
                         "name": "pageSize",
                         "in": "query"
                     }

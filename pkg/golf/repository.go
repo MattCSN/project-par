@@ -22,8 +22,6 @@ func NewRepository() Repository {
 	return &golfRepository{}
 }
 
-// pkg/golf/repository_impl.go
-
 func (repo *golfRepository) GetAllGolfs(page, pageSize int) ([]Golf, error) {
 	var golfs []Golf
 	offset := (page - 1) * pageSize

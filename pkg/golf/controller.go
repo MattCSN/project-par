@@ -9,11 +9,11 @@ import (
 
 // GetGolfs gets all golfs with pagination
 // @Summary Get all golfs
-// @Description Get all golfs
+// @Description Get all golfs with pagination
 // @Tags Golfs
 // @Produce json
-// @Param page query int false "Page number"
-// @Param pageSize query int false "Page size"
+// @Param page query int false "Page number (default is 1)"
+// @Param pageSize query int false "Page size (default is 10)"
 // @Success 200 {array} golf.Model
 // @Failure 500 {object} AppError
 // @Router /v1/golfs [get]

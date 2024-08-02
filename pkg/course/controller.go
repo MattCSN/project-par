@@ -7,14 +7,13 @@ import (
 	"strconv"
 )
 
-// pkg/course/controller.go
-
 // GetCourses gets all courses with pagination
 // @Summary Get all courses
+// @Description Get all courses with pagination
 // @Tags Courses
 // @Produce json
-// @Param page query int false "Page number"
-// @Param pageSize query int false "Page size"
+// @Param page query int false "Page number (default is 1)"
+// @Param pageSize query int false "Page size (default is 10)"
 // @Success 200 {array} course.Model
 // @Failure 500 {object} AppError
 // @Router /v1/courses [get]

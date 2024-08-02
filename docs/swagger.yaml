@@ -129,12 +129,13 @@ info:
 paths:
   /v1/courses:
     get:
+      description: Get all courses with pagination
       parameters:
-      - description: Page number
+      - description: Page number (default is 1)
         in: query
         name: page
         type: integer
-      - description: Page size
+      - description: Page size (default is 10)
         in: query
         name: pageSize
         type: integer
@@ -264,13 +265,13 @@ paths:
       - Courses
   /v1/golfs:
     get:
-      description: Get all golfs
+      description: Get all golfs with pagination
       parameters:
-      - description: Page number
+      - description: Page number (default is 1)
         in: query
         name: page
         type: integer
-      - description: Page size
+      - description: Page size (default is 10)
         in: query
         name: pageSize
         type: integer
