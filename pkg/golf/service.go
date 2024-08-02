@@ -37,6 +37,9 @@ func (s *Service) UpdateGolf(golf *Model) (*Model, error) {
 	if golf.PostalCode != "" {
 		existingGolf.PostalCode = golf.PostalCode
 	}
+	if golf.Country != "" {
+		existingGolf.Country = golf.Country
+	}
 	if golf.GoogleMapLinks != "" {
 		existingGolf.GoogleMapLinks = golf.GoogleMapLinks
 	}
