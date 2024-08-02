@@ -40,7 +40,7 @@ func GetHoles(c *gin.Context) {
 // @Failure 500 {object} AppError
 // @Router /v1/holes [post]
 func CreateHole(c *gin.Context) {
-	var hole Hole
+	var hole Model
 	if err := c.ShouldBindJSON(&hole); err != nil {
 		utils.HandleError(c, utils.NewAppError(http.StatusBadRequest, err.Error()))
 		return
@@ -65,7 +65,7 @@ func CreateHole(c *gin.Context) {
 // @Router /v1/holes/{id} [patch]
 func UpdateHole(c *gin.Context) {
 	holeID := c.Param("hole_id")
-	var hole Hole
+	var hole Model
 	if err := c.ShouldBindJSON(&hole); err != nil {
 		utils.HandleError(c, utils.NewAppError(http.StatusBadRequest, err.Error()))
 		return

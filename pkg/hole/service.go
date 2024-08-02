@@ -14,11 +14,11 @@ func NewHoleService(repository Repository) *Service {
 	return &Service{repo: repository}
 }
 
-func (s *Service) GetAllHoles(page, pageSize int) ([]Hole, error) {
+func (s *Service) GetAllHoles(page, pageSize int) ([]Model, error) {
 	return s.repo.GetAllHoles(page, pageSize)
 }
 
-func (s *Service) CreateHole(hole *Hole) error {
+func (s *Service) CreateHole(hole *Model) error {
 	return s.repo.CreateHole(hole)
 }
 
@@ -54,10 +54,10 @@ func (s *Service) DeleteHole(id string) error {
 	return s.repo.DeleteHoleByID(existingHole.ID)
 }
 
-func (s *Service) GetHoleByID(id string) (*Hole, error) {
+func (s *Service) GetHoleByID(id string) (*Model, error) {
 	return s.repo.GetHoleByID(id)
 }
 
-func (s *Service) GetHolesByCourseID(courseID string, page, pageSize int) ([]Hole, error) {
+func (s *Service) GetHolesByCourseID(courseID string, page, pageSize int) ([]Model, error) {
 	return s.repo.GetHolesByCourseID(courseID, page, pageSize)
 }

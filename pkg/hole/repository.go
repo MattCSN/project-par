@@ -6,25 +6,14 @@ import (
 	"github.com/MattCSN/project-par/pkg/utils"
 )
 
-type Hole = Model
+type Repository struct{}
 
-type Repository interface {
-	GetAllHoles(page, pageSize int) ([]Hole, error)
-	CreateHole(*Hole) error
-	GetHoleByID(id string) (*Hole, error)
-	DeleteHoleByID(id string) error
-	UpdateHole(hole *Hole) error
-	GetHolesByCourseID(courseID string, page, pageSize int) ([]Hole, error)
+func NewRepository() *Repository {
+	return &Repository{}
 }
 
-type holeRepository struct{}
-
-func NewRepository() Repository {
-	return &holeRepository{}
-}
-
-func (gr *holeRepository) GetAllHoles(page, pageSize int) ([]Hole, error) {
-	var holes []Hole
+func (gr *Repository) GetAllHoles(page, pageSize int) ([]Model, error) {
+	var holes []Model
 	offset := (page - 1) * pageSize
 	if err := database.DB.Offset(offset).Limit(pageSize).Find(&holes).Error; err != nil {
 		return nil, err
@@ -32,12 +21,12 @@ func (gr *holeRepository) GetAllHoles(page, pageSize int) ([]Hole, error) {
 	return holes, nil
 }
 
-func (gr *holeRepository) CreateHole(hole *Hole) error {
+func (gr *Repository) CreateHole(hole *Model) error {
 	return database.DB.Create(hole).Error
 }
 
-func (gr *holeRepository) GetHoleByID(id string) (*Hole, error) {
-	var hole Hole
+func (gr *Repository) GetHoleByID(id string) (*Model, error) {
+	var hole Model
 	err := database.DB.First(&hole, "id = ?", id).Error
 	if err != nil {
 		// TODO : Log the error here
@@ -46,16 +35,16 @@ func (gr *holeRepository) GetHoleByID(id string) (*Hole, error) {
 	return &hole, nil
 }
 
-func (gr *holeRepository) DeleteHoleByID(id string) error {
-	return database.DB.Where("id = ?", id).Delete(&Hole{}).Error
+func (gr *Repository) DeleteHoleByID(id string) error {
+	return database.DB.Where("id = ?", id).Delete(&Model{}).Error
 }
 
-func (gr *holeRepository) UpdateHole(hole *Hole) error {
+func (gr *Repository) UpdateHole(hole *Model) error {
 	return database.DB.Save(hole).Error
 }
 
-func (gr *holeRepository) GetHolesByCourseID(courseID string, page, pageSize int) ([]Hole, error) {
-	var holes []Hole
+func (gr *Repository) GetHolesByCourseID(courseID string, page, pageSize int) ([]Model, error) {
+	var holes []Model
 	offset := (page - 1) * pageSize
 	if err := database.DB.Where("course_id = ?", courseID).Offset(offset).Limit(pageSize).Find(&holes).Error; err != nil {
 		return nil, err
