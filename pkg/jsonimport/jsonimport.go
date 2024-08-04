@@ -38,7 +38,11 @@ func ReadJSONFile(filePath string) ([]byte, error) {
 	if err != nil {
 		return nil, fmt.Errorf("error opening file: %w", err)
 	}
-	defer file.Close()
+	defer func() {
+		if err := file.Close(); err != nil {
+			log.Printf("Error closing file: %v", err)
+		}
+	}()
 
 	return io.ReadAll(file)
 }
@@ -54,54 +58,81 @@ func UnmarshalJSONData(data []byte) (*JSONGolfData, error) {
 
 func MapAndSaveData(jsonGolfData *JSONGolfData, golfService *golf.Service, courseService *course.Service, holeService *hole.Service, teeService *tee.Service) error {
 	for _, jsonGolf := range jsonGolfData.Golfs {
-		golfModel := &golf.Model{
-			Name:      jsonGolf.Name,
-			Latitude:  parseFloat(jsonGolf.Latitude),
-			Longitude: parseFloat(jsonGolf.Longitude),
-		}
-
-		if err := golfService.CreateGolf(golfModel); err != nil {
-			log.Printf("Error saving golf: %v", err)
+		if err := mapAndSaveGolf(jsonGolf, golfService, courseService, holeService, teeService); err != nil {
+			log.Printf("Error processing golf: %v", err)
 			continue
 		}
+	}
+	return nil
+}
 
-		for _, jsonCourse := range jsonGolf.Courses {
-			courseModel := &course.Model{
-				GolfID:       golfModel.ID,
-				NumHoles:     parseInt(jsonCourse.Holes),
-				Compact:      parseBool(jsonCourse.Compact),
-				PitchAndPutt: parseBool(jsonCourse.PitchAndPutt),
-			}
+func mapAndSaveGolf(jsonGolf JSONGolf, golfService *golf.Service, courseService *course.Service, holeService *hole.Service, teeService *tee.Service) error {
+	golfModel := &golf.Model{
+		Name:      jsonGolf.Name,
+		Latitude:  parseFloat(jsonGolf.Latitude),
+		Longitude: parseFloat(jsonGolf.Longitude),
+	}
 
-			if err := courseService.CreateCourse(courseModel); err != nil {
-				log.Printf("Error saving course: %v", err)
-				continue
-			}
+	if err := golfService.CreateGolf(golfModel); err != nil {
+		return fmt.Errorf("error saving golf: %w", err)
+	}
 
-			for i := 1; i <= parseInt(jsonCourse.Holes); i++ {
-				holeModel := &hole.Model{
-					CourseID:   courseModel.ID,
-					HoleNumber: i,
-					Par:        0,
-				}
-
-				if err := holeService.CreateHole(holeModel); err != nil {
-					log.Printf("Error saving hole: %v", err)
-					continue
-				}
-
-				teeModel := &tee.Model{
-					HoleID:   holeModel.ID,
-					Color:    "colorless",
-					Distance: 0,
-				}
-
-				if err := teeService.CreateTee(teeModel); err != nil {
-					log.Printf("Error saving tee: %v", err)
-					continue
-				}
-			}
+	for _, jsonCourse := range jsonGolf.Courses {
+		if err := mapAndSaveCourse(jsonCourse, golfModel.ID, courseService, holeService, teeService); err != nil {
+			log.Printf("Error processing course: %v", err)
+			continue
 		}
+	}
+	return nil
+}
+
+func mapAndSaveCourse(jsonCourse JSONCourse, golfID string, courseService *course.Service, holeService *hole.Service, teeService *tee.Service) error {
+	courseModel := &course.Model{
+		GolfID:       golfID,
+		NumHoles:     parseInt(jsonCourse.Holes),
+		Compact:      parseBool(jsonCourse.Compact),
+		PitchAndPutt: parseBool(jsonCourse.PitchAndPutt),
+	}
+
+	if err := courseService.CreateCourse(courseModel); err != nil {
+		return fmt.Errorf("error saving course: %w", err)
+	}
+
+	for i := 1; i <= parseInt(jsonCourse.Holes); i++ {
+		if err := mapAndSaveHole(i, courseModel.ID, holeService, teeService); err != nil {
+			log.Printf("Error processing hole: %v", err)
+			continue
+		}
+	}
+	return nil
+}
+
+func mapAndSaveHole(holeNumber int, courseID string, holeService *hole.Service, teeService *tee.Service) error {
+	holeModel := &hole.Model{
+		CourseID:   courseID,
+		HoleNumber: holeNumber,
+		Par:        0,
+	}
+
+	if err := holeService.CreateHole(holeModel); err != nil {
+		return fmt.Errorf("error saving hole: %w", err)
+	}
+
+	if err := mapAndSaveTee(holeModel.ID, teeService); err != nil {
+		return fmt.Errorf("error processing tee: %w", err)
+	}
+	return nil
+}
+
+func mapAndSaveTee(holeID string, teeService *tee.Service) error {
+	teeModel := &tee.Model{
+		HoleID:   holeID,
+		Color:    "colorless",
+		Distance: 0,
+	}
+
+	if err := teeService.CreateTee(teeModel); err != nil {
+		return fmt.Errorf("error saving tee: %w", err)
 	}
 	return nil
 }
