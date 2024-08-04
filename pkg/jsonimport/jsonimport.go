@@ -68,27 +68,32 @@ func MapAndSaveData(jsonGolfData *JSONGolfData, golfService *golf.Service, cours
 
 func mapAndSaveGolf(jsonGolf JSONGolf, golfService *golf.Service, courseService *course.Service, holeService *hole.Service, teeService *tee.Service) error {
 	golfModel := &golf.Model{
-		Name:      jsonGolf.Name,
-		Latitude:  parseFloat(jsonGolf.Latitude),
-		Longitude: parseFloat(jsonGolf.Longitude),
+		Name:           jsonGolf.Name,
+		Country:        "France",
+		GoogleMapLinks: "https://maps.google.com/?q=" + jsonGolf.Name,
+		Latitude:       parseFloat(jsonGolf.Latitude),
+		Longitude:      parseFloat(jsonGolf.Longitude),
 	}
 
 	if err := golfService.CreateGolf(golfModel); err != nil {
 		return fmt.Errorf("error saving golf: %w", err)
 	}
 
+	courseNumber := 1
 	for _, jsonCourse := range jsonGolf.Courses {
-		if err := mapAndSaveCourse(jsonCourse, golfModel.ID, courseService, holeService, teeService); err != nil {
+		if err := mapAndSaveCourse(jsonCourse, golfModel.ID, courseNumber, courseService, holeService, teeService); err != nil {
 			log.Printf("Error processing course: %v", err)
 			continue
 		}
+		courseNumber++
 	}
 	return nil
 }
 
-func mapAndSaveCourse(jsonCourse JSONCourse, golfID string, courseService *course.Service, holeService *hole.Service, teeService *tee.Service) error {
+func mapAndSaveCourse(jsonCourse JSONCourse, golfID string, courseNumber int, courseService *course.Service, holeService *hole.Service, teeService *tee.Service) error {
 	courseModel := &course.Model{
 		GolfID:       golfID,
+		Name:         fmt.Sprintf("unnamed Course n°%d", courseNumber),
 		NumHoles:     parseInt(jsonCourse.Holes),
 		Compact:      parseBool(jsonCourse.Compact),
 		PitchAndPutt: parseBool(jsonCourse.PitchAndPutt),
