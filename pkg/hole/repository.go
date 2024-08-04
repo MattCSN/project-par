@@ -46,7 +46,7 @@ func (repo *Repository) UpdateHole(hole *Model) error {
 func (repo *Repository) GetHolesByCourseID(courseID string, page, pageSize int) ([]Model, error) {
 	var holes []Model
 	offset := (page - 1) * pageSize
-	if err := database.DB.Where("course_id = ?", courseID).Offset(offset).Limit(pageSize).Find(&holes).Error; err != nil {
+	if err := database.DB.Where("course_id = ?", courseID).Order("hole_number").Offset(offset).Limit(pageSize).Find(&holes).Error; err != nil {
 		return nil, err
 	}
 	return holes, nil
