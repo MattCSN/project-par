@@ -52,7 +52,7 @@ func CreateCourse(c *gin.Context) {
 	c.JSON(http.StatusCreated, course)
 }
 
-// UpdateCourse updates an existing course by ID
+// UpdateCourse updates an existing course by course_id
 // @Summary Update a course by ID
 // @Tags Courses
 // @Accept json
@@ -64,7 +64,7 @@ func CreateCourse(c *gin.Context) {
 // @Failure 500 {object} AppError
 // @Router /v1/courses/{id} [patch]
 func UpdateCourse(c *gin.Context) {
-	courseID := c.Param("id")
+	courseID := c.Param("course_id")
 	var course Model
 	if err := c.ShouldBindJSON(&course); err != nil {
 		utils.HandleError(c, utils.NewAppError(http.StatusBadRequest, err.Error()))
@@ -79,7 +79,7 @@ func UpdateCourse(c *gin.Context) {
 	c.JSON(http.StatusOK, updatedCourse)
 }
 
-// DeleteCourse deletes a course by ID
+// DeleteCourse deletes a course by course_id
 // @Summary Delete a course by ID
 // @Tags Courses
 // @Param id path string true "Course ID"
@@ -88,7 +88,7 @@ func UpdateCourse(c *gin.Context) {
 // @Failure 500 {object} AppError
 // @Router /v1/courses/{id} [delete]
 func DeleteCourse(c *gin.Context) {
-	courseID := c.Param("id")
+	courseID := c.Param("course_id")
 	if err := courseService.DeleteCourse(courseID); err != nil {
 		utils.HandleError(c, err)
 		return
@@ -96,7 +96,7 @@ func DeleteCourse(c *gin.Context) {
 	c.Status(http.StatusNoContent)
 }
 
-// GetCourseByID gets a course by ID
+// GetCourseByID gets a course by course_id
 // @Summary Get a course by ID
 // @Tags Courses
 // @Produce json
@@ -106,8 +106,8 @@ func DeleteCourse(c *gin.Context) {
 // @Failure 500 {object} AppError
 // @Router /v1/courses/{id} [get]
 func GetCourseByID(c *gin.Context) {
-	id := c.Param("course_id")
-	course, err := courseService.GetCourseByID(id)
+	courseID := c.Param("course_id")
+	course, err := courseService.GetCourseByID(courseID)
 	if err != nil {
 		utils.HandleError(c, err)
 		return
@@ -127,7 +127,7 @@ func GetCourseByID(c *gin.Context) {
 // @Failure 500 {object} AppError
 // @Router /v1/golfs/{golf_id}/courses [get]
 func GetCoursesByGolfID(c *gin.Context) {
-	golfID := c.Param("golf_id") // Changed golfId to golf_id
+	golfID := c.Param("golf_id")
 	page, _ := strconv.Atoi(c.DefaultQuery("page", "1"))
 	pageSize, _ := strconv.Atoi(c.DefaultQuery("pageSize", "10"))
 

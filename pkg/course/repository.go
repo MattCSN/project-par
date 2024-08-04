@@ -38,8 +38,7 @@ func (repo *Repository) GetCourseByID(id string) (*Model, error) {
 	var course Model
 	err := database.DB.First(&course, "id = ?", id).Error
 	if err != nil {
-		// TODO : Log the error here
-		return nil, utils.NotFoundError(fmt.Sprintf("Golf with id : %s", id))
+		return nil, utils.NotFoundError(fmt.Sprintf("Course with id : %s", id))
 	}
 	return &course, nil
 }

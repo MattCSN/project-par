@@ -56,19 +56,12 @@ func (s *Service) UpdateCourse(course *Model) (*Model, error) {
 	if course.NumHoles != 0 {
 		existingCourse.NumHoles = course.NumHoles
 	}
-	if course.Compact {
-		existingCourse.Compact = course.Compact
-	}
-	if course.PitchAndPutt {
-		existingCourse.PitchAndPutt = course.PitchAndPutt
-	}
-	if course.GolfID != "" {
-		existingCourse.GolfID = course.GolfID
-	}
+	existingCourse.Compact = course.Compact
+	existingCourse.PitchAndPutt = course.PitchAndPutt
 
-	/*if err := s.repo.UpdateCourse(existingCourse); err != nil {
+	if err := s.repo.UpdateCourse(existingCourse); err != nil {
 		return nil, err
-	} */
+	}
 	return existingCourse, nil
 }
 
