@@ -124,13 +124,13 @@ func GetGolfByID(ctx *gin.Context) {
 // @Description Search golfs by name, city, and postal code
 // @Tags Golfs
 // @Produce json
-// @Param query query string true "Search query"
+// @Param searchTerm query string true "Search term"
 // @Success 200 {array} golf.Model
 // @Failure 500 {object} AppError
 // @Router /v1/golfs/search [get]
 func SearchGolfs(ctx *gin.Context) {
-	query := ctx.Query("query")
-	golfs, err := golfService.SearchGolfs(query)
+	searchTerm := ctx.Query("searchTerm")
+	golfs, err := golfService.SearchGolfs(searchTerm)
 	if err != nil {
 		utils.HandleError(ctx, err)
 		return

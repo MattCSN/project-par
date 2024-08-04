@@ -86,6 +86,6 @@ func (s *Service) CheckGolfExists(golfID string) error {
 	return nil
 }
 
-func (s *Service) SearchGolfs(query string) ([]Model, error) {
-	return s.repo.SearchGolfs(query)
+func (s *Service) SearchGolfs(searchTerm string) ([]Model, error) {
+	return s.repo.SearchGolfs(searchTerm)
 }
