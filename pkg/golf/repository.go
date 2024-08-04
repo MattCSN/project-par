@@ -48,6 +48,12 @@ func (repo *Repository) GolfExists(id string) (bool, error) {
 
 func (repo *Repository) SearchGolfs(query string) ([]Model, error) {
 	var golfs []Model
-	err := database.DB.Where("name ILIKE ?", "%"+query+"%").Find(&golfs).Error
-	return golfs, err
+	err := database.DB.Where("name ILIKE ? OR city ILIKE ? OR postal_code ILIKE ?", "%"+query+"%", "%"+query+"%", "%"+query+"%").Find(&golfs).Error
+	if err != nil {
+		return nil, err
+	}
+	if len(golfs) == 0 {
+		return nil, utils.NotFoundError("No golfs found matching the search criteria")
+	}
+	return golfs, nil
 }

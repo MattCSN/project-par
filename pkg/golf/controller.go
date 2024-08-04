@@ -119,9 +119,9 @@ func GetGolfByID(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, golf)
 }
 
-// SearchGolfs searches for golfs by name
-// @Summary Search golfs by name
-// @Description Search golfs by name
+// SearchGolfs searches for golfs by name, city, and postal code
+// @Summary Search golfs by name, city, and postal code
+// @Description Search golfs by name, city, and postal code
 // @Tags Golfs
 // @Produce json
 // @Param query query string true "Search query"

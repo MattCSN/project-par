@@ -367,14 +367,14 @@ const docTemplate = `{
         },
         "/v1/golfs/search": {
             "get": {
-                "description": "Search golfs by name",
+                "description": "Search golfs by name, city, and postal code",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
                     "Golfs"
                 ],
-                "summary": "Search golfs by name",
+                "summary": "Search golfs by name, city, and postal code",
                 "parameters": [
                     {
                         "type": "string",

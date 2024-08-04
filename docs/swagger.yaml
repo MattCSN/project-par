@@ -498,7 +498,7 @@ paths:
       - Golfs
   /v1/golfs/search:
     get:
-      description: Search golfs by name
+      description: Search golfs by name, city, and postal code
       parameters:
       - description: Search query
         in: query
@@ -518,7 +518,7 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/AppError'
-      summary: Search golfs by name
+      summary: Search golfs by name, city, and postal code
       tags:
       - Golfs
   /v1/holes:
