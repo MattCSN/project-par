@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/MattCSN/project-par/pkg/jsonimport"
 	"log"
 	"os"
 
@@ -16,7 +17,7 @@ import (
 	"github.com/swaggo/gin-swagger"
 )
 
-// @title ProjectPAR API
+// @title Project-PAR API
 // @version 1.0.0-Beta
 // @description This project is a comprehensive golf management system designed to facilitate the management of golf courses, including tracking of golf courses, holes, and tees.
 // @host localhost:8080
@@ -34,9 +35,16 @@ func main() {
 	database.Init(databaseURL, &golf.Model{}, &course.Model{}, &hole.Model{}, &tee.Model{})
 
 	golf.InitGolfService(golf.NewRepository())
-	course.InitCourseService(course.NewRepository())
+	course.InitCourseService(course.NewRepository(), &golf.Service{})
 	hole.InitHoleService(hole.NewRepository())
 	tee.InitTeeService(tee.NewRepository())
+
+	golfService := golf.NewGolfService(golf.NewRepository())
+	courseService := course.NewCourseService(course.NewRepository(), golfService)
+	holeService := hole.NewHoleService(hole.NewRepository())
+	teeService := tee.NewTeeService(tee.NewRepository())
+
+	jsonimport.ImportGolfData("pkg/jsonimport/golf2import.json", golfService, courseService, holeService, teeService)
 
 	r := router.SetupRouter()
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))

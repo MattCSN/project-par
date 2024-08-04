@@ -1,13 +1,15 @@
 package course
 
 import (
+	"fmt"
 	"github.com/MattCSN/project-par/pkg/golf"
+	"log"
 )
 
 var courseService *Service
 
-func InitCourseService(repository *Repository) {
-	courseService = NewCourseService(repository)
+func InitCourseService(repository *Repository, golfService *golf.Service) {
+	courseService = NewCourseService(repository, golfService)
 }
 
 type Service struct {
@@ -15,8 +17,8 @@ type Service struct {
 	golfService *golf.Service
 }
 
-func NewCourseService(repository *Repository) *Service {
-	return &Service{repo: repository}
+func NewCourseService(repository *Repository, golfService *golf.Service) *Service {
+	return &Service{repo: repository, golfService: golfService}
 }
 
 func (s *Service) GetAllCourses(page, pageSize int) ([]Model, error) {
@@ -24,10 +26,22 @@ func (s *Service) GetAllCourses(page, pageSize int) ([]Model, error) {
 }
 
 func (s *Service) CreateCourse(course *Model) error {
+	log.Printf("Creating course with GolfID: %s", course.GolfID)
+	if s.golfService == nil {
+		log.Printf("Error: golfService is nil")
+		return fmt.Errorf("golfService is nil")
+	}
 	if err := s.golfService.CheckGolfExists(course.GolfID); err != nil {
+		log.Printf("Error checking if golf exists: %v", err)
 		return err
 	}
-	return s.repo.CreateCourse(course)
+	log.Printf("Golf exists for GolfID: %s", course.GolfID)
+	if err := s.repo.CreateCourse(course); err != nil {
+		log.Printf("Error creating course: %v", err)
+		return err
+	}
+	log.Printf("Course created successfully with ID: %s", course.ID)
+	return nil
 }
 
 func (s *Service) UpdateCourse(course *Model) (*Model, error) {
