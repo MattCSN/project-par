@@ -1,5 +1,3 @@
-// pkg/router/router.go
-
 package router
 
 import (
@@ -14,40 +12,41 @@ func SetupRouter() *gin.Engine {
 	r := gin.Default()
 	v1 := r.Group("/v1")
 
-	// ModelTMP router
+	// Golf router
 	golfGroup := v1.Group("/golfs")
+	golfGroup.GET("/search", golf.SearchGolfs) // Register the search route first
 	golfGroup.GET("/", golf.GetGolfs)
 	golfGroup.GET("/:golf_id", golf.GetGolfByID)
 	golfGroup.POST("/", golf.CreateGolf)
 	golfGroup.PATCH("/:golf_id", golf.UpdateGolf)
 	golfGroup.DELETE("/:golf_id", golf.DeleteGolf)
-	golfGroup.GET("/:golf_id/courses", course.GetCoursesByGolfID) // Changed :golfId to :golf_id
+	golfGroup.GET("/:golf_id/courses", course.GetCoursesByGolfID)
 
 	// Course router
 	courseGroup := v1.Group("/courses")
 	courseGroup.GET("/", course.GetCourses)
-	courseGroup.GET("/:course_id", course.GetCourseByID) // Changed :id to :course_id
+	courseGroup.GET("/:course_id", course.GetCourseByID)
 	courseGroup.POST("/", course.CreateCourse)
-	courseGroup.PATCH("/:course_id", course.UpdateCourse)         // Changed :id to :course_id
-	courseGroup.DELETE("/:course_id", course.DeleteCourse)        // Changed :id to :course_id
-	courseGroup.GET("/:course_id/holes", hole.GetHolesByCourseID) // New route for GetHolesByCourseID
+	courseGroup.PATCH("/:course_id", course.UpdateCourse)
+	courseGroup.DELETE("/:course_id", course.DeleteCourse)
+	courseGroup.GET("/:course_id/holes", hole.GetHolesByCourseID)
 
 	// Hole router
 	holeGroup := v1.Group("/holes")
 	holeGroup.GET("/", hole.GetHoles)
-	holeGroup.GET("/:hole_id", hole.GetHoleByID) // Changed :id to :hole_id
+	holeGroup.GET("/:hole_id", hole.GetHoleByID)
 	holeGroup.POST("/", hole.CreateHole)
-	holeGroup.PATCH("/:hole_id", hole.UpdateHole)        // Changed :id to :hole_id
-	holeGroup.DELETE("/:hole_id", hole.DeleteHole)       // Changed :id to :hole_id
-	holeGroup.GET("/:hole_id/tees", tee.GetTeesByHoleID) // New route for GetTeesByHoleID
+	holeGroup.PATCH("/:hole_id", hole.UpdateHole)
+	holeGroup.DELETE("/:hole_id", hole.DeleteHole)
+	holeGroup.GET("/:hole_id/tees", tee.GetTeesByHoleID)
 
-	// Model router
+	// Tee router
 	teeGroup := v1.Group("/tees")
 	teeGroup.GET("/", tee.GetTees)
-	teeGroup.GET("/:tee_id", tee.GetTeeByID) // Changed :id to :tee_id
+	teeGroup.GET("/:tee_id", tee.GetTeeByID)
 	teeGroup.POST("/", tee.CreateTee)
-	teeGroup.PATCH("/:tee_id", tee.UpdateTee)  // Changed :id to :tee_id
-	teeGroup.DELETE("/:tee_id", tee.DeleteTee) // Changed :id to :tee_id
+	teeGroup.PATCH("/:tee_id", tee.UpdateTee)
+	teeGroup.DELETE("/:tee_id", tee.DeleteTee)
 
 	return r
 }

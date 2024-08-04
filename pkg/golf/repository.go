@@ -45,3 +45,9 @@ func (repo *Repository) GolfExists(id string) (bool, error) {
 	err := database.DB.Model(&Model{}).Where("id = ?", id).Count(&count).Error
 	return count > 0, err
 }
+
+func (repo *Repository) SearchGolfs(query string) ([]Model, error) {
+	var golfs []Model
+	err := database.DB.Where("name ILIKE ?", "%"+query+"%").Find(&golfs).Error
+	return golfs, err
+}

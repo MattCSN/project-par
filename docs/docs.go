@@ -365,6 +365,44 @@ const docTemplate = `{
                 }
             }
         },
+        "/v1/golfs/search": {
+            "get": {
+                "description": "Search golfs by name",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Golfs"
+                ],
+                "summary": "Search golfs by name",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Search query",
+                        "name": "query",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Golf"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/AppError"
+                        }
+                    }
+                }
+            }
+        },
         "/v1/golfs/{golf_id}/courses": {
             "get": {
                 "produces": [
@@ -1035,7 +1073,8 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "compact": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "example": false
                 },
                 "createdAt": {
                     "description": "@Description Creation date of the model, automatically generated",
@@ -1043,7 +1082,8 @@ const docTemplate = `{
                     "example": "2021-01-01T00:00:00Z (auto-generated)"
                 },
                 "golf_id": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "123e4567-e89b-12d3-a456-426614174000"
                 },
                 "id": {
                     "description": "@Description ID of the model, automatically generated",
@@ -1051,13 +1091,16 @@ const docTemplate = `{
                     "example": "123e4567-e89b-12d3-a456-426614174000 (auto-generated)"
                 },
                 "name": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "L’Albatros"
                 },
                 "num_holes": {
-                    "type": "integer"
+                    "type": "integer",
+                    "example": 18
                 },
                 "pitch_and_putt": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "example": false
                 },
                 "updatedAt": {
                     "description": "@Description Last update date of the model, automatically generated",
@@ -1074,6 +1117,11 @@ const docTemplate = `{
                     "description": "@Description City where the golf course is located",
                     "type": "string",
                     "example": "Guyancourt"
+                },
+                "country": {
+                    "description": "@Description Country where the golf course is located",
+                    "type": "string",
+                    "example": "France"
                 },
                 "createdAt": {
                     "description": "@Description Creation date of the model, automatically generated",
@@ -1122,7 +1170,9 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "courseID": {
-                    "type": "string"
+                    "description": "@Description ID of the course the hole is on",
+                    "type": "string",
+                    "example": "123e4567-e89b-12d3-a456-426614174000"
                 },
                 "createdAt": {
                     "description": "@Description Creation date of the model, automatically generated",
@@ -1130,7 +1180,9 @@ const docTemplate = `{
                     "example": "2021-01-01T00:00:00Z (auto-generated)"
                 },
                 "holeNumber": {
-                    "type": "integer"
+                    "description": "@Description Hole number",
+                    "type": "integer",
+                    "example": 1
                 },
                 "id": {
                     "description": "@Description ID of the model, automatically generated",
@@ -1138,7 +1190,9 @@ const docTemplate = `{
                     "example": "123e4567-e89b-12d3-a456-426614174000 (auto-generated)"
                 },
                 "par": {
-                    "type": "integer"
+                    "description": "@Description Par for the hole",
+                    "type": "integer",
+                    "example": 4
                 },
                 "updatedAt": {
                     "description": "@Description Last update date of the model, automatically generated",
@@ -1152,7 +1206,9 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "color": {
-                    "type": "string"
+                    "description": "@Description Color of the tee",
+                    "type": "string",
+                    "example": "White"
                 },
                 "createdAt": {
                     "description": "@Description Creation date of the model, automatically generated",
@@ -1160,10 +1216,14 @@ const docTemplate = `{
                     "example": "2021-01-01T00:00:00Z (auto-generated)"
                 },
                 "distance": {
-                    "type": "integer"
+                    "description": "@Description Distance of the tee",
+                    "type": "integer",
+                    "example": 353
                 },
                 "holeID": {
-                    "type": "string"
+                    "description": "@Description ID of the hole the tee is on",
+                    "type": "string",
+                    "example": "123e4567-e89b-12d3-a456-426614174000"
                 },
                 "id": {
                     "description": "@Description ID of the model, automatically generated",
@@ -1186,7 +1246,7 @@ var SwaggerInfo = &swag.Spec{
 	Host:             "localhost:8080",
 	BasePath:         "/",
 	Schemes:          []string{},
-	Title:            "ProjectPAR API",
+	Title:            "Project-PAR API",
 	Description:      "This project is a comprehensive golf management system designed to facilitate the management of golf courses, including tracking of golf courses, holes, and tees.",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,

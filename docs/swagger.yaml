@@ -12,22 +12,27 @@ definitions:
     description: Model for a golf course
     properties:
       compact:
+        example: false
         type: boolean
       createdAt:
         description: '@Description Creation date of the model, automatically generated'
         example: 2021-01-01T00:00:00Z (auto-generated)
         type: string
       golf_id:
+        example: 123e4567-e89b-12d3-a456-426614174000
         type: string
       id:
         description: '@Description ID of the model, automatically generated'
         example: 123e4567-e89b-12d3-a456-426614174000 (auto-generated)
         type: string
       name:
+        example: L’Albatros
         type: string
       num_holes:
+        example: 18
         type: integer
       pitch_and_putt:
+        example: false
         type: boolean
       updatedAt:
         description: '@Description Last update date of the model, automatically generated'
@@ -40,6 +45,10 @@ definitions:
       city:
         description: '@Description City where the golf course is located'
         example: Guyancourt
+        type: string
+      country:
+        description: '@Description Country where the golf course is located'
+        example: France
         type: string
       createdAt:
         description: '@Description Creation date of the model, automatically generated'
@@ -78,18 +87,24 @@ definitions:
     description: Model for a hole
     properties:
       courseID:
+        description: '@Description ID of the course the hole is on'
+        example: 123e4567-e89b-12d3-a456-426614174000
         type: string
       createdAt:
         description: '@Description Creation date of the model, automatically generated'
         example: 2021-01-01T00:00:00Z (auto-generated)
         type: string
       holeNumber:
+        description: '@Description Hole number'
+        example: 1
         type: integer
       id:
         description: '@Description ID of the model, automatically generated'
         example: 123e4567-e89b-12d3-a456-426614174000 (auto-generated)
         type: string
       par:
+        description: '@Description Par for the hole'
+        example: 4
         type: integer
       updatedAt:
         description: '@Description Last update date of the model, automatically generated'
@@ -100,14 +115,20 @@ definitions:
     description: Model for a tee
     properties:
       color:
+        description: '@Description Color of the tee'
+        example: White
         type: string
       createdAt:
         description: '@Description Creation date of the model, automatically generated'
         example: 2021-01-01T00:00:00Z (auto-generated)
         type: string
       distance:
+        description: '@Description Distance of the tee'
+        example: 353
         type: integer
       holeID:
+        description: '@Description ID of the hole the tee is on'
+        example: 123e4567-e89b-12d3-a456-426614174000
         type: string
       id:
         description: '@Description ID of the model, automatically generated'
@@ -124,7 +145,7 @@ info:
   description: This project is a comprehensive golf management system designed to
     facilitate the management of golf courses, including tracking of golf courses,
     holes, and tees.
-  title: ProjectPAR API
+  title: Project-PAR API
   version: 1.0.0-Beta
 paths:
   /v1/courses:
@@ -473,6 +494,31 @@ paths:
           schema:
             $ref: '#/definitions/AppError'
       summary: Update an existing golf
+      tags:
+      - Golfs
+  /v1/golfs/search:
+    get:
+      description: Search golfs by name
+      parameters:
+      - description: Search query
+        in: query
+        name: query
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/Golf'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/AppError'
+      summary: Search golfs by name
       tags:
       - Golfs
   /v1/holes:
