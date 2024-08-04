@@ -157,7 +157,12 @@ func parseBool(value string) bool {
 	return parsedValue
 }
 
-func ImportGolfData(filePath string, golfService *golf.Service, courseService *course.Service, holeService *hole.Service, teeService *tee.Service) {
+func ImportGolfData(filePath string) {
+	golfService := golf.NewGolfService(golf.NewRepository())
+	courseService := course.NewCourseService(course.NewRepository(), golfService)
+	holeService := hole.NewHoleService(hole.NewRepository())
+	teeService := tee.NewTeeService(tee.NewRepository())
+
 	if golfService == nil || courseService == nil || holeService == nil || teeService == nil {
 		log.Println("Error: One or more services are nil")
 		return

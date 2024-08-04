@@ -39,12 +39,7 @@ func main() {
 	hole.InitHoleService(hole.NewRepository())
 	tee.InitTeeService(tee.NewRepository())
 
-	golfService := golf.NewGolfService(golf.NewRepository())
-	courseService := course.NewCourseService(course.NewRepository(), golfService)
-	holeService := hole.NewHoleService(hole.NewRepository())
-	teeService := tee.NewTeeService(tee.NewRepository())
-
-	jsonimport.ImportGolfData("pkg/jsonimport/golf2import.json", golfService, courseService, holeService, teeService)
+	jsonimport.ImportGolfData("pkg/jsonimport/golf2import.json")
 
 	r := router.SetupRouter()
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
