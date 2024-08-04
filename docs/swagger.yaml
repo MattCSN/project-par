@@ -500,9 +500,9 @@ paths:
     get:
       description: Search golfs by name, city, and postal code
       parameters:
-      - description: Search query
+      - description: Search term
         in: query
-        name: query
+        name: searchTerm
         required: true
         type: string
       produces:
@@ -519,6 +519,44 @@ paths:
           schema:
             $ref: '#/definitions/AppError'
       summary: Search golfs by name, city, and postal code
+      tags:
+      - Golfs
+  /v1/golfs/search/proximity:
+    get:
+      description: Search golfs by proximity to given coordinates with pagination
+      parameters:
+      - description: Latitude
+        in: query
+        name: latitude
+        required: true
+        type: number
+      - description: Longitude
+        in: query
+        name: longitude
+        required: true
+        type: number
+      - description: Page number (default is 1)
+        in: query
+        name: page
+        type: integer
+      - description: Page size (default is 10)
+        in: query
+        name: pageSize
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/Golf'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/AppError'
+      summary: Search golfs by proximity to given coordinates
       tags:
       - Golfs
   /v1/holes:

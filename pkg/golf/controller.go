@@ -137,3 +137,37 @@ func SearchGolfs(ctx *gin.Context) {
 	}
 	ctx.JSON(http.StatusOK, golfs)
 }
+
+// SearchGolfsByProximity searches for golfs by proximity to given coordinates with pagination
+// @Summary Search golfs by proximity to given coordinates
+// @Description Search golfs by proximity to given coordinates with pagination
+// @Tags Golfs
+// @Produce json
+// @Param latitude query float64 true "Latitude"
+// @Param longitude query float64 true "Longitude"
+// @Param page query int false "Page number (default is 1)"
+// @Param pageSize query int false "Page size (default is 10)"
+// @Success 200 {array} golf.Model
+// @Failure 500 {object} AppError
+// @Router /v1/golfs/search/proximity [get]
+func SearchGolfsByProximity(ctx *gin.Context) {
+	longitude, err := strconv.ParseFloat(ctx.Query("longitude"), 64)
+	if err != nil {
+		utils.HandleError(ctx, utils.NewAppError(http.StatusBadRequest, "Invalid longitude"))
+		return
+	}
+	latitude, err := strconv.ParseFloat(ctx.Query("latitude"), 64)
+	if err != nil {
+		utils.HandleError(ctx, utils.NewAppError(http.StatusBadRequest, "Invalid latitude"))
+		return
+	}
+	page, _ := strconv.Atoi(ctx.DefaultQuery("page", "1"))
+	pageSize, _ := strconv.Atoi(ctx.DefaultQuery("pageSize", "10"))
+
+	golfs, err := golfService.SearchGolfsByProximity(longitude, latitude, page, pageSize)
+	if err != nil {
+		utils.HandleError(ctx, err)
+		return
+	}
+	ctx.JSON(http.StatusOK, golfs)
+}

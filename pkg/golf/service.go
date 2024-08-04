@@ -89,3 +89,7 @@ func (s *Service) CheckGolfExists(golfID string) error {
 func (s *Service) SearchGolfs(searchTerm string) ([]Model, error) {
 	return s.repo.SearchGolfs(searchTerm)
 }
+
+func (s *Service) SearchGolfsByProximity(longitude, latitude float64, page, pageSize int) ([]Model, error) {
+	return s.repo.SearchGolfsByProximity(longitude, latitude, page, pageSize)
+}

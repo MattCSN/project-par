@@ -378,10 +378,67 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "Search query",
-                        "name": "query",
+                        "description": "Search term",
+                        "name": "searchTerm",
                         "in": "query",
                         "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Golf"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/AppError"
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/golfs/search/proximity": {
+            "get": {
+                "description": "Search golfs by proximity to given coordinates with pagination",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Golfs"
+                ],
+                "summary": "Search golfs by proximity to given coordinates",
+                "parameters": [
+                    {
+                        "type": "number",
+                        "description": "Latitude",
+                        "name": "latitude",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "number",
+                        "description": "Longitude",
+                        "name": "longitude",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Page number (default is 1)",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Page size (default is 10)",
+                        "name": "pageSize",
+                        "in": "query"
                     }
                 ],
                 "responses": {

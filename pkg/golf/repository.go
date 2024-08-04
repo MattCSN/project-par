@@ -57,3 +57,22 @@ func (repo *Repository) SearchGolfs(searchTerm string) ([]Model, error) {
 	}
 	return golfs, nil
 }
+
+func (repo *Repository) SearchGolfsByProximity(longitude, latitude float64, page, pageSize int) ([]Model, error) {
+	var golfs []Model
+	offset := (page - 1) * pageSize
+	err := database.DB.Raw(`
+        SELECT *, 
+        ( 6371 * acos( cos( radians(?) ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(?) ) + sin( radians(?) ) * sin( radians( latitude ) ) ) ) AS distance 
+        FROM golfs 
+        ORDER BY distance
+        LIMIT ? OFFSET ?
+    `, latitude, longitude, latitude, pageSize, offset).Scan(&golfs).Error
+	if err != nil {
+		return nil, err
+	}
+	if len(golfs) == 0 {
+		return nil, utils.NotFoundError("No golfs found near the provided coordinates")
+	}
+	return golfs, nil
+}

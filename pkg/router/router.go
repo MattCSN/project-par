@@ -15,6 +15,7 @@ func SetupRouter() *gin.Engine {
 	// Golf router
 	golfGroup := v1.Group("/golfs")
 	golfGroup.GET("/search", golf.SearchGolfs) // Register the search route first
+	golfGroup.GET("/search/proximity", golf.SearchGolfsByProximity)
 	golfGroup.GET("/", golf.GetGolfs)
 	golfGroup.GET("/:golf_id", golf.GetGolfByID)
 	golfGroup.POST("/", golf.CreateGolf)
