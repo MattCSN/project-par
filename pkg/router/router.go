@@ -32,7 +32,7 @@ func SetupRouter() *gin.Engine {
 	courseGroup.PATCH("/:course_id", course.UpdateCourse)
 	courseGroup.DELETE("/:course_id", course.DeleteCourse)
 	courseGroup.GET("/:course_id/holes", hole.GetHolesByCourseID)
-
+	courseGroup.POST("/:course_id/tees", tee.CreateTeesForCourse)
 	// Hole router
 	holeGroup := v1.Group("/holes")
 	holeGroup.GET("/", hole.GetHoles)

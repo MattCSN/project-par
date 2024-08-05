@@ -135,3 +135,32 @@ func GetTeesByHoleID(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, tees)
 }
+
+// CreateTeesForCourse creates a new tee for each hole in a course with the specified color
+// @Summary Create tees for all holes in a course
+// @Tags Tees
+// @Accept json
+// @Produce json
+// @Param course_id path string true "Course ID"
+// @Param color query string true "Color of the tee"
+// @Success 201 {array} tee.Model
+// @Failure 400 {object} AppError
+// @Failure 500 {object} AppError
+// @Router /v1/courses/{course_id}/tees [post]
+func CreateTeesForCourse(c *gin.Context) {
+	courseID := c.Param("course_id")
+	color := c.Query("color")
+
+	if color == "" {
+		utils.HandleError(c, utils.NewAppError(http.StatusBadRequest, "Color is required"))
+		return
+	}
+
+	createdTees, err := teeService.CreateTeesForCourse(courseID, color)
+	if err != nil {
+		utils.HandleError(c, err)
+		return
+	}
+
+	c.JSON(http.StatusCreated, createdTees)
+}

@@ -1,5 +1,7 @@
 package tee
 
+import "github.com/MattCSN/project-par/pkg/hole"
+
 var teeService *Service
 
 func InitTeeService(repository *Repository) {
@@ -60,4 +62,26 @@ func (s *Service) GetTeeByID(id string) (*Model, error) {
 
 func (s *Service) GetTeesByHoleID(holeID string, page, pageSize int) ([]Model, error) {
 	return s.repo.GetTeesByHoleID(holeID, page, pageSize)
+}
+
+func (s *Service) CreateTeesForCourse(courseID, color string) ([]Model, error) {
+	holeService := hole.NewHoleService(hole.NewRepository())
+	holes, err := holeService.GetHolesByCourseID(courseID, 1, 100)
+	if err != nil {
+		return nil, err
+	}
+
+	var createdTees []Model
+	for _, holeModel := range holes {
+		tee := Model{
+			Color:  color,
+			HoleID: holeModel.ID,
+		}
+		if err := s.repo.CreateTee(&tee); err != nil {
+			return nil, err
+		}
+		createdTees = append(createdTees, tee)
+	}
+
+	return createdTees, nil
 }
