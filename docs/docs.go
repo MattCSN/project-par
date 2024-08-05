@@ -481,6 +481,25 @@ const docTemplate = `{
                 }
             }
         },
+        "/v1/golfs/{golf_id}/details": {
+            "get": {
+                "description": "Get detailed information about a specific golf entity, including courses, holes, and tees",
+                "tags": [
+                    "Views"
+                ],
+                "summary": "Get golf details",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Golf ID",
+                        "name": "golf_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {}
+            }
+        },
         "/v1/golfs/{id}": {
             "get": {
                 "description": "Get a golf by ID",
@@ -728,7 +747,7 @@ const docTemplate = `{
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/Model"
+                                "$ref": "#/definitions/Tee"
                             }
                         }
                     },
@@ -899,7 +918,7 @@ const docTemplate = `{
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/Model"
+                                "$ref": "#/definitions/Tee"
                             }
                         }
                     },
@@ -924,12 +943,12 @@ const docTemplate = `{
                 "summary": "Create a new tee",
                 "parameters": [
                     {
-                        "description": "Model",
+                        "description": "Tee",
                         "name": "tee",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/Model"
+                            "$ref": "#/definitions/Tee"
                         }
                     }
                 ],
@@ -937,7 +956,7 @@ const docTemplate = `{
                     "201": {
                         "description": "Created",
                         "schema": {
-                            "$ref": "#/definitions/Model"
+                            "$ref": "#/definitions/Tee"
                         }
                     },
                     "400": {
@@ -967,7 +986,7 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "Model ID",
+                        "description": "Tee ID",
                         "name": "id",
                         "in": "path",
                         "required": true
@@ -977,7 +996,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/Model"
+                            "$ref": "#/definitions/Tee"
                         }
                     },
                     "400": {
@@ -1002,7 +1021,7 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "Model ID",
+                        "description": "Tee ID",
                         "name": "id",
                         "in": "path",
                         "required": true
@@ -1040,18 +1059,18 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "Model ID",
+                        "description": "Tee ID",
                         "name": "id",
                         "in": "path",
                         "required": true
                     },
                     {
-                        "description": "Model",
+                        "description": "Tee",
                         "name": "tee",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/Model"
+                            "$ref": "#/definitions/Tee"
                         }
                     }
                 ],
@@ -1059,7 +1078,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/Model"
+                            "$ref": "#/definitions/Tee"
                         }
                     },
                     "400": {
@@ -1224,7 +1243,7 @@ const docTemplate = `{
                 }
             }
         },
-        "Model": {
+        "Tee": {
             "description": "Model for a tee",
             "type": "object",
             "properties": {

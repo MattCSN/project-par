@@ -32,7 +32,7 @@ func GetTees(c *gin.Context) {
 // @Tags Tees
 // @Accept json
 // @Produce json
-// @Param tee body tee.Model true "Model"
+// @Param tee body tee.Model true "Tee"
 // @Success 201 {object} tee.Model
 // @Failure 400 {object} AppError
 // @Failure 500 {object} AppError
@@ -55,8 +55,8 @@ func CreateTee(c *gin.Context) {
 // @Tags Tees
 // @Accept json
 // @Produce json
-// @Param id path string true "Model ID"
-// @Param tee body tee.Model true "Model"
+// @Param id path string true "Tee ID"
+// @Param tee body tee.Model true "Tee"
 // @Success 200 {object} tee.Model
 // @Failure 400 {object} AppError
 // @Failure 500 {object} AppError
@@ -80,7 +80,7 @@ func UpdateTee(c *gin.Context) {
 // DeleteTee deletes an existing tee by ID
 // @Summary Delete an existing tee
 // @Tags Tees
-// @Param id path string true "Model ID"
+// @Param id path string true "Tee ID"
 // @Success 204 "No Content"
 // @Failure 400 {object} AppError
 // @Failure 500 {object} AppError
@@ -98,7 +98,7 @@ func DeleteTee(c *gin.Context) {
 // @Summary Get a tee by ID
 // @Tags Tees
 // @Produce json
-// @Param id path string true "Model ID"
+// @Param id path string true "Tee ID"
 // @Success 200 {object} tee.Model
 // @Failure 400 {object} AppError
 // @Failure 500 {object} AppError

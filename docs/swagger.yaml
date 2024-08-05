@@ -111,7 +111,7 @@ definitions:
         example: 2021-01-01T00:00:00Z (auto-generated)
         type: string
     type: object
-  Model:
+  Tee:
     description: Model for a tee
     properties:
       color:
@@ -413,6 +413,20 @@ paths:
       summary: Get all courses for a specific golf
       tags:
       - Courses
+  /v1/golfs/{golf_id}/details:
+    get:
+      description: Get detailed information about a specific golf entity, including
+        courses, holes, and tees
+      parameters:
+      - description: Golf ID
+        in: path
+        name: golf_id
+        required: true
+        type: string
+      responses: {}
+      summary: Get golf details
+      tags:
+      - Views
   /v1/golfs/{id}:
     delete:
       description: Delete an existing golf by ID
@@ -616,7 +630,7 @@ paths:
           description: OK
           schema:
             items:
-              $ref: '#/definitions/Model'
+              $ref: '#/definitions/Tee'
             type: array
         "400":
           description: Bad Request
@@ -728,7 +742,7 @@ paths:
           description: OK
           schema:
             items:
-              $ref: '#/definitions/Model'
+              $ref: '#/definitions/Tee'
             type: array
         "500":
           description: Internal Server Error
@@ -741,19 +755,19 @@ paths:
       consumes:
       - application/json
       parameters:
-      - description: Model
+      - description: Tee
         in: body
         name: tee
         required: true
         schema:
-          $ref: '#/definitions/Model'
+          $ref: '#/definitions/Tee'
       produces:
       - application/json
       responses:
         "201":
           description: Created
           schema:
-            $ref: '#/definitions/Model'
+            $ref: '#/definitions/Tee'
         "400":
           description: Bad Request
           schema:
@@ -768,7 +782,7 @@ paths:
   /v1/tees/{id}:
     delete:
       parameters:
-      - description: Model ID
+      - description: Tee ID
         in: path
         name: id
         required: true
@@ -789,7 +803,7 @@ paths:
       - Tees
     get:
       parameters:
-      - description: Model ID
+      - description: Tee ID
         in: path
         name: id
         required: true
@@ -800,7 +814,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/Model'
+            $ref: '#/definitions/Tee'
         "400":
           description: Bad Request
           schema:
@@ -816,24 +830,24 @@ paths:
       consumes:
       - application/json
       parameters:
-      - description: Model ID
+      - description: Tee ID
         in: path
         name: id
         required: true
         type: string
-      - description: Model
+      - description: Tee
         in: body
         name: tee
         required: true
         schema:
-          $ref: '#/definitions/Model'
+          $ref: '#/definitions/Tee'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/Model'
+            $ref: '#/definitions/Tee'
         "400":
           description: Bad Request
           schema:

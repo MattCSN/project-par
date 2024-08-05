@@ -5,6 +5,7 @@ import (
 	"github.com/MattCSN/project-par/pkg/golf"
 	"github.com/MattCSN/project-par/pkg/hole"
 	"github.com/MattCSN/project-par/pkg/tee"
+	"github.com/MattCSN/project-par/pkg/view"
 	"github.com/gin-gonic/gin"
 )
 
@@ -21,6 +22,7 @@ func SetupRouter() *gin.Engine {
 	golfGroup.PATCH("/:golf_id", golf.UpdateGolf)
 	golfGroup.DELETE("/:golf_id", golf.DeleteGolf)
 	golfGroup.GET("/:golf_id/courses", course.GetCoursesByGolfID)
+	golfGroup.GET("/:golf_id/details", view.GetGolfWithDetails) //
 
 	// Course router
 	courseGroup := v1.Group("/courses")

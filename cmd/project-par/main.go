@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/MattCSN/project-par/pkg/jsonimport"
+	"github.com/MattCSN/project-par/pkg/view"
 	"log"
 	"os"
 	"strconv"
@@ -39,6 +40,7 @@ func main() {
 	course.InitCourseService(course.NewRepository(), &golf.Service{})
 	hole.InitHoleService(hole.NewRepository())
 	tee.InitTeeService(tee.NewRepository())
+	view.InitViewService()
 
 	activeJSONImport, err := strconv.ParseBool(os.Getenv("ACTIVE_JSON_IMPORT"))
 	if err != nil {
