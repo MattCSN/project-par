@@ -4,7 +4,6 @@ import (
 	"github.com/MattCSN/project-par/pkg/utils"
 	"github.com/gin-gonic/gin"
 	"net/http"
-	"strconv"
 )
 
 // GetHoles gets all holes with pagination
@@ -18,8 +17,7 @@ import (
 // @Failure 500 {object} AppError
 // @Router /v1/holes [get]
 func GetHoles(c *gin.Context) {
-	page, _ := strconv.Atoi(c.DefaultQuery("page", "1"))
-	pageSize, _ := strconv.Atoi(c.DefaultQuery("pageSize", "10"))
+	page, pageSize := utils.GetPaginationParams(c)
 
 	holes, err := holeService.GetAllHoles(page, pageSize)
 	if err != nil {
@@ -128,8 +126,7 @@ func GetHoleByID(c *gin.Context) {
 // @Router /v1/courses/{course_id}/holes [get]
 func GetHolesByCourseID(c *gin.Context) {
 	courseID := c.Param("course_id")
-	page, _ := strconv.Atoi(c.DefaultQuery("page", "1"))
-	pageSize, _ := strconv.Atoi(c.DefaultQuery("pageSize", "10"))
+	page, pageSize := utils.GetPaginationParams(c)
 
 	holes, err := holeService.GetHolesByCourseID(courseID, page, pageSize)
 	if err != nil {

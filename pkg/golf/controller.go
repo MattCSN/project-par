@@ -18,8 +18,7 @@ import (
 // @Failure 500 {object} AppError
 // @Router /v1/golfs [get]
 func GetGolfs(ctx *gin.Context) {
-	page, _ := strconv.Atoi(ctx.DefaultQuery("page", "1"))
-	pageSize, _ := strconv.Atoi(ctx.DefaultQuery("pageSize", "10"))
+	page, pageSize := utils.GetPaginationParams(ctx)
 
 	golfs, err := golfService.GetAllGolfs(page, pageSize)
 	if err != nil {
@@ -136,8 +135,7 @@ func SearchGolfs(ctx *gin.Context) {
 	searchTerm := ctx.Query("searchTerm")
 	longitude, _ := strconv.ParseFloat(ctx.Query("longitude"), 64)
 	latitude, _ := strconv.ParseFloat(ctx.Query("latitude"), 64)
-	page, _ := strconv.Atoi(ctx.DefaultQuery("page", "1"))
-	pageSize, _ := strconv.Atoi(ctx.DefaultQuery("pageSize", "10"))
+	page, pageSize := utils.GetPaginationParams(ctx)
 
 	var golfs []Model
 	var err error

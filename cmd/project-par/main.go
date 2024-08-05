@@ -4,6 +4,7 @@ import (
 	"github.com/MattCSN/project-par/pkg/jsonimport"
 	"log"
 	"os"
+	"strconv"
 
 	_ "github.com/MattCSN/project-par/docs"
 	"github.com/MattCSN/project-par/pkg/course"
@@ -39,7 +40,13 @@ func main() {
 	hole.InitHoleService(hole.NewRepository())
 	tee.InitTeeService(tee.NewRepository())
 
-	jsonimport.ImportGolfData("pkg/jsonimport/golf2import.json")
+	activeJSONImport, err := strconv.ParseBool(os.Getenv("ACTIVE_JSON_IMPORT"))
+	if err != nil {
+		log.Fatalf("Error parsing ACTIVE_JSON_IMPORT: %v", err)
+	}
+	if activeJSONImport {
+		jsonimport.ImportGolfData("pkg/jsonimport/golf2import.json")
+	}
 
 	r := router.SetupRouter()
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))

@@ -4,7 +4,6 @@ import (
 	"github.com/MattCSN/project-par/pkg/utils"
 	"github.com/gin-gonic/gin"
 	"net/http"
-	"strconv"
 )
 
 // GetCourses gets all courses with pagination
@@ -18,8 +17,7 @@ import (
 // @Failure 500 {object} AppError
 // @Router /v1/courses [get]
 func GetCourses(c *gin.Context) {
-	page, _ := strconv.Atoi(c.DefaultQuery("page", "1"))
-	pageSize, _ := strconv.Atoi(c.DefaultQuery("pageSize", "10"))
+	page, pageSize := utils.GetPaginationParams(c)
 
 	courses, err := courseService.GetAllCourses(page, pageSize)
 	if err != nil {
@@ -128,8 +126,7 @@ func GetCourseByID(c *gin.Context) {
 // @Router /v1/golfs/{golf_id}/courses [get]
 func GetCoursesByGolfID(c *gin.Context) {
 	golfID := c.Param("golf_id")
-	page, _ := strconv.Atoi(c.DefaultQuery("page", "1"))
-	pageSize, _ := strconv.Atoi(c.DefaultQuery("pageSize", "10"))
+	page, pageSize := utils.GetPaginationParams(c)
 
 	courses, err := courseService.GetCoursesByGolfID(golfID, page, pageSize)
 	if err != nil {

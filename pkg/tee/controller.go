@@ -4,7 +4,6 @@ import (
 	"github.com/MattCSN/project-par/pkg/utils"
 	"github.com/gin-gonic/gin"
 	"net/http"
-	"strconv"
 )
 
 // GetTees gets all tees with pagination
@@ -18,8 +17,7 @@ import (
 // @Failure 500 {object} AppError
 // @Router /v1/tees [get]
 func GetTees(c *gin.Context) {
-	page, _ := strconv.Atoi(c.DefaultQuery("page", "1"))
-	pageSize, _ := strconv.Atoi(c.DefaultQuery("pageSize", "10"))
+	page, pageSize := utils.GetPaginationParams(c)
 
 	tees, err := teeService.GetAllTees(page, pageSize)
 	if err != nil {
@@ -128,8 +126,7 @@ func GetTeeByID(c *gin.Context) {
 // @Router /v1/holes/{hole_id}/tees [get]
 func GetTeesByHoleID(c *gin.Context) {
 	holeID := c.Param("hole_id")
-	page, _ := strconv.Atoi(c.DefaultQuery("page", "1"))
-	pageSize, _ := strconv.Atoi(c.DefaultQuery("pageSize", "10"))
+	page, pageSize := utils.GetPaginationParams(c)
 
 	tees, err := teeService.GetTeesByHoleID(holeID, page, pageSize)
 	if err != nil {
