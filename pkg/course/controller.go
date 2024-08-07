@@ -4,6 +4,7 @@ import (
 	"github.com/MattCSN/project-par/pkg/utils"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"strings"
 )
 
 // GetCourses gets all courses with pagination
@@ -129,6 +130,32 @@ func GetCoursesByGolfID(c *gin.Context) {
 	page, pageSize := utils.GetPaginationParams(c)
 
 	courses, err := courseService.GetCoursesByGolfID(golfID, page, pageSize)
+	if err != nil {
+		utils.HandleError(c, err)
+		return
+	}
+	c.JSON(http.StatusOK, courses)
+}
+
+// GetCoursesByGolfIDs gets all courses for multiple golfs with pagination
+// @Summary Get all courses for multiple golfs
+// @Tags Courses
+// @Produce json
+// @Param golf_ids query []string true "Golf IDs"
+// @Param page query int false "Page number"
+// @Param pageSize query int false "Page size"
+// @Success 200 {array} course.Model
+// @Failure 400 {object} AppError
+// @Failure 500 {object} AppError
+// @Router /v1/golfs/courses [get]
+func GetCoursesByGolfIDs(c *gin.Context) {
+	golfIDs := c.Query("golf_ids")
+	page, pageSize := utils.GetPaginationParams(c)
+
+	// Split the golfIDs into individual UUIDs
+	validGolfIDs := strings.Split(golfIDs, ",")
+
+	courses, err := courseService.GetCoursesByGolfIDs(validGolfIDs, page, pageSize)
 	if err != nil {
 		utils.HandleError(c, err)
 		return

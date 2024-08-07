@@ -6,11 +6,31 @@ import (
 	"github.com/MattCSN/project-par/pkg/hole"
 	"github.com/MattCSN/project-par/pkg/tee"
 	"github.com/MattCSN/project-par/pkg/view"
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
 func SetupRouter() *gin.Engine {
 	r := gin.Default()
+
+	// Middleware to block specific Accept header
+	r.Use(func(c *gin.Context) {
+		if c.GetHeader("Accept") == "application/json, text/plain, */ /*" {
+			c.AbortWithStatus(403)
+			return
+		}
+		c.Next()
+	})
+
+	// Configure CORS middleware
+	r.Use(cors.New(cors.Config{
+		AllowOrigins:     []string{"*"},
+		AllowMethods:     []string{"GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"},
+		AllowHeaders:     []string{"Origin", "Content-Type", "Accept"},
+		ExposeHeaders:    []string{"Content-Length"},
+		AllowCredentials: true,
+	}))
+
 	v1 := r.Group("/v1")
 
 	// Golf router
@@ -22,7 +42,8 @@ func SetupRouter() *gin.Engine {
 	golfGroup.PATCH("/:golf_id", golf.UpdateGolf)
 	golfGroup.DELETE("/:golf_id", golf.DeleteGolf)
 	golfGroup.GET("/:golf_id/courses", course.GetCoursesByGolfID)
-	golfGroup.GET("/:golf_id/details", view.GetGolfWithDetails) //
+	golfGroup.GET("/courses", course.GetCoursesByGolfIDs) // Updated route
+	golfGroup.GET("/:golf_id/details", view.GetGolfWithDetails)
 
 	// Course router
 	courseGroup := v1.Group("/courses")

@@ -3,6 +3,7 @@ module github.com/MattCSN/project-par
 go 1.22.5
 
 require (
+	github.com/gin-contrib/cors v1.7.2
 	github.com/gin-gonic/gin v1.10.0
 	github.com/jinzhu/gorm v1.9.16
 	github.com/joho/godotenv v1.5.1

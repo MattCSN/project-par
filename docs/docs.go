@@ -418,6 +418,65 @@ const docTemplate = `{
                 }
             }
         },
+        "/v1/golfs/courses": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Courses"
+                ],
+                "summary": "Get all courses for multiple golfs",
+                "parameters": [
+                    {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "collectionFormat": "csv",
+                        "description": "Golf IDs",
+                        "name": "golf_ids",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Page number",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Page size",
+                        "name": "pageSize",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Course"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/AppError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/AppError"
+                        }
+                    }
+                }
+            }
+        },
         "/v1/golfs/search": {
             "get": {
                 "description": "Search golfs by name, city, postal code, or proximity to given coordinates with pagination",

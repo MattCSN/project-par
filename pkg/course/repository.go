@@ -50,3 +50,12 @@ func (repo *Repository) DeleteCourseByID(id string) error {
 func (repo *Repository) UpdateCourse(course *Model) error {
 	return database.DB.Save(course).Error
 }
+
+func (repo *Repository) GetCoursesByGolfIDs(golfIDs []string, page, pageSize int) ([]Model, error) {
+	var courses []Model
+	offset := (page - 1) * pageSize
+	if err := database.DB.Where("golf_id IN (?)", golfIDs).Offset(offset).Limit(pageSize).Find(&courses).Error; err != nil {
+		return nil, err
+	}
+	return courses, nil
+}

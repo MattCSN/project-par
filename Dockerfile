@@ -1,29 +1,23 @@
-# Utiliser une image de base Go
+# Use the official Go image as the base image
 FROM golang:1.22.5
 
-# Définir le répertoire de travail à l'intérieur du conteneur
+# Set the working directory inside the container
 WORKDIR /usr/src/app
 
-# Désactiver la vérification SSL pour les commandes Go
-#ENV GONOSUMDB=*
-#ENV GOPRIVATE=*
-#ENV GOSUMDB=off
-#ENV GOPROXY=direct
-
-# Copier les fichiers go.mod et go.sum pour la gestion des dépendances
+# Copy the go.mod and go.sum files for dependency management
 COPY go.mod go.sum ./
 
-# Télécharger les dépendances
+# Download and verify the dependencies
 RUN go mod download && go mod verify
 
-# Copier le reste de l'application source
+# Copy the rest of the application source code
 COPY . .
 
-# Construire l'application
-RUN go build -o main .
+# Build the application
+RUN go build -o main ./cmd/project-par
 
-# Exposer le port sur lequel l'application s'exécute
+# Expose the port on which the application runs
 EXPOSE 8080
 
-# Définir la commande par défaut pour exécuter l'application
+# Define the default command to run the application
 CMD ["./main"]
