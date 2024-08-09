@@ -101,6 +101,49 @@ const docTemplate = `{
                 }
             }
         },
+        "/v1/courses/details": {
+            "get": {
+                "description": "Get detailed information about all courses, including ID, creation date, last update date, course name, golf name, number of holes, pitch and putt status, compact status, postal code, city, and country",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Courses"
+                ],
+                "summary": "Get detailed information about all courses",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Page number (default is 1)",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Page size (default is 10)",
+                        "name": "pageSize",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/CourseDetails"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/AppError"
+                        }
+                    }
+                }
+            }
+        },
         "/v1/courses/{course_id}/holes": {
             "get": {
                 "produces": [
@@ -1255,6 +1298,50 @@ const docTemplate = `{
                 "pitch_and_putt": {
                     "type": "boolean",
                     "example": false
+                },
+                "updatedAt": {
+                    "description": "@Description Last update date of the model, automatically generated",
+                    "type": "string",
+                    "example": "2021-01-01T00:00:00Z (auto-generated)"
+                }
+            }
+        },
+        "CourseDetails": {
+            "type": "object",
+            "properties": {
+                "city": {
+                    "type": "string"
+                },
+                "compact": {
+                    "type": "boolean"
+                },
+                "country": {
+                    "type": "string"
+                },
+                "createdAt": {
+                    "description": "@Description Creation date of the model, automatically generated",
+                    "type": "string",
+                    "example": "2021-01-01T00:00:00Z (auto-generated)"
+                },
+                "golfName": {
+                    "type": "string"
+                },
+                "id": {
+                    "description": "@Description ID of the model, automatically generated",
+                    "type": "string",
+                    "example": "123e4567-e89b-12d3-a456-426614174000 (auto-generated)"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "numHoles": {
+                    "type": "integer"
+                },
+                "pitchAndPutt": {
+                    "type": "boolean"
+                },
+                "postalCode": {
+                    "type": "string"
                 },
                 "updatedAt": {
                     "description": "@Description Last update date of the model, automatically generated",

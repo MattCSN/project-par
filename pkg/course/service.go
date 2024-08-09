@@ -82,7 +82,11 @@ func (s *Service) GetCoursesByGolfID(golfID string, page, pageSize int) ([]Model
 	return s.repo.GetCoursesByGolfID(golfID, page, pageSize)
 }
 
-// Service method to get courses by multiple golf IDs
 func (s *Service) GetCoursesByGolfIDs(golfIDs []string, page, pageSize int) ([]Model, error) {
 	return s.repo.GetCoursesByGolfIDs(golfIDs, page, pageSize)
+}
+
+func (s *Service) GetCourseDetails(page, pageSize int) ([]DetailsDTO, error) {
+	offset := (page - 1) * pageSize
+	return s.repo.GetCourseDetails(offset, pageSize)
 }

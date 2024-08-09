@@ -59,3 +59,17 @@ func (repo *Repository) GetCoursesByGolfIDs(golfIDs []string, page, pageSize int
 	}
 	return courses, nil
 }
+
+func (repo *Repository) GetCourseDetails(offset, limit int) ([]DetailsDTO, error) {
+	var courseDetails []DetailsDTO
+	query := `
+		SELECT c.id, c.created_at, c.updated_at, c.name as course_name, g.name as golf_name, c.num_holes, c.pitch_and_putt, c.compact, g.postal_code, g.city, g.country
+		FROM courses c
+		JOIN golfs g ON c.golf_id = g.id
+		LIMIT ? OFFSET ?
+	`
+	if err := database.DB.Raw(query, limit, offset).Scan(&courseDetails).Error; err != nil {
+		return nil, err
+	}
+	return courseDetails, nil
+}

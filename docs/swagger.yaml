@@ -39,6 +39,37 @@ definitions:
         example: 2021-01-01T00:00:00Z (auto-generated)
         type: string
     type: object
+  CourseDetails:
+    properties:
+      city:
+        type: string
+      compact:
+        type: boolean
+      country:
+        type: string
+      createdAt:
+        description: '@Description Creation date of the model, automatically generated'
+        example: 2021-01-01T00:00:00Z (auto-generated)
+        type: string
+      golfName:
+        type: string
+      id:
+        description: '@Description ID of the model, automatically generated'
+        example: 123e4567-e89b-12d3-a456-426614174000 (auto-generated)
+        type: string
+      name:
+        type: string
+      numHoles:
+        type: integer
+      pitchAndPutt:
+        type: boolean
+      postalCode:
+        type: string
+      updatedAt:
+        description: '@Description Last update date of the model, automatically generated'
+        example: 2021-01-01T00:00:00Z (auto-generated)
+        type: string
+    type: object
   Golf:
     description: Model for a golf
     properties:
@@ -353,6 +384,36 @@ paths:
           schema:
             $ref: '#/definitions/AppError'
       summary: Update a course by ID
+      tags:
+      - Courses
+  /v1/courses/details:
+    get:
+      description: Get detailed information about all courses, including ID, creation
+        date, last update date, course name, golf name, number of holes, pitch and
+        putt status, compact status, postal code, city, and country
+      parameters:
+      - description: Page number (default is 1)
+        in: query
+        name: page
+        type: integer
+      - description: Page size (default is 10)
+        in: query
+        name: pageSize
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/CourseDetails'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/AppError'
+      summary: Get detailed information about all courses
       tags:
       - Courses
   /v1/golfs:

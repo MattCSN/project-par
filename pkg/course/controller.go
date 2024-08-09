@@ -4,6 +4,7 @@ import (
 	"github.com/MattCSN/project-par/pkg/utils"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"strconv"
 	"strings"
 )
 
@@ -161,4 +162,33 @@ func GetCoursesByGolfIDs(c *gin.Context) {
 		return
 	}
 	c.JSON(http.StatusOK, courses)
+}
+
+// GetCourseDetails godoc
+// @Summary Get detailed information about all courses
+// @Description Get detailed information about all courses, including ID, creation date, last update date, course name, golf name, number of holes, pitch and putt status, compact status, postal code, city, and country
+// @Tags Courses
+// @Produce json
+// @Param page query int false "Page number (default is 1)"
+// @Param pageSize query int false "Page size (default is 10)"
+// @Success 200 {array} course.DetailsDTO
+// @Failure 500 {object} AppError
+// @Router /v1/courses/details [get]
+func GetCourseDetails(c *gin.Context) {
+	page, err := strconv.Atoi(c.DefaultQuery("page", "1"))
+	if err != nil || page < 1 {
+		page = 1
+	}
+
+	pageSize, err := strconv.Atoi(c.DefaultQuery("pageSize", "10"))
+	if err != nil || pageSize < 1 {
+		pageSize = 10
+	}
+
+	courseDetails, err := courseService.GetCourseDetails(page, pageSize)
+	if err != nil {
+		utils.HandleError(c, err)
+		return
+	}
+	c.JSON(http.StatusOK, courseDetails)
 }
