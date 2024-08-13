@@ -13,6 +13,9 @@ RUN go mod download && go mod verify
 # Copy the rest of the application source code
 COPY . .
 
+# Copy the .env file
+COPY .env .env
+
 # Build the application
 RUN go build -o main ./cmd/project-par
 
