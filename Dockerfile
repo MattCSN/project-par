@@ -13,20 +13,23 @@ RUN go mod download && go mod verify
 # Copy the rest of the application source code
 COPY . .
 
-# Build the application
-RUN go build -o out ./cmd/project-par || { echo 'Go build failed'; exit 1; }
+# Build the Go application
+RUN go build -o main cmd/project-par/main.go
 
 # Stage 2: Create a minimal image with the built application
 FROM gcr.io/distroless/base-debian11
 
 # Set the working directory inside the container
-WORKDIR /app
+WORKDIR /root/
 
 # Copy the built application from the builder stage
-COPY --from=builder /app/out .
+COPY --from=builder /app/main .
 
-# Expose the port on which the application runs
+# Copy the .env file if needed
+COPY .env .
+
+# Expose the port the application runs on
 EXPOSE 8080
 
-# Define the default command to run the application
-CMD ["./out"]
+# Command to run the application
+CMD ["./main"]
