@@ -73,3 +73,42 @@ func (repo *Repository) GetCourseDetails(offset, limit int) ([]DetailsDTO, error
 	}
 	return courseDetails, nil
 }
+
+func (repo *Repository) SearchCourseDetails(searchTerm string, page, pageSize int) ([]DetailsDTO, error) {
+	var courseDetails []DetailsDTO
+	offset := (page - 1) * pageSize
+	query := `
+		SELECT c.id, c.created_at, c.updated_at, c.name as course_name, g.name as golf_name, c.num_holes, c.pitch_and_putt, c.compact, g.postal_code, g.city, g.country
+		FROM courses c
+		JOIN golfs g ON c.golf_id = g.id
+		WHERE c.name ILIKE ? OR g.name ILIKE ? OR g.city ILIKE ? OR g.postal_code ILIKE ?
+		LIMIT ? OFFSET ?
+	`
+	if err := database.DB.Raw(query, "%"+searchTerm+"%", "%"+searchTerm+"%", "%"+searchTerm+"%", "%"+searchTerm+"%", pageSize, offset).Scan(&courseDetails).Error; err != nil {
+		return nil, err
+	}
+	if len(courseDetails) == 0 {
+		return nil, utils.NotFoundError("No courses found matching the search criteria")
+	}
+	return courseDetails, nil
+}
+
+func (repo *Repository) SearchCourseDetailsByProximity(longitude, latitude float64, page, pageSize int) ([]DetailsDTO, error) {
+	var courseDetails []DetailsDTO
+	offset := (page - 1) * pageSize
+	query := `
+		SELECT c.id, c.created_at, c.updated_at, c.name as course_name, g.name as golf_name, c.num_holes, c.pitch_and_putt, c.compact, g.postal_code, g.city, g.country,
+		( 6371 * acos( cos( radians(?) ) * cos( radians( g.latitude ) ) * cos( radians( g.longitude ) - radians(?) ) + sin( radians(?) ) * sin( radians( g.latitude ) ) ) ) AS distance 
+		FROM courses c
+		JOIN golfs g ON c.golf_id = g.id
+		ORDER BY distance
+		LIMIT ? OFFSET ?
+	`
+	if err := database.DB.Raw(query, latitude, longitude, latitude, pageSize, offset).Scan(&courseDetails).Error; err != nil {
+		return nil, err
+	}
+	if len(courseDetails) == 0 {
+		return nil, utils.NotFoundError("No courses found near the provided coordinates")
+	}
+	return courseDetails, nil
+}

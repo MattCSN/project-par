@@ -90,3 +90,11 @@ func (s *Service) GetCourseDetails(page, pageSize int) ([]DetailsDTO, error) {
 	offset := (page - 1) * pageSize
 	return s.repo.GetCourseDetails(offset, pageSize)
 }
+
+func (s *Service) SearchCourseDetails(searchTerm string, page, pageSize int) ([]DetailsDTO, error) {
+	return s.repo.SearchCourseDetails(searchTerm, page, pageSize)
+}
+
+func (s *Service) SearchCourseDetailsByProximity(longitude, latitude float64, page, pageSize int) ([]DetailsDTO, error) {
+	return s.repo.SearchCourseDetailsByProximity(longitude, latitude, page, pageSize)
+}

@@ -192,3 +192,47 @@ func GetCourseDetails(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, courseDetails)
 }
+
+// SearchCourseDetails searches for course details by name, city, postal code, or proximity to given coordinates with pagination
+// @Summary Search course details by name, city, postal code, or proximity to given coordinates
+// @Description Search course details by name, city, postal code, or proximity to given coordinates with pagination
+// @Tags Courses
+// @Produce json
+// @Param searchTerm query string false "Search term"
+// @Param latitude query float64 false "Latitude"
+// @Param longitude query float64 false "Longitude"
+// @Param page query int false "Page number (default is 1)"
+// @Param pageSize query int false "Page size (default is 10)"
+// @Success 200 {array} course.DetailsDTO
+// @Failure 500 {object} AppError
+// @Router /v1/courses/details/search [get]
+func SearchCourseDetails(c *gin.Context) {
+	searchTerm := c.Query("searchTerm")
+	longitude, _ := strconv.ParseFloat(c.Query("longitude"), 64)
+	latitude, _ := strconv.ParseFloat(c.Query("latitude"), 64)
+	page, err := strconv.Atoi(c.DefaultQuery("page", "1"))
+	if err != nil || page < 1 {
+		page = 1
+	}
+	pageSize, err := strconv.Atoi(c.DefaultQuery("pageSize", "10"))
+	if err != nil || pageSize < 1 {
+		pageSize = 10
+	}
+
+	var courseDetails []DetailsDTO
+
+	if searchTerm != "" {
+		courseDetails, err = courseService.SearchCourseDetails(searchTerm, page, pageSize)
+	} else if longitude != 0 && latitude != 0 {
+		courseDetails, err = courseService.SearchCourseDetailsByProximity(longitude, latitude, page, pageSize)
+	} else {
+		utils.HandleError(c, utils.NewAppError(http.StatusBadRequest, "Invalid search parameters"))
+		return
+	}
+
+	if err != nil {
+		utils.HandleError(c, err)
+		return
+	}
+	c.JSON(http.StatusOK, courseDetails)
+}

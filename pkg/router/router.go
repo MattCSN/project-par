@@ -55,6 +55,7 @@ func SetupRouter() *gin.Engine {
 	courseGroup.GET("/:course_id/holes", hole.GetHolesByCourseID)
 	courseGroup.POST("/:course_id/tees", tee.CreateTeesForCourse)
 	courseGroup.GET("/details", course.GetCourseDetails)
+	courseGroup.GET("/details/search", course.SearchCourseDetails)
 
 	// Hole router
 	holeGroup := v1.Group("/holes")
