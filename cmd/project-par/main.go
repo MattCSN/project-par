@@ -4,7 +4,6 @@ import (
 	"github.com/MattCSN/project-par/pkg/jsonimport"
 	"github.com/MattCSN/project-par/pkg/view"
 	"log"
-	"net/http"
 	"os"
 	"strconv"
 
@@ -57,9 +56,4 @@ func main() {
 	if err := r.Run(":8080"); err != nil {
 		log.Fatalf("Failed to run the server: %v", err)
 	}
-}
-
-// Exported function for Vercel
-func Handler(w http.ResponseWriter, r *http.Request) {
-	main()
 }
