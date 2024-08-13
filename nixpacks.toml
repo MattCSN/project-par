@@ -1,0 +1,12 @@
+[phases.setup]
+nixpkgs = [
+  "go",
+  "git",
+  "postgresql"
+]
+
+[phases.build]
+cmd = "go build -o main ./cmd/project-par"
+
+[phases.start]
+cmd = "./main"
