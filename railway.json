@@ -1,11 +1,8 @@
 {
-  "build": {
-    "builder": "Docker"
-  },
   "deploy": {
     "startCommand": "./main"
   },
   "envs": {
-    "DATABASE_URL": "postgresql://postgres:bPoQuQUnAxXPXEWBoLfdhSyPoIlcKbVP@postgres.railway.internal:5432/railway"
+    "DATABASE_URL": "postgresql://postgres:wGArgapxOjXCfjrDYTQEQbJllizPULsO@postgres.railway.internal:5432/railway"
   }
 }
