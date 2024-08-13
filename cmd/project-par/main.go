@@ -57,3 +57,8 @@ func main() {
 		log.Fatalf("Failed to run the server: %v", err)
 	}
 }
+
+// Exported function for Vercel
+func Handler(w http.ResponseWriter, r *http.Request) {
+	main()
+}
