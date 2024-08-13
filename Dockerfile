@@ -1,8 +1,8 @@
-# Stage 1: Build the Go application
-FROM golang:1.22.5 AS builder
+# Use the official Go image as the base image
+FROM golang:1.22.5
 
 # Set the working directory inside the container
-WORKDIR /app
+WORKDIR /usr/src/app
 
 # Copy the go.mod and go.sum files for dependency management
 COPY go.mod go.sum ./
@@ -13,23 +13,11 @@ RUN go mod download && go mod verify
 # Copy the rest of the application source code
 COPY . .
 
-# Build the Go application
-RUN go build -o main cmd/project-par/main.go
+# Build the application
+RUN go build -o main ./cmd/project-par
 
-# Stage 2: Create a minimal image with the built application
-FROM gcr.io/distroless/base-debian11
-
-# Set the working directory inside the container
-WORKDIR /root/
-
-# Copy the built application from the builder stage
-COPY --from=builder /app/main .
-
-# Copy the .env file if needed
-COPY .env .
-
-# Expose the port the application runs on
+# Expose the port on which the application runs
 EXPOSE 8080
 
-# Command to run the application
+# Define the default command to run the application
 CMD ["./main"]
