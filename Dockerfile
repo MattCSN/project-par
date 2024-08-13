@@ -14,7 +14,7 @@ RUN go mod download && go mod verify
 COPY . .
 
 # Build the application
-RUN go build -o out ./cmd/project-par
+RUN go build -o out ./cmd/project-par || { echo 'Go build failed'; exit 1; }
 
 # Stage 2: Create a minimal image with the built application
 FROM gcr.io/distroless/base-debian11
