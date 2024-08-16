@@ -236,3 +236,24 @@ func SearchCourseDetails(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, courseDetails)
 }
+
+// GetGolfAndCourseDetails gets the details of a golf and a specific course
+// @Summary Get golf and course details
+// @Tags Courses
+// @Produce json
+// @Param course_id path string true "Course ID"
+// @Success 200 {object} map[string]interface{}
+// @Failure 400 {object} AppError
+// @Failure 500 {object} AppError
+// @Router /v1/courses/{course_id}/details [get]
+func GetGolfAndCourseDetails(c *gin.Context) {
+	courseID := c.Param("course_id")
+
+	courseDetails, err := courseService.GetGolfAndCourseDetails(courseID)
+	if err != nil {
+		utils.HandleError(c, err)
+		return
+	}
+
+	c.JSON(http.StatusOK, courseDetails)
+}

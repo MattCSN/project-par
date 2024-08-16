@@ -37,7 +37,7 @@ func main() {
 	database.Init(databaseURL, &golf.Model{}, &course.Model{}, &hole.Model{}, &tee.Model{})
 
 	golf.InitGolfService(golf.NewRepository())
-	course.InitCourseService(course.NewRepository(), &golf.Service{})
+	course.InitCourseService(course.NewRepository(), &golf.Service{}, &hole.Service{}, &tee.Service{})
 	hole.InitHoleService(hole.NewRepository())
 	tee.InitTeeService(tee.NewRepository())
 	view.InitViewService()

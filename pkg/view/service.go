@@ -19,9 +19,9 @@ var (
 func InitViewService() {
 	viewService = &Service{}
 	golfService = golf.NewGolfService(golf.NewRepository())
-	courseService = course.NewCourseService(course.NewRepository(), golfService)
 	holeService = hole.NewHoleService(hole.NewRepository())
 	teeService = tee.NewTeeService(tee.NewRepository())
+	courseService = course.NewCourseService(course.NewRepository(), golfService, holeService, teeService)
 }
 
 type Service struct{}

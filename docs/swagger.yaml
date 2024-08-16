@@ -235,6 +235,33 @@ paths:
       summary: Create a new course
       tags:
       - Courses
+  /v1/courses/{course_id}/details:
+    get:
+      parameters:
+      - description: Course ID
+        in: path
+        name: course_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/AppError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/AppError'
+      summary: Get golf and course details
+      tags:
+      - Courses
   /v1/courses/{course_id}/holes:
     get:
       parameters:
