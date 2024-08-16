@@ -18,7 +18,7 @@ definitions:
         description: '@Description Creation date of the model, automatically generated'
         example: 2021-01-01T00:00:00Z (auto-generated)
         type: string
-      golf_id:
+      golfID:
         example: 123e4567-e89b-12d3-a456-426614174000
         type: string
       id:
@@ -28,10 +28,10 @@ definitions:
       name:
         example: L’Albatros
         type: string
-      num_holes:
+      numberHoles:
         example: 18
         type: integer
-      pitch_and_putt:
+      pitchAndPutt:
         example: false
         type: boolean
       updatedAt:

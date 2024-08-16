@@ -18,8 +18,9 @@ type GolfDetailsDTO struct {
 }
 
 type CourseSummaryDTO struct {
-	ID   string `json:"id"`
-	Name string `json:"name"`
+	ID       string `json:"id"`
+	Name     string `json:"name"`
+	NumHoles int    `json:"numberHoles"`
 }
 
 type HoleDetailsDTO struct {
@@ -31,8 +32,9 @@ func newCoursesSummaryDTOs(courses []Model) []CourseSummaryDTO {
 	var courseDTOs []CourseSummaryDTO
 	for _, course := range courses {
 		courseDTOs = append(courseDTOs, CourseSummaryDTO{
-			ID:   course.ID,
-			Name: course.Name,
+			ID:       course.ID,
+			Name:     course.Name,
+			NumHoles: course.NumHoles,
 		})
 	}
 	return courseDTOs

@@ -1380,7 +1380,7 @@ const docTemplate = `{
                     "type": "string",
                     "example": "2021-01-01T00:00:00Z (auto-generated)"
                 },
-                "golf_id": {
+                "golfID": {
                     "type": "string",
                     "example": "123e4567-e89b-12d3-a456-426614174000"
                 },
@@ -1393,11 +1393,11 @@ const docTemplate = `{
                     "type": "string",
                     "example": "L’Albatros"
                 },
-                "num_holes": {
+                "numberHoles": {
                     "type": "integer",
                     "example": 18
                 },
-                "pitch_and_putt": {
+                "pitchAndPutt": {
                     "type": "boolean",
                     "example": false
                 },
