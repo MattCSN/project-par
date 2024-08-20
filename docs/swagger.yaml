@@ -333,6 +333,43 @@ paths:
       summary: Create tees for all holes in a course
       tags:
       - Tees
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: Course ID
+        in: path
+        name: course_id
+        required: true
+        type: string
+      - description: Colors of the tees
+        in: body
+        name: colors
+        required: true
+        schema:
+          items:
+            type: string
+          type: array
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/Tee'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/AppError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/AppError'
+      summary: Update tees for all holes in a course
+      tags:
+      - Tees
   /v1/courses/{id}:
     delete:
       parameters:

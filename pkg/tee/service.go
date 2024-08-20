@@ -85,3 +85,58 @@ func (s *Service) CreateTeesForCourse(courseID, color string) ([]Model, error) {
 
 	return createdTees, nil
 }
+
+func (s *Service) UpdateTeesForCourse(courseID string, colors []string) ([]Model, error) {
+	holeService := hole.NewHoleService(hole.NewRepository())
+	holes, err := holeService.GetHolesByCourseID(courseID, 1, 100)
+	if err != nil {
+		return nil, err
+	}
+
+	var updatedTees []Model
+	for _, holeModel := range holes {
+		existingTees, err := s.repo.GetTeesByHoleID(holeModel.ID, 1, 100)
+		if err != nil {
+			return nil, err
+		}
+
+		existingColors := make(map[string]bool)
+		for _, tee := range existingTees {
+			existingColors[tee.Color] = true
+		}
+
+		for _, color := range colors {
+			if !existingColors[color] {
+				tee := Model{
+					Color:  color,
+					HoleID: holeModel.ID,
+				}
+				if err := s.repo.CreateTee(&tee); err != nil {
+					return nil, err
+				}
+				updatedTees = append(updatedTees, tee)
+			}
+		}
+
+		for _, tee := range existingTees {
+			if !contains(colors, tee.Color) {
+				if err := s.repo.DeleteTeeByID(tee.ID); err != nil {
+					return nil, err
+				}
+			} else {
+				updatedTees = append(updatedTees, tee)
+			}
+		}
+	}
+
+	return updatedTees, nil
+}
+
+func contains(slice []string, item string) bool {
+	for _, s := range slice {
+		if s == item {
+			return true
+		}
+	}
+	return false
+}

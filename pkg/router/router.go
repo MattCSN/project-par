@@ -54,6 +54,7 @@ func SetupRouter() *gin.Engine {
 	courseGroup.DELETE("/:course_id", course.DeleteCourse)
 	courseGroup.GET("/:course_id/holes", hole.GetHolesByCourseID)
 	courseGroup.POST("/:course_id/tees", tee.CreateTeesForCourse)
+	courseGroup.PUT("/:course_id/tees", tee.UpdateTeesForCourse) // Added route
 	courseGroup.GET("/details", course.GetCourseDetails)
 	courseGroup.GET("/details/search", course.SearchCourseDetails)
 	courseGroup.GET("/:course_id/details", course.GetGolfAndCourseDetails)
