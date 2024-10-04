@@ -66,6 +66,7 @@ func (repo *Repository) GetCourseDetails(offset, limit int) ([]DetailsDTO, error
 		SELECT c.id, c.created_at, c.updated_at, c.name as course_name, g.name as golf_name, c.num_holes, c.pitch_and_putt, c.compact, g.postal_code, g.city, g.country
 		FROM courses c
 		JOIN golfs g ON c.golf_id = g.id
+		ORDER BY c.updated_at ASC
 		LIMIT ? OFFSET ?
 	`
 	if err := database.DB.Raw(query, limit, offset).Scan(&courseDetails).Error; err != nil {
@@ -82,6 +83,7 @@ func (repo *Repository) SearchCourseDetails(searchTerm string, page, pageSize in
 		FROM courses c
 		JOIN golfs g ON c.golf_id = g.id
 		WHERE c.name ILIKE ? OR g.name ILIKE ? OR g.city ILIKE ? OR g.postal_code ILIKE ?
+		ORDER BY c.updated_at ASC
 		LIMIT ? OFFSET ?
 	`
 	if err := database.DB.Raw(query, "%"+searchTerm+"%", "%"+searchTerm+"%", "%"+searchTerm+"%", "%"+searchTerm+"%", pageSize, offset).Scan(&courseDetails).Error; err != nil {
@@ -102,6 +104,7 @@ func (repo *Repository) SearchCourseDetailsByProximity(longitude, latitude float
 		FROM courses c
 		JOIN golfs g ON c.golf_id = g.id
 		ORDER BY distance
+		ORDER BY c.updated_at ASC
 		LIMIT ? OFFSET ?
 	`
 	if err := database.DB.Raw(query, latitude, longitude, latitude, pageSize, offset).Scan(&courseDetails).Error; err != nil {
